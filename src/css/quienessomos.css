@@ -1,1 +1,159 @@
 @import url(./normalize.css);
+
+/* Fonts */
+:root {
+    --fuente-titulos: 'Cormorant Garamond', serif;
+    --fuente-texto: 'Nunito', sans-serif;
+
+    --peso-ligero: 300;
+    --peso-normal: 400;
+    --peso-semi-bold: 600;
+    --peso-bold: 700;
+
+    --bg-titulos: #f0d260;
+}
+
+/*------------------------------------------------------------- 
+# INICIO CSS con-quien-trabajamos
+-------------------------------------------------------------*/
+#con-quien-trabajamos .titulo {
+    font-family: var(--fuente-titulos);
+    font-size: 4rem;
+    background-color: var(--bg-titulos);
+}
+
+#con-quien-trabajamos .texto {
+    font-family: var(--fuente-texto);
+    font-size: 1.2rem;
+}
+
+#con-quien-trabajamos .lista-con-quien-trabajamos {
+    list-style: none;
+}
+
+#con-quien-trabajamos .menu {
+    background-color: var(--bg-titulos);
+}
+
+#con-quien-trabajamos .titulo-menu {
+    font-family: var(--fuente-titulos);
+    font-size: 1.5rem;
+}
+
+#con-quien-trabajamos .frase {
+    font-family: var(--fuente-titulos);
+    font-size: 2rem;
+    flex-shrink: 2;
+}
+
+#con-quien-trabajamos .width {
+    width: 30% !important;
+    margin: 1rem;
+}
+
+#con-quien-trabajamos .width-lg {
+    width: 50% !important;
+
+}
+
+@media (max-width: 1351px) {
+    #con-quien-trabajamos .titulo {
+        font-size: 3rem;
+    }
+
+    #con-quien-trabajamos .texto {
+        font-size: 1.1rem;
+    }
+
+    #con-quien-trabajamos .titulo-menu {
+        font-size: 1.5rem;
+    }
+
+    #con-quien-trabajamos .frase {
+        font-size: 1.8rem;
+        flex-shrink: 2;
+    }
+
+    #con-quien-trabajamos .width {
+        width: 30% !important;
+    }
+
+    #con-quien-trabajamos .width-lg {
+        width: 50% !important;
+    }
+}
+
+@media (max-width: 992px) {
+
+    #con-quien-trabajamos .titulo,
+    #con-quien-trabajamos .frase {
+        font-size: 2rem;
+    }
+
+    #con-quien-trabajamos .titulo-menu {
+        font-size: 1.5rem;
+    }
+
+    #con-quien-trabajamos .width {
+        width: 40% !important;
+    }
+
+    #con-quien-trabajamos .width-lg {
+        width: 30% !important;
+    }
+
+    #con-quien-trabajamos .container-menu {
+        display: flex;
+        justify-content: space-evenly !important;
+    }
+
+    #con-quien-trabajamos .menu {
+        height: 50%;
+    }
+}
+
+@media (max-width: 767px) {
+
+    #con-quien-trabajamos .titulo,
+    #con-quien-trabajamos .frase {
+        font-size: 2rem;
+    }
+
+    #con-quien-trabajamos .titulo-menu {
+        font-size: 1.3rem;
+    }
+
+    #con-quien-trabajamos .width {
+        width: 50% !important;
+        margin: 1rem;
+    }
+
+    #con-quien-trabajamos .width-lg {
+        width: 40% !important;
+    }
+}
+
+@media (max-width: 575px) {
+
+    #con-quien-trabajamos .titulo,
+    #con-quien-trabajamos .frase,
+    #con-quien-trabajamos .titulo-menu {
+        font-size: 1.2rem;
+    }
+
+    .texto {
+        font-size: 0.8rem;
+    }
+
+    #con-quien-trabajamos .width {
+        width: 50% !important;
+        margin: 1rem;
+    }
+
+    #con-quien-trabajamos .width-lg {
+        width: 40% !important;
+    }
+}
+/*------------------------------------------------------------- 
+# FIN CSS con-quien-trabajamos
+-------------------------------------------------------------*/
