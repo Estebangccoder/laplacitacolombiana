@@ -1,1 +1,147 @@
 @import url(./normalize.css);
+.link-box {
+  flex: 1;
+  text-align: center;
+  font-size: 21px;
+  font-weight: 700;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #333;
+  background: none;
+  border: none;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: normal;
+  position: relative;
+}
+.valores-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px 20px;
+}
+
+.valores-lista li {
+  background-color: #ffffffcc;
+  border-left: 5px solid #4caf50;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-weight: 500;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.valores-lista li:hover {
+  transform: translateX(5px);
+}
+
+
+.contenedor {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px;
+}
+@media (max-width: 575px) {
+  .contenedor {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+.imagen-contenedor {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.imagen-circular {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background-color: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+.imagen-circular img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.contenido {
+  flex: 2;
+}
+
+.enlaces {
+  background-color: #F0D260;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.link-box::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 6px;
+  width: 100%;
+  height: 3px; /* Grosor de la rayita */
+  background-color: #333; /* Color de la rayita */
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+
+.link-box:hover::after {
+  transform: scaleX(0.6);
+}
+
+
+.seccion {
+  display: none;
+  padding: 20px;
+  border-radius: 10px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.seccion.visible {
+  display: block;
+  opacity: 1;
+}
+
+.fondo-amarillo {
+  background-color: #fff3cd;
+}
+
+.fondo-verde {
+  background-color: #d3f9d8;
+}
+.seccion h2 {
+  margin-bottom: 20px; /* Espacio entre el título y la lista */
+}
+
+.valores-lista {
+  margin-top: 0; /* Asegura que no haya espacio duplicado si ya hay margen en el h2 */
+}
+.seccion p {
+  font-size: 14px; /* Puedes ajustar este valor según lo pequeño que lo quieras */
+  line-height: 1.5;
+  color: #444; /* Opcional: tono más suave para el texto */
+}
+.titulo-pequeno {
+  font-size: 18px;
+  font-family: 'Nunito', sans-serif;
+}
+.titulo-pequeno2 {
+  font-size: 18px;
+  font-family: 'Nunito', sans-serif;
+}

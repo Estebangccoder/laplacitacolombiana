@@ -1,13 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¿Quiénes somos?</title>
-    <link rel="stylesheet" href="../css/quienessomos.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valores y ODS</title>
+  <link rel="stylesheet" href="../css/quienessomos.css">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
 </head>
 <body>
-    
+  <section>
+  <div class="contenedor">
+    <!-- Imagen circular -->
+    <div class="imagen-contenedor">
+    <div class="imagen-circular">
+      <img src="../public/quienes.png" alt="Descripción de la imagen" />
+</div>
+
+    </div>
+
+    <!-- Contenido dinámico -->
+    <div class="contenido">
+      <!-- Caja amarilla para los enlaces -->
+      <div class="enlaces">
+        <button class="link-box" onclick="mostrarContenido('valores')">Nuestros valores</button>
+        <button class="link-box" onclick="mostrarContenido('mision')">Aporte a los ODS</button>
+      </div>
+
+      <!-- Secciones de contenido -->
+      <div id="valores" class="seccion visible fondo-amarillo">
+      <h2 class="titulo-pequeno">Más que productos, compartimos valores que marcan la diferencia, observemos algunos de ellos</h2>
+        <ul class="valores-lista">
+          <li>🌿 Innovación</li>
+          <li>🌿 Compromiso</li>
+          <li>🌿 Excelencia</li>
+          <li>🌿 Responsabilidad</li>
+          <li>🌿 Colaboración</li>
+          <li>🌿 Calidad Académica</li>
+        </ul>
+        <p style="margin-top: 20px;">
+          Cada acción que apoyas impulsa la reintegración social, el respeto por la ley, el cuidado del planeta y el crecimiento equitativo de nuestras comunidades.
+        </p>
+      </div>
+
+      <div id="mision" class="seccion fondo-verde">
+        <h2 class="titulo-pequeno2">Más allá del sabor, trabajamos por un futuro sostenible. Estos son los ODS que abrazamos.</h2>
+        <ul class="valores-lista">
+        <li>🌍 Fin de la pobreza</li>
+        <li>⚖️ Igualdad de género</li>
+        <li>♻️ Producción y consumo responsables</li>
+        <li>🤝 Alianzas para lograr los objetivos</li>
+        <li>🛠️ Trabajo decente</li>
+        </ul>
+
+        <p style="margin-top: 20px;">
+          Cuando apostamos por la equidad, el trabajo digno y el consumo responsable, transformamos vidas y comunidades enteras.
+        </p>
+        </div>
+    </div>
+  </div>
+
+  <script>
+    function mostrarContenido(seccion) {
+      document.querySelectorAll('.seccion').forEach(div => {
+        div.classList.remove('visible');
+      });
+      document.getElementById(seccion).classList.add('visible');
+    }
+  </script>
+  </section>
+</body>
+</html>
+
+
+
+
 </body>
 <script type="module" src="../js/quienessomos.js"></script>
 </html>
