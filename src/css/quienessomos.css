@@ -461,3 +461,77 @@
 }
 
 
+.contenedor-mision-vision {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Bloque de misión/visión */
+.card-custom {
+    max-width: 700px;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Barra de pestañas */
+.tab-bar {
+    background-color: #f3cf58;
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    padding: 10px;
+}
+
+.tab-bar button {
+    background: none;
+    border: none;
+    font-weight: bold;
+    color: #000;
+    cursor: pointer;
+    padding: 5px 10px;
+    font-size: 16px;
+}
+
+.tab-bar button.active {
+    border-bottom: 3px solid #000;
+}
+
+.tab-bar button:hover {
+    color: #444;
+    text-shadow: 0px 0px 2px #aaa;
+}
+
+.content-text {
+    padding: 20px;
+    min-height: 150px;
+    text-align: justify;
+    background-color: #f8f9fa;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+}
+
+.fade-out {
+    opacity: 0;
+     transition: opacity 0.4s ease;
+}
+
+
+/* Imagen lateral */
+.imagen-lateral {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.img-circle {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ccc;
+}
