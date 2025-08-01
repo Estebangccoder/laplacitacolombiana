@@ -1,4 +1,268 @@
 @import url(./normalize.css);
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Nunito:wght@400;600&display=swap');
+
+/* Fonts */
+:root {
+    --fuente-titulos: 'Cormorant Garamond', serif;
+    --fuente-texto: 'Nunito', sans-serif;
+
+    --peso-ligero: 300;
+    --peso-normal: 400;
+    --peso-semi-bold: 600;
+    --peso-bold: 700;
+
+    --bg-titulos: #f0d260;
+}
+
+/*------------------------------------------------------------- 
+# INICIO CSS con-quien-trabajamos
+-------------------------------------------------------------*/
+#con-quien-trabajamos .titulo {
+    font-family: var(--fuente-titulos);
+    font-size: 4rem;
+    background-color: var(--bg-titulos);
+}
+
+#con-quien-trabajamos .texto {
+    font-family: var(--fuente-texto);
+    font-size: 1.2rem;
+}
+
+#con-quien-trabajamos .lista-con-quien-trabajamos {
+    list-style: none;
+}
+
+#con-quien-trabajamos .menu {
+    background-color: var(--bg-titulos);
+}
+
+#con-quien-trabajamos .titulo-menu {
+    font-family: var(--fuente-titulos);
+    font-size: 1.5rem;
+}
+
+#con-quien-trabajamos .frase {
+    font-family: var(--fuente-titulos);
+    font-size: 2rem;
+    flex-shrink: 2;
+}
+
+#con-quien-trabajamos .width {
+    width: 30% !important;
+    margin: 1rem;
+}
+
+#con-quien-trabajamos .width-lg {
+    width: 50% !important;
+
+}
+
+@media (max-width: 1351px) {
+    #con-quien-trabajamos .titulo {
+        font-size: 3rem;
+    }
+
+    #con-quien-trabajamos .texto {
+        font-size: 1.1rem;
+    }
+
+    #con-quien-trabajamos .titulo-menu {
+        font-size: 1.5rem;
+    }
+
+    #con-quien-trabajamos .frase {
+        font-size: 1.8rem;
+        flex-shrink: 2;
+    }
+
+    #con-quien-trabajamos .width {
+        width: 30% !important;
+    }
+
+    #con-quien-trabajamos .width-lg {
+        width: 50% !important;
+    }
+}
+
+@media (max-width: 992px) {
+
+    #con-quien-trabajamos .titulo,
+    #con-quien-trabajamos .frase {
+        font-size: 2rem;
+    }
+
+    #con-quien-trabajamos .titulo-menu {
+        font-size: 1.5rem;
+    }
+
+    #con-quien-trabajamos .width {
+        width: 40% !important;
+    }
+
+    #con-quien-trabajamos .width-lg {
+        width: 30% !important;
+    }
+
+    #con-quien-trabajamos .container-menu {
+        display: flex;
+        justify-content: space-evenly !important;
+    }
+
+    #con-quien-trabajamos .menu {
+        height: 50%;
+    }
+}
+
+@media (max-width: 767px) {
+
+    #con-quien-trabajamos .titulo,
+    #con-quien-trabajamos .frase {
+        font-size: 2rem;
+    }
+
+    #con-quien-trabajamos .titulo-menu {
+        font-size: 1.3rem;
+    }
+
+    #con-quien-trabajamos .width {
+        width: 50% !important;
+        margin: 1rem;
+    }
+
+    #con-quien-trabajamos .width-lg {
+        width: 40% !important;
+    }
+}
+
+@media (max-width: 575px) {
+
+    #con-quien-trabajamos .titulo,
+    #con-quien-trabajamos .frase,
+    #con-quien-trabajamos .titulo-menu {
+        font-size: 1.2rem;
+    }
+
+    .texto {
+        font-size: 0.8rem;
+    }
+
+    #con-quien-trabajamos .width {
+        width: 50% !important;
+        margin: 1rem;
+    }
+
+    #con-quien-trabajamos .width-lg {
+        width: 40% !important;
+    }
+}
+/*------------------------------------------------------------- 
+# FIN CSS con-quien-trabajamos
+-------------------------------------------------------------*/
+
+/* Estilo nosotros*/
+
+#nosotros {
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    color: #333;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.flip-card {
+    background-color: transparent;
+    width: 200px;
+    height: 300px;
+    perspective: 1000px;
+    border-radius: 20px;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    background: linear-gradient(135deg, rgba(159, 170, 104, 0.6), rgba(242, 139, 11, 0.2));
+    backdrop-filter: blur(8px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.flip-card-front {
+    transform: rotateY(0deg);
+}
+
+.flip-card-back {
+    transform: rotateY(180deg);
+}
+
+
+.card-img-top {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 12px;
+}
+
+.card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    color: black;
+    margin-bottom: 8px;
+}
+
+.card-text {
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    color: black;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-top: 12px;
+}
+
+.social-icons a {
+    display: inline-block;
+}
+
+.social-icons svg {
+    width: 24px;
+    height: 24px;
+    fill: black;
+    transition: transform 0.3s ease;
+}
+
+.social-icons a:hover svg {
+    transform: scale(1.2);
+    fill: #AD132B;
+}
+/* ------ */
 
 .link-box {
   flex: 1;
