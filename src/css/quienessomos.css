@@ -1,4 +1,21 @@
 @import url(./normalize.css);
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Nunito:wght@400;600&display=swap');
+
+/* Fonts */
+:root {
+    --fuente-titulos: 'Cormorant Garamond', serif;
+    --fuente-texto: 'Nunito', sans-serif;
+
+    --peso-ligero: 300;
+    --peso-normal: 400;
+    --peso-semi-bold: 600;
+    --peso-bold: 700;
+
+    --bg-titulos: #f0d260;
+}
+
+
 .card-custom {
     max-width: 700px;
     margin: 0 auto;
@@ -46,27 +63,13 @@
 .fade-out {
     opacity: 0;
 }
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Nunito:wght@400;600&display=swap');
-
-/* Fonts */
-:root {
-    --fuente-titulos: 'Cormorant Garamond', serif;
-    --fuente-texto: 'Nunito', sans-serif;
-
-    --peso-ligero: 300;
-    --peso-normal: 400;
-    --peso-semi-bold: 600;
-    --peso-bold: 700;
-
-    --bg-titulos: #f0d260;
-}
 
 /*------------------------------------------------------------- 
 # INICIO CSS con-quien-trabajamos
 -------------------------------------------------------------*/
 #con-quien-trabajamos .titulo {
     font-family: var(--fuente-titulos);
-    font-size: 4rem;
+    font-size: 2.5rem;
     background-color: var(--bg-titulos);
 }
 
@@ -393,8 +396,8 @@
 }
 
 .imagen-circular_valores {
-  width: 200px;
-  height: 200px;
+  width: 400px;
+  height: 400px;
   border-radius: 50%;
   background-color: #ccc;
   display: flex;
@@ -490,11 +493,9 @@
 .tab-bar button {
     background: none;
     border: none;
-    font-weight: bold;
     color: #000;
     cursor: pointer;
     padding: 5px 10px;
-    font-size: 16px;
 }
 
 .tab-bar button.active {
@@ -529,9 +530,20 @@
 }
 
 .img-circle {
-    width: 180px;
-    height: 180px;
+    width: 400px;
+    height: 400px;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid #ccc;
+}
+
+#title_general{
+    font-size: 2.5rem;
+    font-weight: bold;
+    font-family:  var(--fuente-titulos);
+
+}
+
+#section-valores{
+    padding-bottom: 2%;
 }
