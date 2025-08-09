@@ -13,12 +13,177 @@
     --peso-bold: 700;
 
     --bg-titulos: #f0d260;
-    --bg-botones: #ad132b;
+    --bg-bloques: #ad132b;
+}
+/* seccion hero */
+.hero-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f0d260;
+    padding: 40px; 
+    border: 30px solid #F28B0B; 
+    color: black;
+    box-sizing: border-box;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.hero-content {
+    flex: 1 1 380px;
+    max-width: 600px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-section h2 {
+  font-family: var(--fuente-titulos);
+  font-size: 3.5rem;      
+  line-height: 1.2;
+  margin: 0 0 20px 0;
+}
+.hero-section p {
+  font-family: var(--fuente-titulos);
+  font-size: 2rem;        
+  line-height: 1.3;
+  margin: 0;
+}
+
+.hero-image {
+    max-width: 600px;
+    flex: 1 1 380px;
+}
+.hero-image img{
+  width: 100%;
+  height: auto;
+  display: block;
+  max-height: 400px; 
+  object-fit: contain;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .hero-section {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        max-height: none;
+    }
+
+    .hero-content {
+        max-width: 100%;
+        padding: 20px 0;
+    }
+
+    .hero-image {
+        max-width: 90%;
+        margin-top: 20px;
+    }
+
+    .hero-section h2 {
+        font-size: 2.5rem;
+    }
+
+    .hero-section p {
+        font-size: 1.5rem;
+    }
+}
+
+/* seccion card */
+.card{
+    border-radius: 15px;
+    padding: 30px;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.bi {  
+    fill: var(--bg-bloques);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px; 
+}
+
+.card-title{
+    font-family: var(--fuente-texto);
+    font-size: 1.4rem;
+    font-weight: 600;
+    color:black;
+    margin-bottom: 15px;
+    text-align: center;
+ }
+
+ .card-text{
+    font-family: var(--fuente-texto);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    text-align: center
+ }
+
+.btn-contact{
+  background: var(--bg-bloques);
+  border: 0;
+  border-radius: 25px;
+  padding: 12px 16px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  width: 100%;           
+  max-width: 280px;      
+  font-size: 1rem;
+  overflow-wrap: anywhere; 
+  text-align: center;
+}
+        
+.btn-contact:hover {
+    opacity: 0.7;
+}
+
+/* formulario*/
+
+#mensaje-formulario{
+    font-family: var(--fuente-titulos);
+    font-size: 3rem;
+    margin: 0 0 20px 0;
+    text-align: center;
+    line-height: 1.2;
+}
+#contactForm {
+    font-family: var(--fuente-titulos);
+    color: black;
+    margin: 0; 
+    padding: 1rem; 
+}
+
+.bg-formulario {
+    background: transparent;
+    border: 2px solid var(--bg-titulos); 
+    border-radius: 15px;
+    margin: auto; 
 }
 
 #contactForm button {
-    background-color: var(--bg-botones);
+    background-color: var(--bg-bloques);
     border: none;
+    border-radius: 25px;
+    padding: 12px 30px;
+    color: white;
+    font-size: 1rem;
+    position: relative;
+    top: -15px; 
 }
 
 #contactForm button:hover {
@@ -27,4 +192,5 @@
 
 #contactForm {
     font-family: var(--fuente-texto);
+    font-size: 1rem;
 }
