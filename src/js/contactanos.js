@@ -398,7 +398,7 @@ form.addEventListener('reset', function () {
 });
 
 
-//Indicativo
+//Funcionalidad del indicativo 
 const iti = window.intlTelInput(phoneField, {
   initialCountry: "co",                // Colombia
   separateDialCode: true,
