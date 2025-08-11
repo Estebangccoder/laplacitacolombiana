@@ -15,18 +15,21 @@
     --bg-titulos: #f0d260;
     --bg-bloques: #ad132b;
 }
-/* seccion hero */
-.hero-section {
+
+/*------------------------------------------
+# seccion hero 
+------------------------------------------*/
+
+#hero-section {
     display: flex;
     align-items: center;
     justify-content: space-between;
     background-color: #f0d260;
-    padding: 40px; 
-    border: 30px solid #F28B0B; 
+    padding: 40px;
+    border: 30px solid #F28B0B;
     color: black;
     box-sizing: border-box;
-    gap: 20px;
-    flex-wrap: wrap;
+    gap: 2px;
 }
 
 .hero-content {
@@ -39,140 +42,194 @@
     align-items: center;
 }
 
-.hero-section h2 {
-  font-family: var(--fuente-titulos);
-  font-size: 3.5rem;      
-  line-height: 1.2;
-  margin: 0 0 20px 0;
+.hero-text h2 {
+    font-family: var(--fuente-titulos);
+    font-size: 3.5rem;
+    line-height: 1.2;
+    margin: 0 0 20px 0;
 }
-.hero-section p {
-  font-family: var(--fuente-titulos);
-  font-size: 2rem;        
-  line-height: 1.3;
-  margin: 0;
+
+.hero-text p {
+    font-family: var(--fuente-titulos);
+    font-size: 2.5rem;
+    line-height: 1.3;
+    margin: 0;
 }
 
 .hero-image {
     max-width: 600px;
     flex: 1 1 380px;
 }
-.hero-image img{
-  width: 100%;
-  height: auto;
-  display: block;
-  max-height: 400px; 
-  object-fit: contain;
+
+.hero-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-height: 400px;
+    object-fit: contain;
 }
 
 /* RESPONSIVE */
-@media (max-width: 768px) {
-    .hero-section {
+@media (min-width: 300px) and (max-width: 780px) {
+    #hero-section {
         flex-direction: column;
+        justify-content: space-between;
         align-items: center;
         text-align: center;
-        max-height: none;
+        padding: 0;
     }
 
     .hero-content {
+        align-self: center;
         max-width: 100%;
-        padding: 20px 0;
+        flex: 1 1 180px;
+
     }
 
     .hero-image {
-        max-width: 90%;
-        margin-top: 20px;
+        max-width: 70%;
+        flex: 1 1 180px;
     }
 
-    .hero-section h2 {
+    .hero-text h2 {
         font-size: 2.5rem;
     }
 
-    .hero-section p {
-        font-size: 1.5rem;
+    .hero-text p {
+        font-size: 1.8rem;
     }
 }
 
-/* seccion card */
-.card{
+/*------------------------------------------
+# seccion card
+------------------------------------------*/
+
+.card {
     border-radius: 15px;
     padding: 30px;
-    height: 100%;
     position: relative;
     overflow: hidden;
     box-sizing: border-box;
 }
 
-.bi {  
+.card.card-productores {
+    background-color: #f0d260;
+    border: none;
+}
+
+.bi {
     fill: var(--bg-bloques);
     width: 50px;
     height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 20px; 
+    margin: 0 auto 20px;
 }
 
-.card-title{
+.card-footer {
+    background-color: white !important;
+    border: none !important;
+}
+
+.card-footer-productores {
+    background-color: #f0d260 !important;
+    border: none !important;
+}
+
+.card-title {
     font-family: var(--fuente-texto);
     font-size: 1.4rem;
     font-weight: 600;
-    color:black;
+    color: black;
     margin-bottom: 15px;
     text-align: center;
- }
+}
 
- .card-text{
+.card-text {
     font-family: var(--fuente-texto);
     font-size: 1rem;
     line-height: 1.6;
     margin-bottom: 25px;
     text-align: center
- }
-
-.btn-contact{
-  background: var(--bg-bloques);
-  border: 0;
-  border-radius: 25px;
-  padding: 12px 16px;
-  color: #fff;
-  text-decoration: none;
-  font-weight: 600;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-  width: 100%;           
-  max-width: 280px;      
-  font-size: 1rem;
-  overflow-wrap: anywhere; 
-  text-align: center;
 }
-        
+
+.btn-contact {
+    background: var(--bg-bloques);
+    border: 0;
+    border-radius: 25px;
+    padding: 12px 16px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 280px;
+    font-size: 1rem;
+    overflow-wrap: anywhere;
+    text-align: center;
+}
+
 .btn-contact:hover {
     opacity: 0.7;
 }
 
-/* formulario*/
-
-#mensaje-formulario{
+/*------------------------------------------
+# seccion formulario
+------------------------------------------*/
+#mensaje-formulario-1 {
     font-family: var(--fuente-titulos);
-    font-size: 3rem;
-    margin: 0 0 20px 0;
+    font-size: 1.5rem;
+    margin: 2rem 1rem 0 1rem;
     text-align: center;
     line-height: 1.2;
 }
-#contactForm {
-    font-family: var(--fuente-titulos);
+
+#mensaje-formulario-1 .link-faq {
+    cursor: pointer;
+    text-decoration: none;
     color: black;
-    margin: 0; 
-    padding: 1rem; 
+}
+
+#mensaje-formulario-1 .link-faq:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    color: black;
+}
+
+#mensaje-formulario-1::after {
+    content: "";
+    display: block;
+    width: 75%;
+    height: 3px;
+    background-color: var(--bg-bloques);
+    margin: 10px auto;
+}
+
+#mensaje-formulario-2 {
+    font-family: var(--fuente-titulos);
+    font-size: 3rem;
+    margin: 0 1rem 2rem 1rem;
+    text-align: center;
+    line-height: 1.2;
+}
+
+#contactForm {
+    font-family: var(--fuente-texto);
+    font-size: 1rem;
+    color: black;
+    margin: 0;
+    padding: 1rem;
 }
 
 .bg-formulario {
     background: transparent;
-    border: 2px solid var(--bg-titulos); 
+    border: 2px solid var(--bg-titulos);
     border-radius: 15px;
-    margin: auto; 
+    margin: auto;
 }
 
 #contactForm button {
@@ -183,14 +240,21 @@
     color: white;
     font-size: 1rem;
     position: relative;
-    top: -15px; 
+    top: -15px;
 }
 
 #contactForm button:hover {
     opacity: 0.7;
 }
 
-#contactForm {
-    font-family: var(--fuente-texto);
-    font-size: 1rem;
+#contactForm .tyc {
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+}
+
+#contactForm .tyc:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    color: black;
 }
