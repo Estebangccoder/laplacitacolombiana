@@ -7,7 +7,7 @@ const submitBtn = document.getElementById('submitBtn');
 const nameField = document.getElementById('name');
 const lastnameField = document.getElementById('lastname');
 const emailField = document.getElementById('email');
-const phoneField = document.getElementById('phone-number');
+const phoneField = document.getElementById('mobile_code');
 const cityField = document.getElementById('city');
 const inquiryField = document.getElementById('inquiry');
 const messageField = document.getElementById('message');
@@ -395,4 +395,12 @@ form.addEventListener('reset', function () {
             feedback.style.display = 'none';
         });
     }, 10);
+});
+
+
+//Indicativo
+const iti = window.intlTelInput(phoneField, {
+  initialCountry: "co",                // Colombia
+  separateDialCode: true,
+  utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js" // opcional, para formateo/validación
 });
