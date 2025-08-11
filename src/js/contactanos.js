@@ -12,6 +12,7 @@ const cityField = document.getElementById('city');
 const inquiryField = document.getElementById('inquiry');
 const messageField = document.getElementById('message');
 const checkboxField = document.getElementById('invalidCheck3');
+const enlaceTerminos = document.querySelector(".tyc");
 
 // Expresiones regulares para validación
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -220,6 +221,63 @@ messageField.addEventListener('input', function () {
 
 checkboxField.addEventListener('change', validateCheckbox);
 
+//términos y condiciones alert y escuchador
+ enlaceTerminos.addEventListener("click", (e) => {
+        e.preventDefault();
+        mostrarTerminos();
+    });
+
+
+//función mostrar terminos y condiciones
+
+function mostrarTerminos() {
+    const fechaActual = new Date().toLocaleDateString("es-CO", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric"
+    });
+
+    Swal.fire({
+        title: 'Términos y Condiciones de Contacto',
+        html: `
+            <p><strong>Última actualización:</strong> ${fechaActual}</p>
+            <p>Bienvenido/a al sitio web de <strong>La Placita Colombiana</strong>. 
+            Al enviar un mensaje o formulario a través de nuestros canales de contacto, 
+            aceptas los siguientes Términos y Condiciones. Por favor, léelos detenidamente antes de enviarnos tu consulta.</p>
+
+            <h4>1. Identidad de la empresa</h4>
+            <p>La Placita Colombiana es una empresa dedicada a la comercialización y promoción de productos colombianos como café, cacao y artesanías. Nuestra misión es conectar a los consumidores con productos auténticos y de calidad, provenientes de comunidades productoras en Colombia.</p>
+
+            <h4>2. Uso del formulario o canales de contacto</h4>
+            <p>Al utilizar nuestros formularios o medios de contacto, aceptas proporcionar información veraz, completa y actualizada. Nos reservamos el derecho de no responder mensajes que contengan información falsa, lenguaje ofensivo o que no estén relacionados con nuestras actividades comerciales.</p>
+
+            <h4>3. Tratamiento de datos personales</h4>
+            <p>Al enviarnos tus datos de contacto (nombre, correo electrónico, número de teléfono, entre otros), nos autorizas a utilizarlos con el fin de:</p>
+            <ul>
+                <li>Responder a tu solicitud o consulta.</li>
+                <li>Brindarte información sobre nuestros productos, servicios, promociones o eventos relacionados, si así lo autorizas expresamente.</li>
+                <li>Mejorar la calidad del servicio al cliente.</li>
+            </ul>
+            <p>La Placita Colombiana se compromete a proteger tu privacidad y a manejar tus datos conforme a la legislación vigente en materia de protección de datos personales. No compartiremos tu información con terceros sin tu consentimiento, salvo obligación legal.</p>
+
+            <h4>4. Contenido de las comunicaciones</h4>
+            <p>Todo mensaje recibido será tratado con confidencialidad y respeto. Sin embargo, La Placita Colombiana se reserva el derecho de conservar y archivar las comunicaciones por motivos legales, administrativos o de mejora de servicios.</p>
+
+            <h4>5. Limitación de responsabilidad</h4>
+            <p>El envío de un mensaje a través de nuestros canales no garantiza una respuesta inmediata. Nos comprometemos a atender cada solicitud en el menor tiempo posible, pero no asumimos responsabilidad por retrasos en la respuesta por causas técnicas o de fuerza mayor.</p>
+
+            <h4>6. Modificaciones</h4>
+            <p>Estos Términos y Condiciones pueden ser actualizados en cualquier momento sin previo aviso. Te recomendamos revisarlos periódicamente para estar al tanto de cualquier cambio.</p>
+        `,
+        width: '60%',
+        confirmButtonText: 'Cerrar',
+        scrollbarPadding: false,
+        customClass: {
+            popup: 'swal2-text-left'
+        }
+    });
+}
+
 // Manejo del envío del formulario
 form.addEventListener('submit', function (e) {
     e.preventDefault(); // Prevenir envío automático
@@ -258,7 +316,13 @@ form.addEventListener('submit', function (e) {
         .then(response => {
             if (response.ok) {
                 // Éxito
-                showAlert('¡Mensaje enviado exitosamente! Te contactaremos pronto.', 'success');
+               
+                Swal.fire({
+            icon: 'success',
+            title: '¡Enviado!',
+            text: 'El formulario se envió correctamente.',
+            confirmButtonText: 'Aceptar'
+        })
                 form.reset();
 
                 // Quitar todas las clases de validación
