@@ -24,7 +24,7 @@
 /* HERO */
 .hero-banner {
     position: relative;
-    min-height: 60vh;
+    min-height: 50vh;
     display: grid;
     place-items: center;
     overflow: hidden;
@@ -41,26 +41,52 @@
 
 .hero-content {
     position: relative;
-    text-align: center;
+    z-index: 1;
+    padding: 2rem 3rem;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
     color: #fff;
-    padding: clamp(1rem, 3vw, 2rem)
+    max-width: 800px;
 }
-.hero-content h2{
-    font-family: var(--fuente-texto)
-    font-size: clamp(2rem, 5vw, 4rem);
-    margin: 0 0 .5rem;
-    letter-spacing: .5px;
-  }
 
+.hero-content h2 {
+    text-align: center;
+    font-family: var(--fuente-titulos);
+    font-size: clamp(1.5rem, 8vw, 3.5rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    letter-spacing: 2px;
+}
 
+@media (max-width: 420px) {
+    .hero-banner {
+        min-height: 50vh;
+    }
+}
 
+/* introduccion */
+.container-introducción {
+    text-align: center;
+    color: #333;
+    padding: 20px;
+}
 
+.container-introducción h3 {
+    font-family: var(--fuente-texto);
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
 
-
-
-
-
-
+.container-introducción p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+}
 
 
 /* PRODUCTOS */
@@ -68,11 +94,8 @@
     display: flex;
 }
 
-
-
 .product-h-img {
     flex: 1 1 auto;
-    /* crecen para ocupar todo el espacio vertical */
     display: flex;
     flex-direction: column;
     height: 100%;/ min-height: 180px;
