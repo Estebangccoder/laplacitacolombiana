@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>La Placita Colombiana</title>
+    <link rel="stylesheet" href="../css/dashboard.css" />
+</head>
+
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <img src="../public/img/favicon-nb.png" alt="Logo La Placita Colombiana" class="logo" />
+            <h2>La Placita Colombiana</h2>
+
+            <nav>
+                <ul>
+                    <li onclick="loadSection('home')">Home</li>
+
+                    <li class="has-submenu">
+                        <span onclick="toggleSubmenu(this)">Gestión de productos</span>
+                        <ul class="submenu">
+                            <li onclick="loadSection('ver-productos')">Ver todos los productos</li>
+                            <li onclick="loadSection('agregar-producto')">Agregar producto</li>
+                        </ul>
+                    </li>
+
+                    <li onclick="loadSection('ventas')">Gestión de ventas</li>
+
+                    <li class="has-submenu">
+                        <span onclick="toggleSubmenu(this)">Gestión de proveedores</span>
+                        <ul class="submenu">
+                            <li onclick="loadSection('agregar-productor')">Agregar productor</li>
+                        </ul>
+                    </li>
+
+                    <li onclick="loadSection('publicaciones')">Gestión de publicaciones</li>
+                    <li onclick="loadSection('admin')">Admin</li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#">Acerca</a>
+                <a href="#">Soporte</a>
+            </div>
+        </aside>
+
+        <main class="content">
+            <div id="breadcrumb">Dashboards / Gestión de productos / Agregar producto</div>
+            <div id="main-content"></div>
+        </main>
+    </div>
+
+    <footer>© 2025 La Placita Colombiana</footer>
+    <script src="../js/dashboard.js"></script>
+</body>
+
+</html>
