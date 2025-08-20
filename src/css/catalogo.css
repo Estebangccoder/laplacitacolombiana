@@ -21,8 +21,61 @@
     --color-dark: #2c2c2c;
 }
 
+/* HERO */
+.hero-banner {
+    position: relative;
+    min-height: 60vh;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+}
+
+.hero-fondo {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(rgba(0, 0, 0, .35), rgba(0, 0, 0, .35)),
+        url("../public/img/coffee-wood-yellow-bean.webp") center/cover no-repeat;
+    transform: scale(1.02);
+}
+
+.hero-content {
+    position: relative;
+    text-align: center;
+    color: #fff;
+    padding: clamp(1rem, 3vw, 2rem)
+}
+.hero-content h2{
+    font-family: var(--fuente-texto)
+    font-size: clamp(2rem, 5vw, 4rem);
+    margin: 0 0 .5rem;
+    letter-spacing: .5px;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+/* PRODUCTOS */
+.row>.col {
+    display: flex;
+}
+
+
+
 .product-h-img {
-    min-height: 180px;
+    flex: 1 1 auto;
+    /* crecen para ocupar todo el espacio vertical */
+    display: flex;
+    flex-direction: column;
+    height: 100%;/ min-height: 180px;
     object-fit: contain;
     background: #fff;
     padding: 10px;
