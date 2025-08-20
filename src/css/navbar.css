@@ -16,5 +16,23 @@
 }
 
 #navbar {
-    background-color:var(--bg-botones);
+    background-color: var(--bg-botones);
+}
+
+#navbar img {
+    width: 3.5rem;
+}
+
+#navbar .text-logo {
+    font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+    #navbar img {
+        width: 2.5rem;
+    }
+
+    #navbar .text-logo {
+        font-size: 0.8rem;
+    }
 }
