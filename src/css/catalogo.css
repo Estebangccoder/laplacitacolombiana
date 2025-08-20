@@ -1,0 +1,137 @@
+@import url(./normalize.css);
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Nunito:wght@400;600&display=swap');
+
+:root {
+  --fuente-titulos: 'Cormorant Garamond', serif;
+  --fuente-texto: 'Nunito', sans-serif;
+
+  --peso-ligero: 300;
+  --peso-normal: 400;
+  --peso-semi-bold: 600;
+  --peso-bold: 700;
+
+  --bg-titulos: #f0d260; 
+  --bg-bloques: #ad132b; 
+  --bg-cards: #9faa68;   
+
+  --color-primary: var(--bg-cards);
+  --color-secondary: #7c8b4a;        
+  --color-accent: var(--bg-titulos);
+  --color-light: #F9F3E9;
+  --color-dark: #2c2c2c;
+}
+
+
+.card {
+  max-width: 300px;
+  margin: 16px auto;
+  border: none;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0,0,0,.15);
+}
+
+.card-img-top {
+  width: 100%;
+  height: 280px;
+  object-fit: contain;     
+  padding: 12px;
+  background: #fff;
+  transition: transform .5s ease;
+}
+.card:hover .card-img-top {
+  transform: scale(1.04);
+}
+
+/* === Cuerpo === */
+.card-body {
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+/* Título */
+.card-title {
+  font-family: var(--fuente-titulos);
+  font-weight: var(--peso-bold);
+  font-size: 2rem;
+  color: var(--color-primary);
+  margin: 0;
+  text-align: center;
+}
+
+
+.card-text {
+  font-family: var(--fuente-texto);
+  font-weight: var(--peso-normal);
+  color: var(--color-dark);
+  font-size: .95rem;
+  line-height: 1.5;
+  margin: 0 0 .5rem 0;
+  text-align: center;
+}
+
+
+.list-group-item {
+  border-color: rgba(163,143,132,.2);
+  padding: .6rem 1.25rem;
+  font-family: var(--fuente-texto);
+  font-size: 1.25rem;
+  color: var(--color-dark);
+}
+
+#nombreProductor a {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-family: var(--fuente-texto);
+  font-weight: var(--peso-semi-bold);
+  transition: color .2s ease, text-decoration-color .2s ease;
+}
+#nombreProductor a:hover {
+  color: var(--color-secondary);
+  text-decoration: underline;
+}
+
+#precioProducto {
+  font-weight: var(--peso-bold);
+  font-family: var(--fuente-texto);
+  color: var(--color-primary);
+  font-size: 1.25rem;
+  text-align: center;
+}
+
+.card .btn-primary {
+  background-color: var(--color-primary);
+  border: none;
+  border-radius: 999px;
+  padding: .6rem 1.2rem;
+  font-weight: var(--peso-bold);
+  font-family: var(--fuente-texto);
+  font-size: 1rem;
+  transition: background .3s ease, transform .2s ease, box-shadow .2s ease;
+}
+.card .btn-primary:hover {
+  background-color: var(--color-secondary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,.2);
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  .card { max-width: 320px; }
+  .card-img-top { height: 220px; }
+  .card-title { font-size: 1.1rem; }
+  .card-text { font-size: .9rem; }
+}
