@@ -1,6 +1,6 @@
 function mostrarNavBar() {
     return `
-    <nav class="navbar navbar-expand-lg navbar-dark " id="navbar">
+    <nav class="navbar navbar-expand-lg navbar-dark " id="navbarFull">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <div class="d-inline-flex justify-content-center align-items-center">
@@ -13,9 +13,10 @@ function mostrarNavBar() {
                 </div>
             </a>
             <div class="d-inline-flex">
-                <div class="d-inline-flex d-lg-none gap-3 me-3">
-                    <a class="nav-link" href="#"><i class="bi bi-person-circle fs-3 text-white m-0"></i></a>
-                    <a class="nav-link" href="#"> <i class="bi bi-basket-fill fs-3 text-white m-0"></i></a>
+                <div class="d-inline-flex d-lg-none gap-2 me-3">
+                    <button class="btn p-0" type="button"><i class="bi bi-person-circle fs-3 text-white m-0"></i></button>
+                    <button class="btn p-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#carrito"
+                    aria-controls="carrito"><i class="bi bi-basket-fill fs-3 text-white m-0"></i></button>
                 </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
@@ -28,8 +29,9 @@ function mostrarNavBar() {
                     <li class="nav-item"><a class="nav-link" href="#">TIENDA</a></li>
                 </ul>
                 <ul class="navbar-nav d-none d-lg-inline-flex">
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-person-circle fs-3 text-white m-0"></i></a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"> <i class="bi bi-basket-fill fs-3 text-white m-0"></i></a></li>
+                    <button class="btn p-0 me-2" type="button"><i class="bi bi-person-circle fs-3 text-white m-0"></i></button>
+                    <button class="btn p-0 me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#carrito"
+                    aria-controls="carrito"><i class="bi bi-basket-fill fs-3 text-white m-0"></i></button>
                 </ul>
             </div>
         </div>

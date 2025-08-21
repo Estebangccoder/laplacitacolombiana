@@ -1,0 +1,31 @@
+#carrito {
+  position: absolute;
+}
+
+#carrito .offcanvas-end{
+    height: auto !important;    
+  min-height: 10px !important;           
+  max-height: 90vh;           
+}
+
+
+
+#carrito .offcanvas-body {
+  overflow-y: auto;          
+}
+
+#carrito .offcanvas-header {
+    position: relative;
+    /* 👈 clave */
+}
+
+#carrito .offcanvas-header::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 50%;
+    height: 0.25rem;
+    background: #6c757d;
+    margin-left: 1rem;
+}
