@@ -157,6 +157,7 @@ footer {
 
 
 /* 🔁 Responsividad */
+
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
@@ -166,28 +167,25 @@ footer {
     position: relative;
     width: 100%;
     height: auto;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
     padding: 10px;
+    flex-direction: column;
+    justify-content: flex-start;
   }
 
   .sidebar nav ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
     flex-direction: column;
-
+    gap: 5px;
   }
 
   .sidebar nav ul li {
-    margin: 5px;
+    margin: 5px 0;
   }
 
   .content {
     margin-left: 0;
     padding: 10px;
   }
+
 
 
 .submenu {
