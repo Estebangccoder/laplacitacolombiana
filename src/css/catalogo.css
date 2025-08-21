@@ -1,0 +1,241 @@
+@import url(./normalize.css);
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Nunito:wght@400;600&display=swap');
+
+:root {
+    --fuente-titulos: 'Cormorant Garamond', serif;
+    --fuente-texto: 'Nunito', sans-serif;
+
+    --peso-ligero: 300;
+    --peso-normal: 400;
+    --peso-semi-bold: 600;
+    --peso-bold: 700;
+
+    --bg-titulos: #f0d260;
+    --bg-bloques: #ad132b;
+    --bg-cards: #9faa68;
+
+    --color-primary: var(--bg-cards);
+    --color-secondary: #7c8b4a;
+    --color-accent: var(--bg-titulos);
+    --color-light: #F9F3E9;
+    --color-dark: #2c2c2c;
+}
+
+/* HERO */
+.hero-banner {
+    position: relative;
+    min-height: 40vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 2rem;
+}
+
+.hero-fondo {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(rgba(0, 0, 0, .35), rgba(0, 0, 0, .35)),
+        url("../public/img/coffee-wood-yellow-bean.webp") center/cover no-repeat;
+    transform: scale(1.02);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    padding: 0.8rem 1.5rem;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(6px);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    max-width: 700px;
+    text-align: center;
+}
+
+.hero-content h2 {
+    font-family: var(--fuente-titulos);
+    font-size: clamp(1rem, 5vw, 2rem);
+    font-weight: 700;
+    margin: 0;
+}
+
+@media (max-width: 420px) {
+    .hero-banner {
+        min-height: 40vh;
+    }
+}
+
+/* introduccion */
+.container-introducción {
+    text-align: center;
+    color: #333;
+}
+
+.container-introducción h3 {
+    font-family: var(--fuente-texto);
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.container-introducción p {
+    font-size: 0.95rem;
+    line-height: 1.4;
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+/* sistema de filtrado*/
+
+input[type="radio"] {
+    display: none
+}
+
+.container-category {
+    max-width: 1200px;
+    padding: 15px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-category label {
+    padding: 6px 40px;
+    margin: 10px;
+    font-family: var(--fuente-texto);
+    font-size: 1rem;
+    background: var(--bg-cards);
+    cursor: pointer;
+}
+
+.container-category label:hover {
+    opacity: 0.8;
+}
+
+/* Funcionamiento del filtrado */
+
+input[type="radio"][value="CAFÉ DE ORIGEN"]:checked~.row .card:not([data-category~="cafe"]),
+input[type="radio"][value="CHOCOLATE DE ORIGEN"]:checked~.row .card:not([data-category~="cacao"]),
+input[type="radio"][value="CERVEZAS ARTESANALES"]:checked~.row .card:not([data-category~="cerveza"]) {
+    display: none;
+}
+
+input[type="radio"][value="CAFÉ DE ORIGEN"]:checked~.container-category [for="cafe"],
+input[type="radio"][value="CHOCOLATE DE ORIGEN"]:checked~.container-category [for="cacao"],
+input[type="radio"][value="CERVEZAS ARTESANALES"]:checked~.container-category [for="cerveza"],
+input[type="radio"][value="TODOS"]:checked~.container-category [for="todos"] {
+    background-color: #a55c2f;
+    color: white;
+}
+
+
+/* PRODUCTOS */
+
+.row>.col {
+    display: flex;
+}
+
+.product-h-img {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 120px;
+    object-fit: contain;
+    background: #fff;
+    padding: 6px;
+}
+
+.product-h {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 6px auto;
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, .08);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.product-h:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, .12);
+}
+
+
+.product-h .card-title {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-bold);
+    font-size: 1.3rem;
+    text-align: center;
+    color: var(--bg-cards);
+}
+
+
+.product-h .card-text {
+    font-family: var(--fuente-texto);
+    font-size: 0.9rem;
+    font-weight: var(--peso-normal);
+    text-align: center;
+    color: var(--color-dark, #2c2c2c);
+    line-height: 1.35;
+}
+
+.product-h li {
+    font-family: var(--fuente-texto);
+    font-size: 0.9rem;
+    font-weight: var(--peso-normal);
+    color: var(--color-dark, #2c2c2c);
+    line-height: 1.35;
+}
+
+
+.producer-link {
+    color: var(--bg-cards);
+    text-decoration: none;
+    font-weight: var(--peso-semi-bold);
+    font-size: 0.9rem;
+}
+
+.producer-link:hover {
+    text-decoration: underline;
+    color: #7c8b4a;
+}
+
+
+.price {
+    font-weight: var(--peso-bold);
+    color: var(--bg-cards);
+    font-size: 0.9rem;
+}
+
+
+.product-h .btn-primary {
+    background-color: var(--bg-cards);
+    border: none;
+    border-radius: 999px;
+    font-weight: var(--peso-bold);
+    font-family: var(--fuente-texto);
+    font-size: 0.8rem;
+    padding: .3rem .8rem;
+    transition: background .3s ease, transform .2s ease, box-shadow .2s ease;
+}
+
+.product-h .btn-primary:hover {
+    background-color: #7c8b4a;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .15);
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+    .product-h-img {
+        min-height: 150px;
+    }
+}
