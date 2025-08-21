@@ -1,35 +1,37 @@
 function mostrarNavBar() {
     return `
-    <nav class="navbar navbar-expand-lg navbar-dark " id="navbar">
+    <nav class="navbar navbar-expand-lg navbar-dark " id="navbarFull">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <div class="d-inline-flex justify-content-center align-items-center">
                     <img src="../public/img/navbarlogo.png" alt="Logo"
-                        class="logo-navbar border border-4 border-white rounded-circle " width="90">
+                        class="logo-navbar border border-4 border-white rounded-circle">
                     <div class="d-inline-flex flex-column justify-content-center align-items-center ms-2">
-                        <p class="m-0 p-0">La Placita</p>
-                        <p class="m-0 p-0">Colombiana</p>
+                        <p class="text-logo m-0 p-0">La Placita</p>
+                        <p class="text-logo m-0 p-0">Colombiana</p>
                     </div>
                 </div>
             </a>
             <div class="d-inline-flex">
-                <div class="d-inline-flex d-lg-none">
-                    <a class="nav-link me-3" href="#"><i class="bi bi-person-circle fs-1 text-white"></i></a>
-                    <a class="nav-link me-3" href="#"> <i class="bi bi-basket-fill fs-1 text-white"></i></a>
+                <div class="d-inline-flex d-lg-none gap-2 me-3">
+                    <button class="btn p-0" type="button"><i class="bi bi-person-circle fs-3 text-white m-0"></i></button>
+                    <button class="btn p-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#carrito"
+                    aria-controls="carrito"><i class="bi bi-basket-fill fs-3 text-white m-0"></i></button>
                 </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
             </div>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="quienessomos.html">QUIENES SOMOS</a></li>
                     <li class="nav-item"><a class="nav-link" href="contactanos.html">CONTACTANOS</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">TIENDA</a></li>
                 </ul>
-                <ul class="navbar-nav mb-2 mb-lg-0 d-none d-lg-inline-flex">
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-person-circle fs-1 text-white"></i></a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"> <i class="bi bi-basket-fill fs-1 text-white"></i></a></li>
+                <ul class="navbar-nav d-none d-lg-inline-flex">
+                    <button class="btn p-0 me-2" type="button"><i class="bi bi-person-circle fs-3 text-white m-0"></i></button>
+                    <button class="btn p-0 me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#carrito"
+                    aria-controls="carrito"><i class="bi bi-basket-fill fs-3 text-white m-0"></i></button>
                 </ul>
             </div>
         </div>
