@@ -28,50 +28,7 @@ breadcrumb.textContent = "Dashboards / Gestión de productos / Agregar producto"
       `;
     } else {
       content.innerHTML = `
-        <style>
-          #tabla-productos {
-            width: 90%;
-            margin: 30px auto;
-            border-collapse: collapse;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-          }
-          #tabla-productos th, #tabla-productos td {
-            padding: 12px 15px;
-            text-align: center;
-            border: 1px solid #ddd;
-          }
-          #tabla-productos th {
-            background-color: #007bff;
-            color: white;
-            font-weight: bold;
-          }
-          #tabla-productos tr:nth-child(even) {
-            background-color: #f2f2f2;
-          }
-          #tabla-productos img {
-            border-radius: 8px;
-          }
-          #tabla-productos button {
-            padding: 6px 12px;
-            margin: 2px;
-            border: none;
-            border-radius: 4px;
-            background-color: #28a745;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-          }
-          #tabla-productos button:hover {
-            background-color: #218838;
-          }
-          #tabla-productos button:nth-child(2) {
-            background-color: #dc3545;
-          }
-          #tabla-productos button:nth-child(2):hover {
-            background-color: #c82333;
-          }
-        </style>
+
         <h3 style="text-align:center;">Lista de productos</h3>
         <table id="tabla-productos">
           <thead>
@@ -121,11 +78,53 @@ breadcrumb.textContent = "Dashboards / Gestión de productos / Agregar producto"
         content.innerHTML = "<p>Error al cargar la sección.</p>";
         console.error("Error al cargar agregar-productor.html:", err);
       });
+      } else if (section === "agregar-publicacion") {
+  breadcrumb.textContent = "Dashboards / Gestión de publicaciones / Agregar publicación";
+  fetch("../pages/agregar-publicacion.html")
+    .then(res => res.text())
+    .then(html => {
+      content.innerHTML = html;
+      const form = document.getElementById("form-publicacion");
+      if (form) {
+        form.addEventListener("submit", guardarPublicacion);
+      }
+    })
+    .catch(err => {
+      content.innerHTML = "<p>Error al cargar la sección.</p>";
+      console.error("Error al cargar agregar-publicacion.html:", err);
+    });
+} else if (section === "ver-publicaciones") {
+  breadcrumb.textContent = "Dashboards / Gestión de publicaciones / Ver publicaciones";
+  const publicaciones = JSON.parse(localStorage.getItem("publicaciones") || "[]");
+
+  if (publicaciones.length === 0) {
+    content.innerHTML = `<h3>Publicaciones</h3><p>No hay publicaciones registradas.</p>`;
+  } else {
+    content.innerHTML = `
+      <h3 style="text-align:center;">Publicaciones</h3>
+      <div class="productos-lista">
+        ${publicaciones.map((p, index) => `
+          <div class="producto-card">
+            <img src="${p.imagen}" class="producto-img" alt="${p.titulo}">
+            <div class="producto-info">
+              <strong>${p.titulo}</strong><br>
+              <small>${p.fecha}</small><br>
+              <p>${p.descripcion}</p>
+              <button onclick="editarPublicacion(${index})">Editar</button>
+              <button onclick="eliminarPublicacion(${index})">Eliminar</button>
+            </div>
+          </div>
+        `).join("")}
+      </div>
+    `;
+  }
+
 
   } else {
     breadcrumb.textContent = `Dashboards / ${section}`;
     content.innerHTML = `<h3>${section}</h3><p>Contenido en construcción...</p>`;
   }
+
 }
 
 function guardarProducto(event) {
@@ -211,6 +210,112 @@ function cargarSugerenciasProductores() {
   const productores = JSON.parse(localStorage.getItem("productores") || "[]");
   datalist.innerHTML = productores.map(p => `<option value="${p}">`).join("");
 }
+
+function guardarPublicacion(event) {
+  event.preventDefault();
+
+  const reader = new FileReader();
+  const file = document.getElementById("imagen").files[0];
+
+  reader.onload = function () {
+    const publicacion = {
+      titulo: document.getElementById("titulo").value,
+      descripcion: document.getElementById("descripcion").value,
+      fecha: document.getElementById("fecha").value,
+      imagen: reader.result
+    };
+
+    const publicaciones = JSON.parse(localStorage.getItem("publicaciones") || "[]");
+    publicaciones.push(publicacion);
+    localStorage.setItem("publicaciones", JSON.stringify(publicaciones));
+    alert("Publicación guardada correctamente");
+    loadSection("ver-publicaciones");
+  };
+
+  if (file) {
+    reader.readAsDataURL(file);
+  } else {
+    alert("Por favor selecciona una imagen.");
+  }
+}
+function eliminarPublicacion(index) {
+  const publicaciones = JSON.parse(localStorage.getItem("publicaciones") || "[]");
+  if (confirm("¿Deseas eliminar esta publicación?")) {
+    publicaciones.splice(index, 1);
+    localStorage.setItem("publicaciones", JSON.stringify(publicaciones));
+    loadSection("ver-publicaciones");
+  }
+}
+
+function editarPublicacion(index) {
+  const publicaciones = JSON.parse(localStorage.getItem("publicaciones") || "[]");
+  const publicacion = publicaciones[index];
+
+  fetch("../pages/agregar-publicacion.html")
+    .then(res => res.text())
+    .then(html => {
+      const content = document.getElementById("main-content");
+      const breadcrumb = document.getElementById("breadcrumb");
+      breadcrumb.textContent = "Dashboards / Gestión de publicaciones / Editar publicación";
+      content.innerHTML = html;
+
+      setTimeout(() => {
+        const form = document.getElementById("form-publicacion");
+        if (form) {
+          form.querySelector("#titulo").value = publicacion.titulo;
+          form.querySelector("#fecha").value = publicacion.fecha;
+          form.querySelector("#descripcion").value = publicacion.descripcion;
+
+          // Mostrar vista previa de la imagen actual
+          const preview = document.getElementById("preview-imagen");
+          preview.src = publicacion.imagen;
+          preview.style.display = "block";
+
+          // Cambiar texto del botón
+          const submitBtn = form.querySelector("button[type='submit']");
+          submitBtn.textContent = "Actualizar publicación";
+
+          form.onsubmit = function (e) {
+            e.preventDefault();
+
+            const file = document.getElementById("imagen").files[0];
+
+            if (file) {
+              const reader = new FileReader();
+              reader.onload = function () {
+                actualizarPublicacion(index, reader.result);
+              };
+              reader.readAsDataURL(file);
+            } else {
+              // Si no se selecciona nueva imagen, se mantiene la actual
+              actualizarPublicacion(index, publicacion.imagen);
+            }
+          };
+        }
+      }, 100);
+    })
+    .catch(err => {
+      console.error("Error al cargar el formulario de edición:", err);
+    });
+}
+
+function actualizarPublicacion(index, imagenBase64) {
+  const publicaciones = JSON.parse(localStorage.getItem("publicaciones") || "[]");
+
+  publicaciones[index] = {
+    titulo: document.getElementById("titulo").value,
+    descripcion: document.getElementById("descripcion").value,
+    fecha: document.getElementById("fecha").value,
+    imagen: imagenBase64
+  };
+
+  localStorage.setItem("publicaciones", JSON.stringify(publicaciones));
+  alert("Publicación actualizada correctamente.");
+  loadSection("ver-publicaciones");
+}
+
+
+
 
 
 
