@@ -27,37 +27,8 @@
             <h5 class="offcanvas-title fw-bold" id="carrito">Carrito de compras</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div class="offcanvas-body">
-            <p>No hay productos en el carrito</p>
-            <div class="d-flex flex-column justify-content-between">
-                <div class="row">
-                    <div class="col-4">
-                        <img src="../public/productos/Anori.png" class="img-thumbnail" alt="">
-                    </div>
-                    <div class="col-8 d-flex flex-column justify-content-center">
-                        <p>Descripción</p>
-                        <div>
-                            <button type="button" class="mas-producto btn btn-outline-secondary p-0 rounded-2"
-                                onclick="btnsSumar()">
-                                <i class="bi bi-plus"></i>
-                            </button>
-                            <span class="mx-1">Cantidad</span>
-                            <button type="button" class="menos-producto btn btn-outline-secondary p-0 rounded-2"
-                                onclick="btnsRestar()">
-                                <i class="bi bi-dash menos-producto"></i>
-                            </button>
-                            <span class="mx-1">Total producto</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex flex-column mt-5">
-                    <p class="text-center fw-bold">Subtotal: COP$<span class="mx-1">SubTotal</span></p>
-                    <div class="d-flex mt-5 justify-content-around">
-                        <button class="btn btn-outline-secondary px-2 py-1 rounded-5">Ver carrito</button>
-                        <button class="btn btn-outline-secondary px-2 py-1 rounded-5">Ir a pagar</button>
-                    </div>
-                </div>
-            </div>
+        <div id="carrito-body" class="offcanvas-body">
+            
         </div>
     </div>
 

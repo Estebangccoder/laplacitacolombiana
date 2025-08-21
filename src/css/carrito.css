@@ -1,13 +1,14 @@
 #carrito {
   position: absolute;
+  height: auto !important;     
+                    
 }
 
-#carrito .offcanvas-end{
-    height: auto !important;    
-  min-height: 10px !important;           
-  max-height: 90vh;           
-}
-
+/* #carrito.offcanvas-end {
+  width: auto !important;      
+  min-width: 250px;            
+  max-width: 400px;            
+} */
 
 
 #carrito .offcanvas-body {

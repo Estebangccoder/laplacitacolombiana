@@ -7,18 +7,12 @@ function ajustarOffcanvas() {
   offcanvas.style.height = `calc(100% - ${navbarHeight}px)`;
 }
 
-function ajustarCarrito() {
-  const carrito = document.getElementById('carrito');
-  const body = carrito.querySelector('.offcanvas-body');
-
-  if (body.children.length === 0) {
-    carrito.style.minHeight = "100px"; // pequeño si está vacío
-  } else {
-    carrito.style.minHeight = "auto"; // normal si hay productos
-  }
+const carritoCuerpo = document.getElementById("carrito-body");
+if(carritoCuerpo.children.length === 0){
+    carritoCuerpo.innerHTML = `<p id="texto-carro-vacio" class="text-center">No hay productos en el carrito</p>`
 }
 
 
 window.addEventListener('resize', ajustarOffcanvas);
 window.addEventListener('load', ajustarOffcanvas);
-window.addEventListener('load', ajustarCarrito);
+
