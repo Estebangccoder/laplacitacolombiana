@@ -13,9 +13,9 @@ function mostrarNavBar() {
                 </div>
             </a>
             <div class="d-inline-flex">
-                <div class="d-inline-flex d-lg-none">
-                    <a class="nav-link me-0 me-md-3" href="#"><i class="bi bi-person-circle fs-3 text-white m-0"></i></a>
-                    <a class="nav-link me-0 me-md-3" href="#"> <i class="bi bi-basket-fill fs-3 text-white m-0"></i></a>
+                <div class="d-inline-flex d-lg-none gap-3 me-3">
+                    <a class="nav-link" href="#"><i class="bi bi-person-circle fs-3 text-white m-0"></i></a>
+                    <a class="nav-link" href="#"> <i class="bi bi-basket-fill fs-3 text-white m-0"></i></a>
                 </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>

@@ -16,12 +16,29 @@
     --bg-botones: #ad132b;
 }
 
+body {
+    box-sizing: border-box;
+    background-image: url("../public/img/finca_colombia.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-color: rgba(0, 0, 0, 0.4);
+    background-blend-mode: darken;
+}
 
-.card-custom {
+/* -----------------------------------------------------------------
+# Seccion Mision Vision 
+------------------------------------------------------------------*/
+
+#contenido-mision-vision {
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.card-mision-vision {
     max-width: 700px;
     margin: 0 auto;
     border: 1px solid #ddd;
-    border-radius: 8px;
+    border-radius: 0 3rem 3rem 0;
     overflow: hidden;
 }
 
@@ -66,17 +83,120 @@
 }
 
 /*------------------------------------------------------------- 
+# Seccion Valores Aporte ODS
+-------------------------------------------------------------*/
+
+.card-valores-ods {
+    max-width: 900px;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    border-radius: 3rem 0 0 3rem;
+    overflow: hidden;
+}
+
+.link-box {
+    flex: 1;
+    text-align: center;
+    font-size: 21px;
+    font-weight: 700;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #333;
+    background: none;
+    border: none;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: normal;
+    position: relative;
+}
+
+.link-box::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 6px;
+    width: 100%;
+    height: 3px;
+    background-color: #333;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.3s ease;
+}
+
+.link-box:hover::after,
+.link-box.activo::after {
+    transform: scaleX(0.6);
+}
+
+.valores-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px 20px;
+}
+
+.valores-lista li {
+    background-color: #ffffffcc;
+    border-left: 5px solid #4caf50;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-weight: 500;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+}
+
+.valores-lista li:hover {
+    transform: translateX(5px);
+}
+
+.enlaces_valores {
+    background-color: #F0D260;
+    padding: 15px;
+    border-radius: 0px;
+    margin-bottom: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+#title_general {
+    font-size: 2.5rem;
+    font-weight: bold;
+    font-family: var(--fuente-titulos);
+}
+
+@media (max-width: 768px) {
+    #title_general {
+        font-size: 1.5rem;
+        font-weight: bold;
+        font-family: var(--fuente-titulos);
+    }
+}
+
+
+/*------------------------------------------------------------- 
 # INICIO CSS con-quien-trabajamos
 -------------------------------------------------------------*/
+#con-quien-trabajamos .contenido {
+    border: 1px solid #ddd;
+    border-radius: 3rem;
+}
+
 #con-quien-trabajamos .titulo {
     font-family: var(--fuente-titulos);
     font-size: 2.5rem;
-    background-color: var(--bg-titulos);
+    background-color: var(--bg-titulos); 
+    border-radius: 3rem 3rem 0 0 ;
 }
 
-#con-quien-trabajamos .texto {
+#con-quien-trabajamos .container-texto {
     font-family: var(--fuente-texto);
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 0 0 3rem 3rem;
+    border: 0.5px solid #ddd;
 }
 
 #con-quien-trabajamos .lista-con-quien-trabajamos {
@@ -96,16 +216,7 @@
     font-family: var(--fuente-titulos);
     font-size: 2rem;
     flex-shrink: 2;
-}
-
-#con-quien-trabajamos .width {
-    width: 30% !important;
-    margin: 1rem;
-}
-
-#con-quien-trabajamos .width-lg {
-    width: 50% !important;
-
+    color: white;
 }
 
 @media (max-width: 1351px) {
@@ -124,14 +235,6 @@
     #con-quien-trabajamos .frase {
         font-size: 1.8rem;
         flex-shrink: 2;
-    }
-
-    #con-quien-trabajamos .width {
-        width: 30% !important;
-    }
-
-    #con-quien-trabajamos .width-lg {
-        width: 50% !important;
     }
 }
 
@@ -174,15 +277,6 @@
     #con-quien-trabajamos .titulo-menu {
         font-size: 1.3rem;
     }
-
-    #con-quien-trabajamos .width {
-        width: 50% !important;
-        margin: 1rem;
-    }
-
-    #con-quien-trabajamos .width-lg {
-        width: 40% !important;
-    }
 }
 
 @media (max-width: 575px) {
@@ -196,27 +290,25 @@
     .texto {
         font-size: 0.8rem;
     }
-
-    #con-quien-trabajamos .width {
-        width: 50% !important;
-        margin: 1rem;
-    }
-
-    #con-quien-trabajamos .width-lg {
-        width: 40% !important;
-    }
 }
+
 /*------------------------------------------------------------- 
 # FIN CSS con-quien-trabajamos
 -------------------------------------------------------------*/
 
-/* Estilo nosotros*/
+/* -----------------------------------------------------------------
+# Seccion Nosotros
+------------------------------------------------------------------*/
+
+/* #container-nosotros .flip-card{
+     background-color: rgba(255, 255, 255, 1);    
+}  */
 
 #nosotros {
     text-align: center;
     font-family: 'Cormorant Garamond', serif;
     font-size: 2.5rem;
-    color: #333;
+    color: white;
     margin-top: 2rem;
     margin-bottom: 2rem;
 }
@@ -248,9 +340,10 @@
     height: 100%;
     border-radius: 20px;
     backface-visibility: hidden;
-    background: linear-gradient(135deg, rgba(159, 170, 104, 0.6), rgba(242, 139, 11, 0.2));
-    backdrop-filter: blur(8px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+    /* background: linear-gradient(135deg, rgba(159, 170, 104, 0.6), rgba(242, 139, 11, 0.2)); 
+    backdrop-filter: blur(8px); 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25); */
+    background-color: var(--bg-titulos);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -313,238 +406,5 @@
     transform: scale(1.2);
     fill: #AD132B;
 }
+
 /* ------ */
-
-.link-box {
-  flex: 1;
-  text-align: center;
-  font-size: 21px;
-  font-weight: 700;
-  padding: 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  color: #333;
-  background: none;
-  border: none;
-  font-family: 'Cormorant Garamond', serif;
-  font-style: normal;
-  position: relative;
-}
-
-.link-box::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 6px;
-  width: 100%;
-  height: 3px;
-  background-color: #333;
-  transform: scaleX(0);
-  transform-origin: center;
-  transition: transform 0.3s ease;
-}
-
-.link-box:hover::after,
-.link-box.activo::after {
-  transform: scaleX(0.6);
-}
-
-.valores-lista {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 10px 20px;
-}
-
-.valores-lista li {
-  background-color: #ffffffcc;
-  border-left: 5px solid #4caf50;
-  padding: 10px 15px;
-  border-radius: 8px;
-  font-weight: 500;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease;
-}
-
-.valores-lista li:hover {
-  transform: translateX(5px);
-}
-
-.contenedor_valores {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-around;
-  gap: 20px;
-  padding: 20px;
-  flex-wrap: wrap;
-  flex-direction: row;
-}
-
-@media (max-width: 575px) {
-  .contenedor_valores {
-    flex-direction: column;
-    align-items: center;
-  }
-}
-
-.imagen-contenedor_valores {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-}
-
-.imagen-circular_valores {
-  width: 400px;
-  height: 400px;
-  border-radius: 50%;
-  background-color: #ccc;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-}
-
-.imagen-circular_valores img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.contenido_valores {
-  flex: 2;
-}
-
-.enlaces_valores {
-  background-color: #F0D260;
-  padding: 15px;
-  border-radius: 0px;
-  margin-bottom: 0;
-  display: flex;
-  justify-content: space-between;
-}
-
-.seccion {
-  display: none;
-  padding: 20px;
-  border-radius: 0px;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-
-.seccion.visible {
-  display: block;
-  opacity: 1;
-}
-
-.fondo-amarillo {
-  background-color: #eeefef;
-}
-
-.fondo-verde {
-  background-color: #eeefef;
-}
-
-.seccion h2 {
-  margin-bottom: 20px;
-}
-
-.seccion p {
-  font-size: 14px;
-  line-height: 1.5;
-  color: #444;
-}
-
-.titulo-pequeno_valores,
-.titulo-pequeno2_valores {
-  font-size: 18px;
-  font-family: 'Nunito', sans-serif;
-}
-
-
-.contenedor-mision-vision {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-around;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-/* Bloque de misión/visión */
-.card-custom {
-    max-width: 700px;
-    margin: 0 auto;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-/* Barra de pestañas */
-.tab-bar {
-    background-color: #f3cf58;
-    display: flex;
-    justify-content: space-around;
-    gap: 20px;
-    padding: 10px;
-}
-
-.tab-bar button {
-    background: none;
-    border: none;
-    color: #000;
-    cursor: pointer;
-    padding: 5px 10px;
-}
-
-.tab-bar button.active {
-    border-bottom: 3px solid #000;
-}
-
-.tab-bar button:hover {
-    color: #444;
-    text-shadow: 0px 0px 2px #aaa;
-}
-
-.content-text {
-    padding: 20px;
-    min-height: 150px;
-    text-align: justify;
-    background-color: #f8f9fa;
-    opacity: 1;
-    transition: opacity 0.4s ease;
-}
-
-.fade-out {
-    opacity: 0;
-     transition: opacity 0.4s ease;
-}
-
-
-/* Imagen lateral */
-.imagen-lateral {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.img-circle {
-    width: 400px;
-    height: 400px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #ccc;
-}
-
-#title_general{
-    font-size: 2.5rem;
-    font-weight: bold;
-    font-family:  var(--fuente-titulos);
-
-}
-
-#section-valores{
-    padding-bottom: 2%;
-}
