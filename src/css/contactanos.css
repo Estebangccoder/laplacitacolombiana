@@ -112,11 +112,6 @@
     box-sizing: border-box;
 }
 
-.card.card-productores {
-    background-color: #f0d260;
-    border: none;
-}
-
 .icon-cards {
     fill: var(--bg-bloques);
     width: 50px;
@@ -129,11 +124,6 @@
 
 .card-footer {
     background-color: white !important;
-    border: none !important;
-}
-
-.card-footer-productores {
-    background-color: #f0d260 !important;
     border: none !important;
 }
 
