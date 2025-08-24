@@ -1,6 +1,6 @@
 function mostrarNavBar() {
     return `
-    <nav class="navbar navbar-expand-lg navbar-dark " id="navbar">
+    <nav class="navbar navbar-expand-lg navbar-dark " id="navbarFull">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <div class="d-inline-flex justify-content-center align-items-center">

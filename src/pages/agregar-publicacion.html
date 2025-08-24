@@ -1,0 +1,20 @@
+<h3>Agregar publicación</h3>
+<form id="form-publicacion">
+    <label for="titulo">Título:</label>
+    <input type="text" id="titulo" required>
+
+    <label for="descripcion">Descripción:</label>
+    <textarea id="descripcion" rows="4" required></textarea>
+
+    <!-- Vista previa de imagen -->
+    <label>Imagen actual:</label>
+    <img id="preview-imagen" src="" alt="Vista previa" style="width:100px; margin-bottom:10px; display:none;">
+
+    <label for="imagen">Nueva imagen:</label>
+    <input type="file" id="imagen" accept="image/*">
+
+    <label for="fecha">Fecha:</label>
+    <input type="date" id="fecha" required>
+
+    <button type="submit">Guardar publicación</button>
+</form>
