@@ -6,7 +6,10 @@ function mostrarNavBar() {
                 <div class="d-inline-flex justify-content-center align-items-center">
                     <img src="../public/img/navbarlogo.png" alt="Logo"
                         class="logo-navbar border border-4 border-white rounded-circle">
+                        class="logo-navbar border border-4 border-white rounded-circle">
                     <div class="d-inline-flex flex-column justify-content-center align-items-center ms-2">
+                        <p class="text-logo m-0 p-0">La Placita</p>
+                        <p class="text-logo m-0 p-0">Colombiana</p>
                         <p class="text-logo m-0 p-0">La Placita</p>
                         <p class="text-logo m-0 p-0">Colombiana</p>
                     </div>
@@ -23,6 +26,7 @@ function mostrarNavBar() {
                 </button>
             </div>
             <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="quienessomos.html">QUIENES SOMOS</a></li>
                     <li class="nav-item"><a class="nav-link" href="contactanos.html">CONTACTANOS</a></li>

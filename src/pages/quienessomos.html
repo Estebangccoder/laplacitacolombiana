@@ -18,101 +18,15 @@
 <body>
     <header id="navbar"></header>
     <main>
-        <!-- SECCION Mision y vision -->
-        <section class="container py-5">
-            <div class="contenedor-mision-vision">
-                <div class="card-custom">
-                    <div class="tab-bar" role="tablist">
-                        <button class="tab-btn active" data-target="mision" aria-selected="true"
-                            id="title_general">MISIÓN</button>
-                        <button class="tab-btn" data-target="vision" aria-selected="false"
-                            id="title_general">VISIÓN</button>
-                    </div>
-
-                    <div id="contenido" class="content-text">
-                        Promover la comercialización justa y digna para apoyar el desarrollo rural a través de un
-                        comercio digital dedicado a agricultores y fabricantes de café, cacao y cerveza artesanal,
-                        nacidos de la sustitución de cultivos ilícitos; buscando el empoderamiento de estos productores,
-                        para generar un impacto social positivo ofreciendo a los consumidores alternativas conscientes,
-                        saludables y responsables.
-                    </div>
-                </div>
-
-                <div class="imagen-lateral">
-                    <img src="/src/public/img/coffee-coffee-beans-beans-roaste.webp" alt="Imagen lateral"
-                        class="img-circle">
-                </div>
-            </div>
-        </section>
-        <!-- SECCION NUESTROS VALORES Y APORTE A LA ODS -->
-        <section id="section-valores">
-            <div class="contenedor_valores">
-                <!-- Imagen circular -->
-                <div class="imagen-contenedor_valores">
-                    <div class="imagen-circular_valores">
-                        <img src="../public/img/quienes.png" alt="Descripción de la imagen" />
-                    </div>
-                </div>
-
-                <!-- Contenido dinámico -->
-                <div class="contenido_valores">
-                    <!-- Caja amarilla para los enlaces -->
-                    <div class="enlaces_valores" role="tablist">
-                        <button class="link-box" data-target="valores" aria-selected="true" id="title_general">NUESTROS
-                            VALORES</button>
-                        <button class="link-box" data-target="mision" aria-selected="false" id="title_general">APORTE A
-                            LOS ODS</button>
-                    </div>
-
-                    <!-- Secciones de contenido -->
-                    <div id="valores" class="seccion visible fondo-amarillo">
-                        <h2 class="titulo-pequeno_valores">
-                            Más que productos, compartimos valores que marcan la diferencia, observemos algunos de ellos
-                        </h2>
-                        <ul class="valores-lista">
-                            <li>🌿 Innovación</li>
-                            <li>🌿 Compromiso</li>
-                            <li>🌿 Excelencia</li>
-                            <li>🌿 Responsabilidad</li>
-                            <li>🌿 Colaboración</li>
-                            <li>🌿 Calidad Académica</li>
-                        </ul>
-                        <p style="margin-top: 20px;">
-                            Cada acción que apoyas impulsa la reintegración social, el respeto por la ley, el cuidado
-                            del planeta y el crecimiento equitativo de nuestras comunidades.
-                        </p>
-                    </div>
-
-                    <div id="mision" class="seccion fondo-verde">
-                        <h2 class="titulo-pequeno2_valores">
-                            Más allá del sabor, trabajamos por un futuro sostenible. Estos son los ODS que abrazamos.
-                        </h2>
-                        <ul class="valores-lista">
-                            <li>🌍 Fin de la pobreza</li>
-                            <li>⚖️ Igualdad de género</li>
-                            <li>♻️ Producción y consumo responsables</li>
-                            <li>🤝 Alianzas para lograr los objetivos</li>
-                            <li>🛠️ Trabajo decente</li>
-                        </ul>
-                        <p style="margin-top: 20px;">
-                            Cuando apostamos por la equidad, el trabajo digno y el consumo responsable, transformamos
-                            vidas y comunidades enteras.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
 
         <!-- SECCION CON QUIENES TRABAJAMOS -->
         <section id="con-quien-trabajamos">
-            <div class="d-flex flex-column flex-md-row justify-content-center align-items-center">
-                <img src="../public/img/con_quien_trabjamos/con_quien_trabajamos_1.webp" alt="Imagen"
-                    class="rounded-circle width">
-                <div class="d-flex flex-column">
-                    <p class="text-center titulo py-1" id="title-con-quien">¿CON QUIÉN TRABAJAMOS?</p>
-                    <div class="px-lg-4">
-                        <p class="texto mx-3 mx-sm-4 ">Trabajamos con <span class="fw-bold texto">productores rurales,
+            <div class="contenido container my-5 p-0 mx-auto">
+                <p class="text-center titulo my-0 py-2" id="title-con-quien">¿CON QUIÉN TRABAJAMOS?</p>
+                <div class="container-texto p-0 m-0">
+                    <div class="px-lg-4 my-4">
+                        <p class="texto text-center mx-3 mx-sm-4 ">Trabajamos con <span
+                                class="fw-bold texto">productores rurales,
                                 campesinos,
                                 excombatientes y comunidades en transición</span> que:</p>
                         <ul class="lista-con-quien-trabajamos me-3 me-sm-4">
@@ -122,13 +36,9 @@
                             </li>
                             <li class="texto">🌿 Cultivan con respeto por la tierra, implementando <span
                                     class="fw-bold">prácticas agrícolas
-                                    sostenibles</span>, libres de químicos
-                                nocivos y en armonía con el entorno.</li>
+                                    sostenibles</span>.</li>
                             <li class="texto">🌿 Elaboran productos con <span class="fw-bold texto">procesos
-                                    artesanales</span>,
-                                cuidando cada
-                                detalle
-                                desde el origen hasta tus manos.</li>
+                                    artesanales</span>.</li>
                             <li class="texto">🌿 Participan en iniciativas de sustitución de cultivos ilícitos, buscando
                                 construir <span class="fw-bold texto">economías legales,
                                     justas y estables</span>.</li>
@@ -143,20 +53,58 @@
                     </div>
                 </div>
             </div>
-            <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center m-3 m-lg-5">
-                <div class="d-inline-flex justify-content-center align-items-center container-menu">
-                    <div class="d-flex flex-column justify-content-center align-items-center rounded-5 p-3 m-3 menu">
-                        <p class="text-center fw-bold titulo-menu">Productos Principales</p>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item texto">Café</li>
-                            <li class="list-group-item texto">Cacao</li>
-                            <li class="list-group-item texto">Cerveza Artesanal</li>
-                            <li class="list-group-item texto">Artesanías</li>
-                        </ul>
+        </section>
+
+        <!-- SECCION Mision y vision -->
+        <section id="mision-vision" class="container ms-0 ps-0 py-5">
+            <div class="contenedor-mision-vision ms-0 ps-0">
+                <div class="card-mision-vision card-custom ms-0 ps-0">
+                    <div class="tab-bar" role="tablist">
+                        <button class="tab-btn-mision-vision active" data-target="mision" aria-selected="true"
+                            id="title_general">MISIÓN</button>
+                        <button class="tab-btn-mision-vision" data-target="vision" aria-selected="false"
+                            id="title_general">VISIÓN</button>
                     </div>
-                    <img src="../public/img/con_quien_trabjamos/con_quien_trabajamos_2.webp" alt="Imagen"
-                        class="rounded-circle width-lg">
+
+                    <div id="contenido-mision-vision" class="content-text px-5">
+                    </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- SECCION NUESTROS VALORES Y APORTE A LA ODS -->
+        <section id="valores-ods" class="container me-0 pe-0 py-5">
+            <div class="contenedor-valores-ods me-0 pe-0">
+                <div class="card-valores-ods card-custom me-0">
+                    <div class="tab-bar px-5" role="tablist">
+                        <button class="tab-btn-valores-ods active" data-target="valores" aria-selected="true"
+                            id="title_general">VALORES</button>
+                        <button class="tab-btn-valores-ods" data-target="ods" aria-selected="false"
+                            id="title_general">APORTE A LOS ODS</button>
+                    </div>
+
+                    <div id="contenido-valores-ods" class="content-text px-5">
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- SECCION PRODUCTOS FRASE -->
+        <section id="con-quien-trabajamos">
+            <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center m-3 m-lg-5">
+                <div class="d-flex flex-column justify-content-center align-items-center rounded-5 p-3 m-3 menu">
+                    <p class="text-center fw-bold titulo-menu">Productos Principales</p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item texto">Café</li>
+                        <li class="list-group-item texto">Cacao</li>
+                        <li class="list-group-item texto">Cerveza Artesanal</li>
+                        <li class="list-group-item texto">Artesanías</li>
+                    </ul>
+                </div>
+
                 <p class="p-2 fst-italic text-center frase">"Cada proyecto vinculado a La Placita Colombiana
                     tiene una
                     historia que contar, y cada producto refleja ese camino de transformación, trabajo honesto y
@@ -167,14 +115,16 @@
 
 
 
+
         <!--SECCION NUESTRO EQUIPO-->
         <section>
-            <div class="container py-4">
+            <div id="container-nosotros" class="container py-4">
                 <h2 id="nosotros"> NUESTRO EQUIPO</h2>
                 <div class="row justify-content-center">
                     <!--VALERIA-->
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 d-flex justify-content-center">
-                        <div class="flip-card">
+                    <div
+                        class="card-integrante col-12 col-sm-6 col-md-4 col-lg-3 mb-4 p-0 d-flex justify-content-center">
+                        <div class="flip-card m-0">
                             <div class="flip-card-inner">
                                 <div class="flip-card-front">
                                     <img class="card-img-top" src="../public/img/Nosotros/valeria.webp"
