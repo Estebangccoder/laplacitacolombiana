@@ -14,8 +14,9 @@ function mostrarNavBar() {
             </a>
             <div class="d-inline-flex">
                 <div class="d-inline-flex d-lg-none gap-3 me-3">
-                    <a class="nav-link" href="#"><i class="bi bi-person-circle fs-3 text-white m-0"></i></a>
-                    <a class="nav-link" href="#"> <i class="bi bi-basket-fill fs-3 text-white m-0"></i></a>
+                    <button class="btn p-0 me-2" type="button"><i class="bi bi-person-circle fs-3 text-white m-0"></i></button>
+                    <button  class="btn p-0 me-2" type="button carrito-button" data-bs-toggle="offcanvas" data-bs-target="#carrito"
+                    aria-controls="carrito"><i class="bi bi-basket-fill fs-3 text-white m-0"></i></button>
                 </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
@@ -28,8 +29,9 @@ function mostrarNavBar() {
                     <li class="nav-item"><a class="nav-link" href="catalogo.html">TIENDA</a></li>
                 </ul>
                 <ul class="navbar-nav d-none d-lg-inline-flex">
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-person-circle fs-3 text-white m-0"></i></a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"> <i class="bi bi-basket-fill fs-3 text-white m-0"></i></a></li>
+                    <button class="btn p-0 me-2" type="button"><i class="bi bi-person-circle fs-3 text-white m-0"></i></button>
+                   <button class="btn p-0 me-2 carrito-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#carrito"
+                    aria-controls="carrito"><i class="bi bi-basket-fill fs-3 text-white m-0"></i></button>
                 </ul>
             </div>
         </div>
