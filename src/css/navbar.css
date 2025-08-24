@@ -15,6 +15,6 @@
     --bg-botones: #ad132b;
 }
 
-#navbar {
+#navbarFull {
     background-color:var(--bg-botones);
 }
