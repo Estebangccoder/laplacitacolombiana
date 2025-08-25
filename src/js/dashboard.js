@@ -1,24 +1,32 @@
+import { productos as productosDB } from "./dataBase.js";
+
 function loadSection(section) {
   const content = document.getElementById("main-content");
   const breadcrumb = document.getElementById("breadcrumb");
 
   if (section === "agregar-producto") {
 
-breadcrumb.textContent = "Dashboards / Gestión de productos / Agregar producto";
-  fetch("../pages/agregar-producto.html")
-    .then(res => res.text())
-    .then(html => {
-      content.innerHTML = html;
-      cargarSugerenciasProductores(); // 👈 Aquí se cargan las sugerencias
-    })
-    .catch(err => {
-      content.innerHTML = "<p>Error al cargar la sección.</p>";
-      console.error("Error al cargar agregar-producto.html:", err);
-    });
+    breadcrumb.textContent = "Dashboards / Gestión de productos / Agregar producto";
+    fetch("../pages/agregar-producto.html")
+      .then(res => res.text())
+      .then(html => {
+        content.innerHTML = html;
+        cargarSugerenciasProductores(); // 👈 Aquí se cargan las sugerencias
+      })
+      .catch(err => {
+        content.innerHTML = "<p>Error al cargar la sección.</p>";
+        console.error("Error al cargar agregar-producto.html:", err);
+      });
 
 
   } else if (section === "ver-productos") {
     breadcrumb.textContent = "Dashboards / Gestión de productos / Ver todos los productos";
+
+
+    if (!localStorage.getItem("productos")) {
+      localStorage.setItem("productos", JSON.stringify(productosDB));
+    }
+
     const productos = JSON.parse(localStorage.getItem("productos") || "[]");
 
     if (productos.length === 0) {
@@ -45,10 +53,10 @@ breadcrumb.textContent = "Dashboards / Gestión de productos / Agregar producto"
           <tbody>
             ${productos.map((p, index) => `
               <tr>
-                <td><img src="${p.imagen}" alt="${p.nombre}" style="width:50px;height:50px;"></td>
+                <td><img src="${p.img}" alt="${p.nombre}" style="width:50px;height:50px;"></td>
                 <td>${p.nombre}</td>
                 <td>${p.categoria}</td>
-                <td>${p.cantidad}</td>
+                <td>${p.cantidad_inventario}</td>
                 <td>$${p.precio}</td>
                 <td>${p.productor}</td>
                 <td>
@@ -78,29 +86,29 @@ breadcrumb.textContent = "Dashboards / Gestión de productos / Agregar producto"
         content.innerHTML = "<p>Error al cargar la sección.</p>";
         console.error("Error al cargar agregar-productor.html:", err);
       });
-      } else if (section === "agregar-publicacion") {
-  breadcrumb.textContent = "Dashboards / Gestión de publicaciones / Agregar publicación";
-  fetch("../pages/agregar-publicacion.html")
-    .then(res => res.text())
-    .then(html => {
-      content.innerHTML = html;
-      const form = document.getElementById("form-publicacion");
-      if (form) {
-        form.addEventListener("submit", guardarPublicacion);
-      }
-    })
-    .catch(err => {
-      content.innerHTML = "<p>Error al cargar la sección.</p>";
-      console.error("Error al cargar agregar-publicacion.html:", err);
-    });
-} else if (section === "ver-publicaciones") {
-  breadcrumb.textContent = "Dashboards / Gestión de publicaciones / Ver publicaciones";
-  const publicaciones = JSON.parse(localStorage.getItem("publicaciones") || "[]");
+  } else if (section === "agregar-publicacion") {
+    breadcrumb.textContent = "Dashboards / Gestión de publicaciones / Agregar publicación";
+    fetch("../pages/agregar-publicacion.html")
+      .then(res => res.text())
+      .then(html => {
+        content.innerHTML = html;
+        const form = document.getElementById("form-publicacion");
+        if (form) {
+          form.addEventListener("submit", guardarPublicacion);
+        }
+      })
+      .catch(err => {
+        content.innerHTML = "<p>Error al cargar la sección.</p>";
+        console.error("Error al cargar agregar-publicacion.html:", err);
+      });
+  } else if (section === "ver-publicaciones") {
+    breadcrumb.textContent = "Dashboards / Gestión de publicaciones / Ver publicaciones";
+    const publicaciones = JSON.parse(localStorage.getItem("publicaciones") || "[]");
 
-  if (publicaciones.length === 0) {
-    content.innerHTML = `<h3>Publicaciones</h3><p>No hay publicaciones registradas.</p>`;
-  } else {
-    content.innerHTML = `
+    if (publicaciones.length === 0) {
+      content.innerHTML = `<h3>Publicaciones</h3><p>No hay publicaciones registradas.</p>`;
+    } else {
+      content.innerHTML = `
       <h3 style="text-align:center;">Publicaciones</h3>
       <div class="productos-lista">
         ${publicaciones.map((p, index) => `
@@ -117,7 +125,7 @@ breadcrumb.textContent = "Dashboards / Gestión de productos / Agregar producto"
         `).join("")}
       </div>
     `;
-  }
+    }
 
 
   } else {
@@ -203,6 +211,8 @@ function editarProducto(index) {
   const producto = productos[index];
   alert(`Editar producto: ${producto.nombre}`);
 }
+
+
 function cargarSugerenciasProductores() {
   const datalist = document.getElementById("lista-productores");
   if (!datalist) return;
@@ -238,6 +248,8 @@ function guardarPublicacion(event) {
     alert("Por favor selecciona una imagen.");
   }
 }
+
+
 function eliminarPublicacion(index) {
   const publicaciones = JSON.parse(localStorage.getItem("publicaciones") || "[]");
   if (confirm("¿Deseas eliminar esta publicación?")) {
@@ -246,6 +258,7 @@ function eliminarPublicacion(index) {
     loadSection("ver-publicaciones");
   }
 }
+
 
 function editarPublicacion(index) {
   const publicaciones = JSON.parse(localStorage.getItem("publicaciones") || "[]");
@@ -315,7 +328,14 @@ function actualizarPublicacion(index, imagenBase64) {
 }
 
 
-
+window.loadSection = loadSection;
+window.toggleSubmenu = toggleSubmenu;
+window.eliminarProducto = eliminarProducto;
+window.editarProducto = editarProducto;
+window.guardarProducto = guardarProducto;
+window.guardarProductor = guardarProductor;
+window.eliminarPublicacion = eliminarPublicacion;
+window.editarPublicacion = editarPublicacion;
 
 
 
