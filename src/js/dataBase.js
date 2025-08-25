@@ -7,7 +7,7 @@ export const productos = [
     precio: 55000,
     categoria: "cafe",
     productor: "Finca El Mirador - Familia Ramírez",
-    img: "../public/productos/cafe-bourbon.webp",
+    img: "../public/img/productos/cafe-bourbon.webp",
     alt: "Café variedad Bourbon",
     cantidad_inventario: 100,
     cantidad_carrito: 0
@@ -20,7 +20,7 @@ export const productos = [
     precio: 52000,
     categoria: "cafe",
     productor: "Finca la Arboleda - Don Julián y su familia",
-    img: "../public/productos/cafe-catui.webp",
+    img: "../public/img/productos/cafe-catui.webp",
     alt: "Cafe variedad catui",
     cantidad_inventario: 100,
     cantidad_carrito: 0
@@ -33,7 +33,7 @@ export const productos = [
     precio: 60000,
     categoria: "cafe",
     productor: "Finca Los Andes - Cooperativa Mujeres Cafeteras",
-    img: "../public/productos/etiope.webp",
+    img: "../public/img/productos/etiope.webp",
     alt: "Cafe variedad herencia etiope",
     cantidad_inventario: 100,
     cantidad_carrito: 0
@@ -46,7 +46,7 @@ export const productos = [
     precio: 48000,
     categoria: "cafe",
     productor: "Finca Santa Rosa – Familia Gutiérrez",
-    img: "../public/productos/gesha.webp",
+    img: "../public/img/productos/gesha.webp",
     alt: "Cafe variedad Gesha",
     cantidad_inventario: 100,
     cantidad_carrito: 0
@@ -59,7 +59,7 @@ export const productos = [
     precio: 10500,
     categoria: "cacao",
     productor: "Mujeres víctimas del conflicto en Rionegro, Santander",
-    img: "../public/productos/cacao-paz.webp",
+    img: "../public/img/productos/cacao-paz.webp",
     alt: "Chocolate aroma de paz",
     cantidad_inventario: 100,
     cantidad_carrito: 0
@@ -72,7 +72,7 @@ export const productos = [
     precio: 12000,
     categoria: "cacao",
     productor: "ASOMUCAN",
-    img: "../public/productos/Anori.png",
+    img: "../public/img/productos/Anori.png",
     alt: "Anori",
     cantidad_inventario: 100,
     cantidad_carrito: 0
@@ -85,7 +85,7 @@ export const productos = [
     precio: 7500,
     categoria: "cerveza",
     productor: "Ex-combatientes de las FARC",
-    img: "../public/productos/laroja.png",
+    img: "../public/img/productos/laroja.png",
     alt: "La Roja",
     cantidad_inventario: 100,
     cantidad_carrito: 0
@@ -98,7 +98,7 @@ export const productos = [
     precio: 6000,
     categoria: "cerveza",
     productor: "Ex-combatientes de las FARC",
-    img: "../public/productos/latrocha.png",
+    img: "../public/img/productos/latrocha.png",
     alt: "La Trocha",
     cantidad_inventario: 100,
     cantidad_carrito: 0
@@ -111,7 +111,7 @@ export const productos = [
     precio: 15000,
     categoria: "cacao",
     productor: "Cordillera Company",
-    img: "../public/productos/Cordillera.png",
+    img: "../public/img/productos/Cordillera.png",
     alt: "Cordillera",
     cantidad_inventario: 100,
     cantidad_carrito: 0
@@ -124,7 +124,7 @@ export const productos = [
     precio: 14000,
     categoria: "cacao",
     productor: "Late Chocó",
-    img: "../public/productos/latechoco.png",
+    img: "../public/img/productos/latechoco.png",
     alt: "Late Choco",
     cantidad_inventario: 100,
     cantidad_carrito: 0

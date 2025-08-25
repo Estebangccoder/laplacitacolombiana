@@ -92,3 +92,32 @@ function renderCarrito() {
     });
   });
 }
+
+
+/***Para que funcione es todas las paginas se debe hacer lo siguiente:
+
+En HTML:
+
+en head:
+
+    
+    <link rel="stylesheet" href="../css/carrito.css"></link>
+
+despues del header:
+
+   <!--Carrito de compras-->
+        <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="carrito" aria-labelledby="carrito">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title fw-bold" id="carrito">Carrito de compras</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div id="carrito-body" class="offcanvas-body">
+
+            </div>
+        </div>
+
+
+en las importaciones de Js:
+
+<script type="module" src="../js/carrito.js"></script>
+*/
