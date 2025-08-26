@@ -31,13 +31,15 @@
 .hero-fondo {
     position: absolute;
     inset: 0;
-    background: url("../public/img/personas.webp") center no-repeat;
-    background-size: 100%;
-    /* prueba 90%, 80%, etc. */
+    background: url("../public/img/Hero-campesinos.png") center no-repeat;
+    background-size: cover;
 }
 
 .hero-content {
-    position: relative;
+    position: absolute;
+    top: 45%;
+    left: 10%;
+    transform: translateY(-50%);
     z-index: 1;
     padding: 0.8rem 1.5rem;
     background: rgba(255, 255, 255, 0.2);
@@ -46,8 +48,6 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     color: #fff;
     width: fit-content;
-    /* ahora sí se ajusta al texto */
-    text-align: center;
 }
 
 .hero-content h2 {
