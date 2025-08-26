@@ -3,12 +3,12 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../public/img/favicon-nb.png" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/catalogo.css">
     <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/catalogo.css">
+    
     <link rel="stylesheet" href="../css/carrito.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -20,464 +20,74 @@
 
 <body>
     <header id="navbar"></header>
+    <main>
 
-    <!--Carrito de compras-->
-    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="carrito" aria-labelledby="carrito">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title fw-bold" id="carrito">Carrito de compras</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div id="carrito-body" class="offcanvas-body">
-            
-        </div>
-    </div>
-
-    <!--HERO-->
-    <section class="hero-banner">
-        <div class="hero-fondo" role="img" aria-label="Paisaje cafetero">
-        </div>
-
-        <div class="hero-content container">
-            <h2>DESCUBRE LOS SABORES QUE TENEMOS PARA TI</h2>
-        </div>
-    </section>
-
-    <!--texto-->
-    <section class="container-introducción my-4">
-        <div class="row justify-content-center">
-            <h3 class="h4 mb-3">Origen con Propósito</h2>
-                <p>
-                    Desde el corazón de Colombia, nuestros cafetales y cacaotales cuentan su origen.
-                    Trabajamos con familias y cooperativas que cuidan la tierra, apoyamos la paz, el liderazgo
-                    de las mujeres y la economía rural. Cada compra impulsa empleo digno y educación en las
-                    regiones, priorizando la trazabilidad, el comercio justo y la sostenibilidad.
-                    Elegirnos es sumar a la reconciliación y al progreso de Colombia.
-                </p>
-        </div>
-    </section>
-
-    <div class="container my-4">
-
-        <input type="radio" id="todos" name="categories" value="TODOS" checked>
-        <input type="radio" id="cafe" name="categories" value="CAFÉ DE ORIGEN">
-        <input type="radio" id="cacao" name="categories" value="CHOCOLATE DE ORIGEN">
-        <input type="radio" id="cerveza" name="categories" value="CERVEZAS ARTESANALES">
-
-        <div class="container-category">
-            <label for="todos"> TODOS </label>
-            <label for="cafe">CAFÉ DE ORIGEN</label>
-            <label for="cacao">CHOCOLATE DE ORIGEN</label>
-            <label for="cerveza">CERVEZAS ARTESANALES</label>
-        </div>
-
-        <!-- Productos -->
-        <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-center">
-            <!-- Item 1 -->
-            <div class="col">
-
-                <div class="card mb-3 product-h" data-category="cafe">
-                    <div class="row g-0 align-items-center">
-                        <div class="col-md-4">
-                            <img src="../public/productos/cafe-bourbon.webp"
-                                class="img-fluid rounded-start product-h-img" id="imagenProducto"
-                                alt="Café variedad Bourbon" />
-                        </div>
-
-                        <div class="col-md-8">
-                            <div class="card-body d-flex flex-column h-100">
-                                <h5 class="card-title mb-2" id="nombreProducto">Bourbon Clásico</h5>
-
-                                <p class="card-text mb-3" id="descripcionProducto">
-                                    Café suave y balanceado con notas dulces de caramelo y frutas rojas.
-                                    Ideal para quienes buscan una taza clásica y aromática.
-                                </p>
-
-                                <ul class="list-unstyled small mb-3">
-                                    <li id="nombreProductor"> Productor:
-                                        <a href="#" class="producer-link">Finca El Mirador - Familia Ramírez</a>
-                                    </li>
-                                    <li id="cantidadProducto"> Presentación:1 kg </li>
-                                </ul>
-
-                                <div class="mt-auto d-flex flex-wrap gap-2 align-items-center">
-                                    <span class="price mb-0" id="precioProducto">Precio: $55,000 COP</span>
-                                    <a href="#" class="btn btn-primary ms-auto" id="agregarProducto">
-                                        Agregar a la canasta
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+        <!--Carrito de compras-->
+        <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="carrito" aria-labelledby="carrito">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title fw-bold" id="carrito">Carrito de compras</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
+            <div id="carrito-body" class="offcanvas-body">
 
-            <!-- Item 2 -->
-            <div class="col">
-
-                <div class="card mb-3 product-h" data-category="cafe">
-                    <div class="row g-0 align-items-center">
-                        <div class="col-md-4">
-                            <img src="../public/productos/cafe-catui.webp" class="img-fluid rounded-start product-h-img"
-                                id="imagenProducto" alt="Cafe variedad catui" />
-                        </div>
-
-                        <div class="col-md-8">
-                            <div class="card-body d-flex flex-column h-100">
-                                <h5 class="card-title mb-2" id="nombreProducto">Catuai Dorado</h5>
-
-                                <p class="card-text mb-3" id="descripcionProducto">
-                                    Café de cuerpo medio y acidez brillante, con sabores que recuerdan a cítricos y
-                                    chocolate. Perfecto para métodos filtrados.
-                                </p>
-
-                                <ul class="list-unstyled small mb-3">
-                                    <li id="nombreProductor"> Productor:
-                                        <a href="#" class="producer-link"> Finca la Arboleda-Don Julián y su familia</a>
-                                    </li>
-                                    <li id="cantidadProducto"> Presentación: 1 kg</li>
-                                </ul>
-
-                                <div class="mt-auto d-flex flex-wrap gap-2 align-items-center">
-                                    <span class="price mb-0" id="precioProducto">Precio:$52,000 COP</span>
-                                    <a href="#" class="btn btn-primary ms-auto" id="agregarProducto">
-                                        Agregar a la canasta
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Item 3 -->
-            <div class="col">
-
-                <div class="card mb-3 product-h" data-category="cafe">
-                    <div class="row g-0 align-items-center">
-                        <div class="col-md-4">
-                            <img src="../public/productos/etiope.webp" class="img-fluid rounded-start product-h-img"
-                                id="imagenProducto" alt="Cafe variedad herencia etiope" />
-                        </div>
-
-                        <div class="col-md-8">
-                            <div class="card-body d-flex flex-column h-100">
-                                <h5 class="card-title mb-2" id="nombreProducto">Herencia Etíope Floral</h5>
-
-                                <p class="card-text mb-3" id="descripcionProducto">
-                                    Café exótico de perfil floral e intenso aroma, con notas a jazmín, frutos tropicales
-                                    y
-                                    un retrogusto prolongado. Una experiencia de origen ancestral.
-                                </p>
-
-                                <ul class="list-unstyled small mb-3">
-                                    <li id="nombreProductor"> Productor:
-                                        <a href="#" class="producer-link">Finca Los Andes - Cooperativa Mujeres
-                                            Cafeteras</a>
-                                    </li>
-                                    <li id="cantidadProducto"> Presentación: 1kg</li>
-                                </ul>
-
-                                <div class="mt-auto d-flex flex-wrap gap-2 align-items-center">
-                                    <span class="price mb-0" id="precioProducto">Precio:$60,000 COP</span>
-                                    <a href="#" class="btn btn-primary ms-auto" id="agregarProducto">
-                                        Agregar a la canasta
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Item 4 -->
-            <div class="col">
-
-                <div class="card mb-3 product-h" data-category="cafe">
-                    <div class="row g-0 align-items-center">
-                        <div class="col-md-4">
-                            <img src="../public/productos/gesha.webp" class="img-fluid rounded-start product-h-img"
-                                id="imagenProducto" alt="Cafe variedad Gesha" />
-                        </div>
-
-                        <div class="col-md-8">
-                            <div class="card-body d-flex flex-column h-100">
-                                <h5 class="card-title mb-2" id="nombreProducto">Gesha Premium</h5>
-
-                                <p class="card-text mb-3" id="descripcionProducto">
-                                    Café exclusivo y reconocido mundialmente por su delicadeza. Notas florales, miel y
-                                    frutas tropicales que lo convierten en una joya gourmet.
-                                </p>
-
-                                <ul class="list-unstyled small mb-3">
-                                    <li id="nombreProductor"> Productor:
-                                        <a href="#" class="producer-link">Finca Santa Rosa – Familia Gutiérrez</a>
-                                    </li>
-                                    <li id="cantidadProducto"> Presentación: 250g</li>
-                                </ul>
-
-                                <div class="mt-auto d-flex flex-wrap gap-2 align-items-center">
-                                    <span class="price mb-0" id="precioProducto">Precio:$48,000 COP</span>
-                                    <a href="#" class="btn btn-primary ms-auto" id="agregarProducto">
-                                        Agregar a la canasta
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Item 5 -->
-            <div class="col">
-
-                <div class="card mb-3 product-h" data-category="cacao">
-                    <div class="row g-0 align-items-center">
-                        <div class="col-md-4">
-                            <img src="../public/productos/cacao-paz.webp" class="img-fluid rounded-start product-h-img"
-                                id="imagenproducto" alt="Chocolate aroma de paz" />
-                        </div>
-
-                        <div class="col-md-8">
-                            <div class="card-body d-flex flex-column h-100">
-                                <h5 class="card-title mb-2" id="nombreProducto">Aroma de Paz</h5>
-
-                                <p class="card-text mb-3" id="descripcionProducto">
-                                    Chocolate artesanal elaborado con cacao fino de aroma, símbolo de resiliencia y
-                                    esperanza. Cada barra cuenta una historia de transformación y empoderamiento
-                                    femenino.
-                                </p>
-
-                                <ul class="list-unstyled small mb-3">
-                                    <li id="nombreProductor"> Productor:
-                                        <a href="#" class="producer-link">Mujeres víctimas del conflicto en Rionegro,
-                                            Santander</a>
-                                    </li>
-                                    <li id="cantidadProducto"> Presentación: 500g</li>
-                                </ul>
-
-                                <div class="mt-auto d-flex flex-wrap gap-2 align-items-center">
-                                    <span class="price mb-0" id="precioProducto">Precio: $10,500 COP</span>
-                                    <a href="#" class="btn btn-primary ms-auto" id="agregarProducto">
-                                        Agregar a la canasta
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Item 6 -->
-            <div class="col">
-
-                <div class="card mb-3 product-h" data-category="cacao">
-                    <div class="row g-0 align-items-center">
-                        <div class="col-md-4">
-                            <img src="../public/productos/Anori.png" class="img-fluid rounded-start product-h-img"
-                                id="imagenProducto" alt="Anori" />
-                        </div>
-
-                        <div class="col-md-8">
-                            <div class="card-body d-flex flex-column h-100">
-                                <h5 class="card-title mb-2" id="nombreProducto">Anori</h5>
-
-                                <p class="card-text mb-3" id="descripcionProducto">
-                                    Surge como un producto de sustitución voluntaria de cultivos ilícitos en Anorí,
-                                    Antioquia, con altos estándares de calidad y sostenibilidad. adicional de fondo
-                                    ponle un
-                                    paisaje antioqueño.
-                                </p>
-
-                                <ul class="list-unstyled small mb-3">
-                                    <li id="nombreProductor"> Productor:
-                                        <a href="#" class="producer-link">ASOMUCAN</a>
-                                    </li>
-                                    <li id="cantidadProducto">Presentación: 500 gr</li>
-                                </ul>
-
-                                <div class="mt-auto d-flex flex-wrap gap-2 align-items-center">
-                                    <span class="price mb-0" id="precioProducto">Precio: $12000</span>
-                                    <a href="#" class="btn btn-primary ms-auto" id="agregarProducto">
-                                        Agregar a la canasta
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Item 7 -->
-            <div class="col">
-
-                <div class="card mb-3 product-h" data-category="cacao">
-                    <div class="row g-0 align-items-center">
-                        <div class="col-md-4">
-                            <img src="../public/productos/Cordillera.png" class="img-fluid rounded-start product-h-img"
-                                id="imagenProducto" alt="Cordillera" />
-                        </div>
-
-                        <div class="col-md-8">
-                            <div class="card-body d-flex flex-column h-100">
-                                <h5 class="card-title mb-2" id="nombreProducto">Cordillera</h5>
-
-                                <p class="card-text mb-3" id="descripcionProducto">
-                                    Una marca de chocolate sostenible que apoya proyectos productivos de cacao en zonas
-                                    de
-                                    reincorporación, buscando fortalecer el desarrollo económico y social.
-                                </p>
-
-                                <ul class="list-unstyled small mb-3">
-                                    <li id="nombreProductor"> Productor:
-                                        <a href="#" class="producer-link">Cordillera Company</a>
-                                    </li>
-                                    <li id="cantidadProducto">Presentación: 500 gr </li>
-                                </ul>
-
-                                <div class="mt-auto d-flex flex-wrap gap-2 align-items-center">
-                                    <span class="price mb-0" id="precioProducto">Precio: $15000:</span>
-                                    <a href="#" class="btn btn-primary ms-auto" id="agregarProducto">
-                                        Agregar a la canasta
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Item 8 -->
-            <div class="col">
-
-                <div class="card mb-3 product-h" data-category="cacao">
-                    <div class="row g-0 align-items-center">
-                        <div class="col-md-4">
-                            <img src="../public/productos/latechoco.png" class="img-fluid rounded-start product-h-img"
-                                id="imagenProducto" alt="Late Choco" />
-                        </div>
-
-                        <div class="col-md-8">
-                            <div class="card-body d-flex flex-column h-100">
-                                <h5 class="card-title mb-2" id="nombreProducto">Late Choco</h5>
-
-                                <p class="card-text mb-3" id="descripcionProducto">
-                                    Una fábrica artesanal que utiliza cacao cultivado por familias víctimas del
-                                    conflicto
-                                    armado en el Chocó.
-                                </p>
-
-                                <ul class="list-unstyled small mb-3">
-                                    <li id="nombreProductor"> Productor:
-                                        <a href="#" class="producer-link">Late Chocó</a>
-                                    </li>
-                                    <li id="cantidadProducto">Presentación: 500 gr</li>
-                                </ul>
-
-                                <div class="mt-auto d-flex flex-wrap gap-2 align-items-center">
-                                    <span class="price mb-0" id="precioProducto"> Precio: $14000:</span>
-                                    <a href="#" class="btn btn-primary ms-auto" id="agregarProducto">
-                                        Agregar a la canasta
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Item 9 -->
-            <div class="col">
-
-                <div class="card mb-3 product-h" data-category="cerveza">
-                    <div class="row g-0 align-items-center">
-                        <div class="col-md-4">
-                            <img src="../public/productos/laroja.png" class="img-fluid rounded-start product-h-img"
-                                id="imagenProducto" alt="La Roja" />
-                        </div>
-
-                        <div class="col-md-8">
-                            <div class="card-body d-flex flex-column h-100">
-                                <h5 class="card-title mb-2" id="nombreProducto">La Roja</h5>
-
-                                <p class="card-text mb-3" id="descripcionProducto">
-                                    Producida por excombatientes de las FARC-EP en Bogotá. Busca generar ingresos para
-                                    los
-                                    excombatientes y sus familias, así como promover la reconciliación.
-                                </p>
-
-                                <ul class="list-unstyled small mb-3">
-                                    <li id="nombreProductor"> Productor:
-                                        <a href="#" class="producer-link">Ex-combatientes de las FACR. </a>
-                                    </li>
-                                    <li id="cantidadProducto">Presentación: 330 ml </li>
-                                </ul>
-
-                                <div class="mt-auto d-flex flex-wrap gap-2 align-items-center">
-                                    <span class="price mb-0" id="precioProducto">Precio: $7500 </span>
-                                    <a href="#" class="btn btn-primary ms-auto" id="agregarProducto">
-                                        Agregar a la canasta
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Item 10 -->
-            <div class="col">
-
-                <div class="card mb-3 product-h" data-category="cerveza">
-                    <div class="row g-0 align-items-center">
-                        <div class="col-md-4">
-                            <img src="../public/productos/latrocha.png" class="img-fluid rounded-start product-h-img"
-                                id="imagenProducto" alt="La Trocha" />
-                        </div>
-
-                        <div class="col-md-8">
-                            <div class="card-body d-flex flex-column h-100">
-                                <h5 class="card-title mb-2" id="nombreProducto">La Trocha</h5>
-
-                                <p class="card-text mb-3" id="descripcionProducto">
-                                    Producida por excombatientes de las FARC-EP en Bogotá. Busca generar ingresos para
-                                    los
-                                    excombatientes y sus familias, así como promover la reconciliación.
-                                </p>
-
-                                <ul class="list-unstyled small mb-3">
-                                    <li id="nombreProductor"> Productor:
-                                        <a href="#" class="producer-link">Ex-combatientes de las FACR.</a>
-                                    </li>
-                                    <li id="cantidadProducto">Presentación: 330 ml</li>
-                                </ul>
-
-                                <div class="mt-auto d-flex flex-wrap gap-2 align-items-center">
-                                    <span class="price mb-0" id="precioProducto"> Precio: $6000</span>
-                                    <a href="#" class="btn btn-primary ms-auto" id="agregarProducto">
-                                        Agregar a la canasta
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
-    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
-        crossorigin="anonymous"></script>
-    <script src="../js/navbar.js"></script>
-    <script src="../js/carrito.js"></script>
+        <!--HERO-->
+        <section class="hero-banner">
+            <div class="hero-fondo" role="img" aria-label="Paisaje cafetero">
+            </div>
+
+            <div class="hero-content container">
+                <h2>DESCUBRE LOS SABORES QUE TENEMOS PARA TI</h2>
+            </div>
+        </section>
+
+        <!--texto-->
+        <section class="container-introducción my-4">
+            <div class="row justify-content-center">
+                <h3 class="h4 mb-3">Origen con Propósito</h2>
+                    <p>
+                        Desde el corazón de Colombia, nuestros cafetales y cacaotales cuentan su origen.
+                        Trabajamos con familias y cooperativas que cuidan la tierra, apoyamos la paz, el liderazgo
+                        de las mujeres y la economía rural. Cada compra impulsa empleo digno y educación en las
+                        regiones, priorizando la trazabilidad, el comercio justo y la sostenibilidad.
+                        Elegirnos es sumar a la reconciliación y al progreso de Colombia.
+                    </p>
+            </div>
+        </section>
+        <section class="filtros">
+
+            <div class="container-category">
+                <input type="radio" name="categoria" id="todos" value="todos" checked hidden>
+                <label for="todos">TODOS</label>
+
+                <input type="radio" name="categoria" id="cafe" value="cafe" hidden>
+                <label for="cafe">CAFÉ DE ORIGEN</label>
+
+                <input type="radio" name="categoria" id="cacao" value="cacao" hidden>
+                <label for="cacao">CHOCOLATE DE ORIGEN</label>
+
+                <input type="radio" name="categoria" id="cerveza" value="cerveza" hidden>
+                <label for="cerveza">CERVEZAS ARTESANALES</label>
+            </div>
+        </section>
+        <section class="productos">
+            <div class="container my-4">
+
+                <!-- Productos -->
+                <div id="productosContainer" class="row row-cols-1 row-cols-md-2 g-4 justify-content-center"></div>
+            </div>
+        </section>
+
+    </main>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+    crossorigin="anonymous"></script>
+<script src="../js/navbar.js"></script>
+<script src="../js/catalogo.js"></script>
+<script src="../js/carrito.js"></script>
+<script src="../js/dataBase.js"></script>
 
 </html>

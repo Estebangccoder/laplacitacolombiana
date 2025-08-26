@@ -116,9 +116,14 @@ input[type="radio"] {
     opacity: 0.8;
 }
 
+.container-category label.activo {
+    background-color: #a55c2f;
+    color: white;
+}
+
 /* Funcionamiento del filtrado */
 
-input[type="radio"][value="CAFÉ DE ORIGEN"]:checked~.row .card:not([data-category~="cafe"]),
+/* input[type="radio"][value="CAFÉ DE ORIGEN"]:checked~.row .card:not([data-category~="cafe"]),
 input[type="radio"][value="CHOCOLATE DE ORIGEN"]:checked~.row .card:not([data-category~="cacao"]),
 input[type="radio"][value="CERVEZAS ARTESANALES"]:checked~.row .card:not([data-category~="cerveza"]) {
     display: none;
@@ -130,7 +135,7 @@ input[type="radio"][value="CERVEZAS ARTESANALES"]:checked~.container-category [f
 input[type="radio"][value="TODOS"]:checked~.container-category [for="todos"] {
     background-color: #a55c2f;
     color: white;
-}
+} */
 
 
 /* PRODUCTOS */
