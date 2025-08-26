@@ -24,6 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function agregarACarrito(){
   const carritoButtons = document.querySelectorAll('.agregar-btn');
+  const carritoCuerpo = document.getElementById("carrito-body");
+  carritoCuerpo.innerHTML = "";
   
   carritoButtons.forEach(button => {
     button.addEventListener('click', () => {
