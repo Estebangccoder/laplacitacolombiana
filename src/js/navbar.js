@@ -13,9 +13,9 @@ function mostrarNavBar() {
                 </div>
             </a>
             <div class="d-inline-flex">
-                <div class="d-inline-flex d-lg-none gap-2 me-3">
-                    <button class="btn p-0" type="button"><i class="bi bi-person-circle fs-3 text-white m-0"></i></button>
-                    <button class="btn p-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#carrito"
+                <div class="d-inline-flex d-lg-none gap-3 me-3">
+                    <button class="btn p-0 me-2" type="button"><i class="bi bi-person-circle fs-3 text-white m-0"></i></button>
+                    <button  class="btn p-0 me-2" type="button carrito-button" data-bs-toggle="offcanvas" data-bs-target="#carrito"
                     aria-controls="carrito"><i class="bi bi-basket-fill fs-3 text-white m-0"></i></button>
                 </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -26,11 +26,11 @@ function mostrarNavBar() {
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="quienessomos.html">QUIENES SOMOS</a></li>
                     <li class="nav-item"><a class="nav-link" href="contactanos.html">CONTACTANOS</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">TIENDA</a></li>
+                    <li class="nav-item"><a class="nav-link" href="catalogo.html">TIENDA</a></li>
                 </ul>
                 <ul class="navbar-nav d-none d-lg-inline-flex">
                     <button class="btn p-0 me-2" type="button"><i class="bi bi-person-circle fs-3 text-white m-0"></i></button>
-                    <button class="btn p-0 me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#carrito"
+                   <button class="btn p-0 me-2 carrito-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#carrito"
                     aria-controls="carrito"><i class="bi bi-basket-fill fs-3 text-white m-0"></i></button>
                 </ul>
             </div>
