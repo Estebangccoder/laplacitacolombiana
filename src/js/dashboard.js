@@ -29,7 +29,6 @@ function loadSection(section) {
       `;
     } else {
       content.innerHTML = `
-
         <h3 style="text-align:center;">Lista de productos</h3>
         <table id="tabla-productos">
           <thead>
