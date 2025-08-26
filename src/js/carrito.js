@@ -2,18 +2,12 @@ function ajustarOffcanvas() {
   const navbar = document.querySelector('#navbar');
   const offcanvas = document.querySelector('#carrito');
   const navbarHeight = navbar.offsetHeight;
-
   offcanvas.style.top = navbarHeight + 'px';
   offcanvas.style.height = `calc(100% - ${navbarHeight}px)`;
 }
 
-const carritoCuerpo = document.getElementById("carrito-body");
-if (carritoCuerpo.children.length === 0) {
-  carritoCuerpo.innerHTML = `<p id="texto-carro-vacio" class="text-center">No hay productos en el carrito</p>`
-}
-
 document.addEventListener('DOMContentLoaded', () => {
-  const carritoButtons = document.querySelectorAll('.carrito-button');
+  const carritoButtons = document.querySelectorAll('.agregar-btn');
   
   carritoButtons.forEach(button => {
     button.addEventListener('click', () => {
@@ -28,10 +22,21 @@ document.addEventListener('DOMContentLoaded', () => {
   ajustarOffcanvas();
 });
 
-window.addEventListener('resize', ajustarOffcanvas);
-window.addEventListener('load', ajustarOffcanvas);
+function agregarACarrito(){
+  const carritoButtons = document.querySelectorAll('.agregar-btn');
+  const carritoCuerpo = document.getElementById("carrito-body");
+  carritoCuerpo.innerHTML = "";
+  
+  carritoButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const producto = document.getElementById('carrito');
+      const bsOffcanvas = new bootstrap.Offcanvas(offcanvasEl);
+      bsOffcanvas.show();
 
-
+      renderCarrito();
+    });
+  });
+}
 function renderCarrito() {
   const carritoCuerpo = document.getElementById("carrito-body");
   carritoCuerpo.innerHTML = "";
@@ -121,3 +126,5 @@ en las importaciones de Js:
 
 <script type="module" src="../js/carrito.js"></script>
 */
+
+window.addEventListener('load', ajustarOffcanvas);

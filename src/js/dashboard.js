@@ -1,5 +1,3 @@
-import { productos as productosDB } from "./dataBase.js";
-
 function loadSection(section) {
   const content = document.getElementById("main-content");
   const breadcrumb = document.getElementById("breadcrumb");
@@ -11,7 +9,7 @@ function loadSection(section) {
       .then(res => res.text())
       .then(html => {
         content.innerHTML = html;
-        cargarSugerenciasProductores(); // 👈 Aquí se cargan las sugerencias
+        cargarSugerenciasProductores(); 
       })
       .catch(err => {
         content.innerHTML = "<p>Error al cargar la sección.</p>";
@@ -21,11 +19,6 @@ function loadSection(section) {
 
   } else if (section === "ver-productos") {
     breadcrumb.textContent = "Dashboards / Gestión de productos / Ver todos los productos";
-
-
-    if (!localStorage.getItem("productos")) {
-      localStorage.setItem("productos", JSON.stringify(productosDB));
-    }
 
     const productos = JSON.parse(localStorage.getItem("productos") || "[]");
 
@@ -51,12 +44,14 @@ function loadSection(section) {
             </tr>
           </thead>
           <tbody>
-            ${productos.map((p, index) => `
+            ${productos.map((p, index) =>
+              `
               <tr>
-                <td><img src="${p.img}" alt="${p.nombre}" style="width:50px;height:50px;"></td>
+                <td><img src="${p.imagen.startsWith("data:") ? p.imagen : `../public/img/productos/${p.imagen}`}" 
+                alt="${p.nombre}" style="width:50px;height:50px;"></td>
                 <td>${p.nombre}</td>
                 <td>${p.categoria}</td>
-                <td>${p.cantidad_inventario}</td>
+                <td>${p.cantidad}</td>
                 <td>$${p.precio}</td>
                 <td>${p.productor}</td>
                 <td>
@@ -86,6 +81,7 @@ function loadSection(section) {
         content.innerHTML = "<p>Error al cargar la sección.</p>";
         console.error("Error al cargar agregar-productor.html:", err);
       });
+
   } else if (section === "agregar-publicacion") {
     breadcrumb.textContent = "Dashboards / Gestión de publicaciones / Agregar publicación";
     fetch("../pages/agregar-publicacion.html")
@@ -101,6 +97,7 @@ function loadSection(section) {
         content.innerHTML = "<p>Error al cargar la sección.</p>";
         console.error("Error al cargar agregar-publicacion.html:", err);
       });
+      
   } else if (section === "ver-publicaciones") {
     breadcrumb.textContent = "Dashboards / Gestión de publicaciones / Ver publicaciones";
     const publicaciones = JSON.parse(localStorage.getItem("publicaciones") || "[]");
@@ -142,16 +139,22 @@ function guardarProducto(event) {
   const file = document.getElementById("imagen").files[0];
 
   reader.onload = function () {
+    const productos = JSON.parse(localStorage.getItem("productos") || "[]");
+    let maxCodigo = 1000;
+    if (productos.length > 0) {
+      maxCodigo = Math.max(...productos.map(p => p.codigo || 1000));
+    }
     const producto = {
+      codigo: maxCodigo + 1,
       nombre: document.getElementById("nombre").value,
       productor: document.getElementById("productor").value,
+      descripcion: document.getElementById("descripcion").value,
       categoria: document.getElementById("categoria").value,
       cantidad: document.getElementById("cantidad").value,
       precio: document.getElementById("precio").value,
-      imagen: reader.result
+      imagen: reader.result,
+      presentacion: document.getElementById("presentacion").value
     };
-
-    const productos = JSON.parse(localStorage.getItem("productos") || "[]");
     productos.push(producto);
     localStorage.setItem("productos", JSON.stringify(productos));
     alert("Producto agregado correctamente");
