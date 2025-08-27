@@ -1,3 +1,5 @@
+const productos = JSON.parse(localStorage.getItem("productos") || "[]");
+
 const productosDB = [
   {
     codigo: 1001,
@@ -9,7 +11,7 @@ const productosDB = [
     productor: "Finca El Mirador - Familia Ramírez",
     img: "cafe-bourbon.webp",
     alt: "Café variedad Bourbon",
-    cantidad_inventario: 100,
+    cantidad_inventario: 2,
   },
   {
     codigo: 1002,
@@ -123,26 +125,25 @@ const productosDB = [
 
 
 function cargarLocalStorage() {
-  const productos = JSON.parse(localStorage.getItem("productos") || "[]");
   let maxCodigo = productos.length > 0 ? Math.max(...productos.map(p => p.codigo)) : 1000;
   if (productos.length === 0) {
-    productosDB.forEach(producto => {
-      const p = {
+    productosDB.forEach(p => {
+      const producto = {
         codigo: maxCodigo + 1,
-        nombre: producto["nombre"],
-        productor: producto["productor"],
-        descripcion: producto["descripcion"],
-        categoria: producto["categoria"],
-        cantidad: producto["cantidad_inventario"],
-        precio: producto["precio"],
-        imagen: producto["img"],
-        presentacion: producto["presentacion"],
+        nombre: p["nombre"],
+        productor: p["productor"],
+        descripcion: p["descripcion"],
+        categoria: p["categoria"],
+        cantidad: p["cantidad_inventario"],
+        precio: p["precio"],
+        imagen: p["img"],
+        presentacion: p["presentacion"],
       };
-      productos.push(p);
+      productos.push(producto);
       maxCodigo++;
     });
-    localStorage.setItem("productos", JSON.stringify(productos));
-  }
+  } 
+  localStorage.setItem("productos", JSON.stringify(productos));
 }
 
 document.addEventListener("DOMContentLoaded", cargarLocalStorage());
