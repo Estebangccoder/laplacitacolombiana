@@ -1,4 +1,6 @@
-export const productos = [
+const productos = JSON.parse(localStorage.getItem("productos") || "[]");
+
+const productosDB = [
   {
     codigo: 1001,
     nombre: "Bourbon Clásico",
@@ -7,10 +9,9 @@ export const productos = [
     precio: 55000,
     categoria: "cafe",
     productor: "Finca El Mirador - Familia Ramírez",
-    img: "../public/img/productos/cafe-bourbon.webp",
+    img: "cafe-bourbon.webp",
     alt: "Café variedad Bourbon",
-    cantidad_inventario: 100,
-    cantidad_carrito: 0
+    cantidad_inventario: 2,
   },
   {
     codigo: 1002,
@@ -20,10 +21,9 @@ export const productos = [
     precio: 52000,
     categoria: "cafe",
     productor: "Finca la Arboleda - Don Julián y su familia",
-    img: "../public/img/productos/cafe-catui.webp",
+    img: "cafe-catui.webp",
     alt: "Cafe variedad catui",
     cantidad_inventario: 100,
-    cantidad_carrito: 0
   },
   {
     codigo: 1003,
@@ -33,10 +33,9 @@ export const productos = [
     precio: 60000,
     categoria: "cafe",
     productor: "Finca Los Andes - Cooperativa Mujeres Cafeteras",
-    img: "../public/img/productos/etiope.webp",
+    img: "etiope.webp",
     alt: "Cafe variedad herencia etiope",
     cantidad_inventario: 100,
-    cantidad_carrito: 0
   },
   {
     codigo: 1004,
@@ -46,10 +45,9 @@ export const productos = [
     precio: 48000,
     categoria: "cafe",
     productor: "Finca Santa Rosa – Familia Gutiérrez",
-    img: "../public/img/productos/gesha.webp",
+    img: "gesha.webp",
     alt: "Cafe variedad Gesha",
     cantidad_inventario: 100,
-    cantidad_carrito: 0
   },
   {
     codigo: 1005,
@@ -59,10 +57,9 @@ export const productos = [
     precio: 10500,
     categoria: "cacao",
     productor: "Mujeres víctimas del conflicto en Rionegro, Santander",
-    img: "../public/img/productos/cacao-paz.webp",
+    img: "cacao-paz.webp",
     alt: "Chocolate aroma de paz",
     cantidad_inventario: 100,
-    cantidad_carrito: 0
   },
   {
     codigo: 1006,
@@ -72,10 +69,9 @@ export const productos = [
     precio: 12000,
     categoria: "cacao",
     productor: "ASOMUCAN",
-    img: "../public/img/productos/Anori.png",
+    img: "Anori.png",
     alt: "Anori",
     cantidad_inventario: 100,
-    cantidad_carrito: 0
   },
   {
     codigo: 1007,
@@ -85,10 +81,9 @@ export const productos = [
     precio: 7500,
     categoria: "cerveza",
     productor: "Ex-combatientes de las FARC",
-    img: "../public/img/productos/laroja.png",
+    img: "laroja.png",
     alt: "La Roja",
     cantidad_inventario: 100,
-    cantidad_carrito: 0
   },
   {
     codigo: 1008,
@@ -98,10 +93,9 @@ export const productos = [
     precio: 6000,
     categoria: "cerveza",
     productor: "Ex-combatientes de las FARC",
-    img: "../public/img/productos/latrocha.png",
+    img: "latrocha.png",
     alt: "La Trocha",
     cantidad_inventario: 100,
-    cantidad_carrito: 0
   },
   {
     codigo: 1009,
@@ -111,10 +105,9 @@ export const productos = [
     precio: 15000,
     categoria: "cacao",
     productor: "Cordillera Company",
-    img: "../public/img/productos/Cordillera.png",
+    img: "Cordillera.png",
     alt: "Cordillera",
     cantidad_inventario: 100,
-    cantidad_carrito: 0
   },
   {
     codigo: 1010,
@@ -124,9 +117,33 @@ export const productos = [
     precio: 14000,
     categoria: "cacao",
     productor: "Late Chocó",
-    img: "../public/img/productos/latechoco.png",
+    img: "latechoco.png",
     alt: "Late Choco",
     cantidad_inventario: 100,
-    cantidad_carrito: 0
   }
 ];
+
+
+function cargarLocalStorage() {
+  let maxCodigo = productos.length > 0 ? Math.max(...productos.map(p => p.codigo)) : 1000;
+  if (productos.length === 0) {
+    productosDB.forEach(p => {
+      const producto = {
+        codigo: maxCodigo + 1,
+        nombre: p["nombre"],
+        productor: p["productor"],
+        descripcion: p["descripcion"],
+        categoria: p["categoria"],
+        cantidad: p["cantidad_inventario"],
+        precio: p["precio"],
+        imagen: p["img"],
+        presentacion: p["presentacion"],
+      };
+      productos.push(producto);
+      maxCodigo++;
+    });
+  } 
+  localStorage.setItem("productos", JSON.stringify(productos));
+}
+
+document.addEventListener("DOMContentLoaded", cargarLocalStorage());

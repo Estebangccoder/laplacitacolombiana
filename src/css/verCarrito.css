@@ -1,0 +1,27 @@
+@import url(./normalize.css);
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Nunito:wght@400;600&display=swap');
+
+/* Fonts */
+:root {
+    --fuente-titulos: 'Cormorant Garamond', serif;
+    --fuente-texto: 'Nunito', sans-serif;
+
+    --peso-ligero: 300;
+    --peso-normal: 400;
+    --peso-semi-bold: 600;
+    --peso-bold: 700;
+
+    --bg-titulos: #f0d260;
+    --bg-botones: #ad132b;
+}
+
+#descrCarrito #prodCarrito,
+#valorCarrito .costo-total {
+    background-color: #f4f4f4;
+}
+
+#prodCarrito .item-carrito {
+    background-color: #fff;
+}
+
