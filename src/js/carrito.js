@@ -76,7 +76,7 @@ function renderCarrito() {
 
       item.innerHTML = `
         <div class="col-2">
-          <img src="${p.imagen.startsWith("data:") ? p.imagen : `../public/img/productos/${p.imagen}`}" 
+          <img src="${p.imagen ? (p.imagen.startsWith("data:") ? p.imagen : `../public/img/productos/${p.imagen}`) : " "}" 
           alt="${p.nombre}" style="width:60px; height:60px; object-fit:cover;">
         </div>
         <div class="col-5 flex-grow-1">
