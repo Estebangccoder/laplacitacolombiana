@@ -1,36 +1,68 @@
 <h3>Agregar producto</h3>
-<form onsubmit="guardarProducto(event)">
-    <label for="categoria">Categoría:</label><br>
-    <select id="categoria" required>
-        <option value="">Selecciona una categoría</option>
-        <option value="Café">Café</option>
-        <option value="Cacao">Cacao</option>
-        <option value="Cerveza">Cerveza</option>
-    </select><br><br>
+<div class="container mt-5 p-4 p-xl-5">
+    <form id="contactForm" class="row g-3 p-3 mx-auto rounded-4 border border-2" onsubmit="guardarProducto(event)">
+        <div class="col-12">
+            <label for="categoria">Categoría:</label>
+            <select id="categoria" required>
+                <option value="0">Selecciona una categoría</option>
+                <option value="Cafe">Café</option>
+                <option value="Cacao">Cacao</option>
+                <option value="Cerveza">Cerveza</option>
+            </select>
+        </div>
 
-    <label for="nombre">Nombre del producto:</label><br>
-    <input type="text" id="nombre" required><br><br>
+        <div class="col-12">
+            <label for="nombre">Nombre del producto:</label>
+            <input type="text" id="nombre" required>
+        </div>
 
+        <div class="col-12">
+            <label for="productor">Productor:</label>
+            <select id="productor" name="productor" required>
+                <option value="0">Selecciona un productor</option>
+            </select>
+        </div>
 
-    <label for="productor">Productor:</label>
-    <input type="text" id="productor" name="productor" list="lista-productores" required>
-    <datalist id="lista-productores"></datalist>
+        <div class="col-12">
+            <label for="descripcion">Descripción:</label>
+            <input type="text" id="descripcion" required>
+        </div>
 
+        <div class="col-12">
+            <label for="cantidad">Cantidad:</label>
+            <input type="number" id="cantidad" min=0 required>
+        </div>
 
-    <label for="descripcion">Descripción:</label><br>
-    <input type="text" id="descripcion" required><br><br>
+        <div class="col-12">
+            <label for="precio">Precio:</label>
+            <input type="number" id="precio" required>
+        </div>
 
-    <label for="cantidad">Cantidad:</label><br>
-    <input type="number" id="cantidad" required><br><br>
+        <div class="col-12">
+            <label for="presentacion">Presentación:</label>
+            <div class="row">
+                <div class="col-8">
+                    <input type="number" min=0 id="presentacion" required>
+                </div>
+                <div class="col-4">
+                    <select id="medida" required>
+                        <option value="0">Medida</option>
+                        <option value="gr">Gramos</option>
+                        <option value="kl">Kilos</option>
+                        <option value="ml">Mililitros</option>
+                        <option value="l">Litros</option>
+                    </select>
+                </div>
+            </div>
+        </div>
 
-    <label for="precio">Precio:</label><br>
-    <input type="number" id="precio" required><br><br>
-    
-    <label for="presentacion">Presentación:</label><br>
-    <input type="text" id="presentacion" required><br><br>
+        <div class="col-12">
+            <label for="imagen">Imagen del producto:</label>
+            <input type="file" id="imagen" accept="image/*" required>
+        </div>
 
-    <label for="imagen">Imagen del producto:</label><br>
-    <input type="file" id="imagen" accept="image/*" required><br><br>
-
-    <button type="submit">Agregar producto</button>
-</form>
+        <div class="col-12 pt-4 text-center">
+            <button id="submitBtn" class="contactForm button" type="submit">Enviar</button>
+        </div>
+    </form>
+</div>

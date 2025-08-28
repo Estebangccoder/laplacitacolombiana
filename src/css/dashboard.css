@@ -306,12 +306,13 @@ footer {
 .producto-info button:nth-child(2):hover {
   background-color: #c82333;
 }
-#tabla-productos {
-  width: 90%;
+
+/* #tabla-productos {
   margin: 30px auto;
   border-collapse: collapse;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 10px;
 }
 #tabla-productos th, #tabla-productos td {
   padding: 12px 15px;
@@ -347,7 +348,7 @@ background-color: #f2f2f2;
 }
 #tabla-productos button:nth-child(2):hover {
 background-color: #c82333;
-}
+} */
 
 /*------------------------------------------------------ 
 # Navbar mb 

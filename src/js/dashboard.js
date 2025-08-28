@@ -1,3 +1,4 @@
+
 function loadSection(section) {
   const content = document.getElementById("main-content");
   const breadcrumb = document.getElementById("breadcrumb");
@@ -9,7 +10,7 @@ function loadSection(section) {
       .then(res => res.text())
       .then(html => {
         content.innerHTML = html;
-        cargarSugerenciasProductores(); 
+        cargarSugerenciasProductores();
       })
       .catch(err => {
         content.innerHTML = "<p>Error al cargar la sección.</p>";
@@ -29,10 +30,10 @@ function loadSection(section) {
       `;
     } else {
       content.innerHTML = `
-        <h3 style="text-align:center;">Lista de productos</h3>
-        <table id="tabla-productos">
+        <h3 class="mb-5">Lista de productos</h3>
+        <table id="tabla-productos" class="table table-hover">
           <thead>
-            <tr>
+            <tr class="table-primary">
               <th>Imagen</th>
               <th>Nombre</th>
               <th>Categoría</th>
@@ -44,7 +45,7 @@ function loadSection(section) {
           </thead>
           <tbody>
             ${productos.map((p, index) =>
-              `
+        `
               <tr>
                 <td><img src="${p.imagen.startsWith("data:") ? p.imagen : `../public/img/productos/${p.imagen}`}" 
                 alt="${p.nombre}" style="width:50px;height:50px;"></td>
@@ -54,14 +55,42 @@ function loadSection(section) {
                 <td>$${p.precio}</td>
                 <td>${p.productor}</td>
                 <td>
-                  <button onclick="editarProducto(${index})">Editar</button>
-                  <button onclick="eliminarProducto(${index})">Eliminar</button>
+                  <button type="button" class="btn btn-success" onclick="editarProducto(${index})">
+                    <i class="bi bi-pen"></i>
+                  </button>
+                  <button type="button" class="btn btn-danger" onclick="eliminarProducto(${index})">
+                    <i class="bi bi-trash3"></i>
+                  </button>
                 </td>
               </tr>
             `).join("")}
           </tbody>
         </table>
       `;
+
+      new DataTable("#tabla-productos", {
+        responsive: true,
+        autoWidth: false,
+        language: {
+          decimal: "",
+          emptyTable: "No hay información",
+          info: "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+          infoEmpty: "Mostrando 0 a 0 de 0 Entradas",
+          infoFiltered: "(Filtrado de _MAX_ total entradas)",
+          thousands: ",",
+          lengthMenu: "Mostrar _MENU_ Entradas",
+          loadingRecords: "Cargando...",
+          processing: "Procesando...",
+          search: "Buscar:",
+          zeroRecords: "Sin resultados encontrados",
+          paginate: {
+            first: "Primero",
+            last: "Último",
+            next: "Siguiente",
+            previous: "Anterior"
+          }
+        }
+      });
     }
 
   } else if (section === "agregar-productor") {
@@ -96,7 +125,7 @@ function loadSection(section) {
         content.innerHTML = "<p>Error al cargar la sección.</p>";
         console.error("Error al cargar agregar-publicacion.html:", err);
       });
-      
+
   } else if (section === "ver-publicaciones") {
     breadcrumb.textContent = "Dashboards / Gestión de publicaciones / Ver publicaciones";
     const publicaciones = JSON.parse(localStorage.getItem("publicaciones") || "[]");
@@ -133,6 +162,18 @@ function loadSection(section) {
 
 function guardarProducto(event) {
   event.preventDefault();
+
+  const productor = document.getElementById('productor');
+  if (productor.value === "0") {
+    alert("Por favor seleccione un productor válido.");
+    return;
+  }
+  
+  const cantidad = document.getElementById('cantidad');
+  if (cantidad.value === "0") {
+    alert("La cantidad de un producto debe ser mayor a cero.");
+    return;
+  }
 
   const reader = new FileReader();
   const file = document.getElementById("imagen").files[0];
@@ -176,7 +217,12 @@ function guardarProductor(event) {
 
   const productores = JSON.parse(localStorage.getItem("productores") || "[]");
   if (!productores.includes(nombre)) {
-    productores.push(nombre);
+    let maxCodigoProductores = productores.length > 0 ? Math.max(...productores.map(p => p.codigo)) : 1000;
+    const productor = {
+      codigo: maxCodigoProductores + 1,
+      nombre: p["nombre"],
+    };
+    productores.push(productor);
     localStorage.setItem("productores", JSON.stringify(productores));
     input.value = "";
     mostrarProductoresRegistrados();
@@ -216,11 +262,19 @@ function editarProducto(index) {
 
 
 function cargarSugerenciasProductores() {
-  const datalist = document.getElementById("lista-productores");
-  if (!datalist) return;
+  const select = document.getElementById("productor");
+  if (!select) return;
 
   const productores = JSON.parse(localStorage.getItem("productores") || "[]");
-  datalist.innerHTML = productores.map(p => `<option value="${p}">`).join("");
+  if (productores.length > 0) {
+    select.innerHTML = '<option value="0">Seleccione un productor</option>';
+    productores.forEach(p => {
+      const option = document.createElement('option');
+      option.value = p.codigo;
+      option.textContent = p.nombre;
+      select.appendChild(option);
+    });
+  }
 }
 
 function guardarPublicacion(event) {
@@ -330,6 +384,15 @@ function actualizarPublicacion(index, imagenBase64) {
 }
 
 
+/*-------------------------------------------------------------------------------------------------
+// Validación campos formulario
+-------------------------------------------------------------------------------------------------*/
+
+
+
+/*-------------------------------------------------------------------------------------------------
+// Fin validación campos formulario
+-------------------------------------------------------------------------------------------------*/
 window.loadSection = loadSection;
 window.toggleSubmenu = toggleSubmenu;
 window.eliminarProducto = eliminarProducto;
