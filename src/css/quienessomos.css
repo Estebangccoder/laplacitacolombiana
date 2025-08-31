@@ -14,21 +14,110 @@
 
     --bg-titulos: #f0d260;
     --bg-botones: #ad132b;
+
+    --box-pad: 2rem;
+
+
+
 }
 
 body {
     box-sizing: border-box;
-    background-image: url("../public/img/finca_colombia.webp");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    background-color: rgba(0, 0, 0, 0.4);
-    background-blend-mode: darken;
+
 }
+
+/* -----------------------------------------------------------------
+# Frase Bloque
+------------------------------------------------------------------*/
+.frase {
+    font-family: var(--fuente-texto);
+    font-style: italic;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: .9rem 1.2rem;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    color: black;
+}
+
+
+.frase+.frase-underline {
+    width: 500px;
+    height: 3px;
+    margin: .5rem auto 0;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--bg-botones), var(--bg-titulos));
+}
+
+/* -----------------------------------------------------------------
+# Carrusel
+------------------------------------------------------------------*/
+.principal {
+    max-width: 600px;
+    width: min(100%, 600px);
+    margin: 0 auto;
+}
+
+#carouselExampleCaptions img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#carouselExampleCaptions {
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 3 / 2;
+    width: 100%;
+    position: relative;
+}
+
+#carouselExampleCaptions .carousel-inner,
+#carouselExampleCaptions .carousel-item {
+    height: 100%;
+}
+
+.carousel-caption {
+    position: absolute;
+    bottom: 1%;
+    left: 0;
+    width: 100%;
+    padding: 0.8rem 1.2rem;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    text-align: center;
+    z-index: 2;
+}
+
+.carousel-caption h5 {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-bold);
+    font-size: clamp(1rem, 2vw, 1.4rem);
+    color: var(--bg-titulos);
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
 
 /* -----------------------------------------------------------------
 # Seccion Mision Vision 
 ------------------------------------------------------------------*/
+
+#mision-vision {
+    margin-top: 4rem;
+}
+
+#mision-vision img {
+    max-width: 500px;
+    width: 100%;
+    height: auto;
+    border: 4px solid #ad132b;
+    border-radius: 12px;
+}
 
 #contenido-mision-vision {
     background-color: rgba(255, 255, 255, 0.7);
@@ -38,7 +127,7 @@ body {
     max-width: 700px;
     margin: 0 auto;
     border: 1px solid #ddd;
-    border-radius: 0 3rem 3rem 0;
+    border-radius: 3rem;
     overflow: hidden;
 }
 
@@ -85,12 +174,24 @@ body {
 /*------------------------------------------------------------- 
 # Seccion Valores Aporte ODS
 -------------------------------------------------------------*/
+#valores-ods {
+    margin-top: 4rem;
+}
+
+#valores-ods img {
+    max-width: 500px;
+    width: 100%;
+    height: auto;
+    border: 4px solid #ad132b;
+    border-radius: 12px;
+}
+
 
 .card-valores-ods {
     max-width: 900px;
     margin: 0 auto;
     border: 1px solid #ddd;
-    border-radius: 3rem 0 0 3rem;
+    border-radius: 3rem;
     overflow: hidden;
 }
 
@@ -148,9 +249,6 @@ body {
     transition: transform 0.2s ease;
 }
 
-.valores-lista li:hover {
-    transform: translateX(5px);
-}
 
 .enlaces_valores {
     background-color: #F0D260;
@@ -162,7 +260,7 @@ body {
 }
 
 #title_general {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     font-weight: bold;
     font-family: var(--fuente-titulos);
 }
@@ -179,6 +277,8 @@ body {
 /*------------------------------------------------------------- 
 # INICIO CSS con-quien-trabajamos
 -------------------------------------------------------------*/
+
+
 #con-quien-trabajamos .contenido {
     border: 1px solid #ddd;
     border-radius: 3rem;
@@ -186,14 +286,15 @@ body {
 
 #con-quien-trabajamos .titulo {
     font-family: var(--fuente-titulos);
-    font-size: 2.5rem;
-    background-color: var(--bg-titulos); 
-    border-radius: 3rem 3rem 0 0 ;
+    font-size: 1.5rem;
+
+    background-color: var(--bg-titulos);
+    border-radius: 3rem 3rem 0 0;
 }
 
 #con-quien-trabajamos .container-texto {
     font-family: var(--fuente-texto);
-    font-size: 1.1rem;
+    font-size: 1rem;
     background-color: rgba(255, 255, 255, 0.7);
     border-radius: 0 0 3rem 3rem;
     border: 0.5px solid #ddd;
@@ -209,32 +310,32 @@ body {
 
 #con-quien-trabajamos .titulo-menu {
     font-family: var(--fuente-titulos);
-    font-size: 1.5rem;
+    font-size: 1.3rem;
+
 }
 
 #con-quien-trabajamos .frase {
     font-family: var(--fuente-titulos);
-    font-size: 2rem;
+    font-size: 1.4rem;
     flex-shrink: 2;
     color: white;
 }
 
 @media (max-width: 1351px) {
     #con-quien-trabajamos .titulo {
-        font-size: 3rem;
+        font-size: 1.4rem;
     }
 
     #con-quien-trabajamos .texto {
-        font-size: 1.1rem;
+        font-size: 0.95rem;
     }
 
     #con-quien-trabajamos .titulo-menu {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
     }
 
     #con-quien-trabajamos .frase {
-        font-size: 1.8rem;
-        flex-shrink: 2;
+        font-size: 1.3rem;
     }
 }
 
@@ -242,28 +343,11 @@ body {
 
     #con-quien-trabajamos .titulo,
     #con-quien-trabajamos .frase {
-        font-size: 2rem;
+        font-size: 1.2rem;
     }
 
     #con-quien-trabajamos .titulo-menu {
-        font-size: 1.5rem;
-    }
-
-    #con-quien-trabajamos .width {
-        width: 40% !important;
-    }
-
-    #con-quien-trabajamos .width-lg {
-        width: 30% !important;
-    }
-
-    #con-quien-trabajamos .container-menu {
-        display: flex;
-        justify-content: space-evenly !important;
-    }
-
-    #con-quien-trabajamos .menu {
-        height: 50%;
+        font-size: 1.1rem;
     }
 }
 
@@ -271,11 +355,11 @@ body {
 
     #con-quien-trabajamos .titulo,
     #con-quien-trabajamos .frase {
-        font-size: 2rem;
+        font-size: 1.1rem;
     }
 
     #con-quien-trabajamos .titulo-menu {
-        font-size: 1.3rem;
+        font-size: 1rem;
     }
 }
 
@@ -284,11 +368,11 @@ body {
     #con-quien-trabajamos .titulo,
     #con-quien-trabajamos .frase,
     #con-quien-trabajamos .titulo-menu {
-        font-size: 1.2rem;
+        font-size: 0.9rem;
     }
 
     .texto {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
     }
 }
 
@@ -300,17 +384,33 @@ body {
 # Seccion Nosotros
 ------------------------------------------------------------------*/
 
-/* #container-nosotros .flip-card{
-     background-color: rgba(255, 255, 255, 1);    
-}  */
+#container-nosotros {
+    background: #fff;
+    border-radius: 16px;
+    padding: var(--box-pad);
+    margin-top: 4rem;
+    margin: 4rem ; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
 
 #nosotros {
-    text-align: center;
+    background: var(--bg-titulos);
+    color: #000;
     font-family: 'Cormorant Garamond', serif;
-    font-size: 2.5rem;
-    color: white;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-align: center;
+    padding: 0.8rem;
+    border-radius: 12px 12px 0 0;
+    margin: -2rem -2rem 2rem -2rem;
+}
+
+#container-nosotros .row {
+    margin-left: calc(var(--box-pad) * -1);
+    margin-right: calc(var(--box-pad) * -1);
+    padding-left: var(--box-pad);
+    padding-right: var(--box-pad);
 }
 
 .flip-card {
@@ -340,9 +440,6 @@ body {
     height: 100%;
     border-radius: 20px;
     backface-visibility: hidden;
-    /* background: linear-gradient(135deg, rgba(159, 170, 104, 0.6), rgba(242, 139, 11, 0.2)); 
-    backdrop-filter: blur(8px); 
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25); */
     background-color: var(--bg-titulos);
     display: flex;
     flex-direction: column;
@@ -365,21 +462,21 @@ body {
 .card-img-top {
     width: 200px;
     height: 200px;
-    object-fit: cover;
-    border-radius: 50%;
+    object-fit: contain;
+    border-radius: 20%;
     margin-bottom: 12px;
 }
 
 .card-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 20px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.5rem;
     color: black;
     margin-bottom: 8px;
 }
 
 .card-text {
     font-family: 'Nunito', sans-serif;
-    font-size: 14px;
+    font-size: 0.8rem;
     color: black;
 }
 
