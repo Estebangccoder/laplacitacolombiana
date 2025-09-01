@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La placita colombiana</title>
+    <link rel="shortcut icon" href="../public/img/favicon-nb.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
+    <link rel="stylesheet" href="../css/landingpage.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/carrito.css">
+
+
+</head>
+
+<body>
+    <header id="navbar"></header>
+    <main>
+        <!--Carrito de compras-->
+        <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="carrito" aria-labelledby="carrito">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title fw-bold" id="carrito">Carrito de compras</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div id="carrito-body" class="offcanvas-body">
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div  class="col-3-intro">
+                <img id="logo-placita" src="../public/img/navbarlogo.png" alt="logo la placita Colombiana">
+                <h1 id="nombre-pagina"> LA PLACITA COLOMBIANA</h1>
+                <p id="intro-pagina">
+                    En La Placita Colombiana creemos en un campo que florece en paz, equidad y sostenibilidad. Somos una
+                    comunidad que conecta a productores de café, cacao y cerveza artesanal nacidos de la sustitución de
+                    cultivos ilícitos con consumidores que valoran el origen, la dignidad y la innovación. Nuestro
+                    propósito es simple: transformar cada compra en un acto de apoyo al desarrollo rural, al trabajo
+                    decente y a los valores que construyen una Colombia más justa y solidaria.
+                </p>
+            </div>
+            <div class="col-3-cafe">
+                <img id="cafe-intro" src="../public/img/Cafe-intro.webp" alt="Fotografia empaque de café">
+            </div>
+            <div class="col-3-cerveza">
+                <img id="cerveza-intro" src="../public/img/cerveza-intro.webp" alt="Fotografia botella de cerveza artesanal">
+            </div>
+            <div class="col-3-cacao">
+                <img id="cacao-intro" src="../public/img/cacao-intro.webp" alt="Fotografia empaque de chocolate">
+            </div>
+        </div>
+        <h2 id="destacados"> Nuestros productos destacados</h2>
+        <div class="row">
+            <div class="col-4">
+                <h3 id="destacado-1"> ¿Un cafecito? </h3>
+                <a href="#">
+                    <img id="cafe-destacado"  src="../public/img/LA-MARIA (1).webp" alt="cafe destacado la maria">
+                </a>
+            </div>
+            <div class="col-4">
+                <h3 id="destacado-2"> ¿Un chocolatico caliente? </h3>
+                <a href="#">
+                    <img id="chocolate-destacado"  src="../public/img/LAS-NIÑAS.webp" alt="chocolate destacado las niñas">
+                </a>
+            </div>
+            <div class="col-4">
+                <h3 id="destacado-3"> ¿Una cerveza para el calor? </h3>
+                <a href="#">
+                    <img id="cerveza-destacada"  src="#" alt="cerveza la roja">
+                </a>
+            </div>
+        </div>
+
+
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+    crossorigin="anonymous"></script>
+<script type="module" src="../js/quienessomos.js"></script>
+<script src="../js/navbar.js"></script>
+<script type="module" src="../js/carrito.js"></script>
+
+</html>
