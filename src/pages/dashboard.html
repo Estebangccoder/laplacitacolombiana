@@ -6,14 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin - La Placita Colombiana</title>
     <link rel="shortcut icon" href="../public/img/favicon-nb.png" type="image/png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/dashboard.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.dataTables.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
 
@@ -21,9 +19,9 @@
 
 <body>
     <div id="dashboard" class="container-fluid p-0">
-        <aside class="sidebar">
+        <aside class="sidebar d-lg-inline-flex d-none">
             <img src="../public/img/navbarlogo.png" alt="Logo"
-                class="logo-navbar border border-4 border-white rounded-circle mx-auto" width="90">
+                class="logo-navbar border border-4 border-white rounded-circle mx-auto d-block" width="90">
             <h2 class="mb-5 text-center">La Placita Colombiana</h2>
 
             <nav>
@@ -67,66 +65,134 @@
                 </ul>
             </nav>
             <div class="sidebar-footer">
-                <a href="#"><i class="bi bi-info-circle me-3"></i>Acerca</a>
-                <a href="#"><i class="bi bi-headset me-3"></i>Soporte</a>
+                <button type="button" class="btn p-0 border border-0" data-bs-toggle="modal" data-bs-target="#acercaDe">
+                    <i class="bi bi-info-circle me-3"></i>Acerca
+                </button>
+                <a href="https://wa.me/573125534565?text=Hola,%20bienvenido%20a%20a%20Mesa%20de%20Ayuda%20de%20La%20Placita%20Colombiana"
+                    target="_blank"><i class="bi bi-headset me-3"></i>Soporte</a>
             </div>
         </aside>
 
-        <nav id="nav-md" class="m-0 px-4 navbar bg-danger d-none" style="border:2px solid red">
-            <div class="container-fluid p-0">
-                <a class="navbar-brand" href="#">Navbar</a>
-                <ul class="#navbar-nav ul-md d-flex justify-content-center align-items-center mb-0">
-                    <li class="nav-item" onclick="loadSection('home')">
-                        <span><i class="bi bi-house-door-fill me-3"></i></span>
-                    </li>
+        <aside class="sidebar-lg d-lg-none d-inline-flex">
+            <div class="d-flex flex-column justify-content-between">
+                <img src="../public/img/navbarlogo.png" alt="Logo"
+                    class="logo-navbar border border-4 border-white rounded-circle d-block mb-4" width="42">
 
-                    <li class="has-submenu">
-                        <span onclick="toggleSubmenu(this)"><i class="bi bi-box-seam-fill me-3"></i></span>
-                        <ul class="submenu">
-                            <li onclick="loadSection('ver-productos')">Ver todos los productos</li>
-                            <li onclick="loadSection('agregar-producto')">Agregar producto</li>
-                        </ul>
-                    </li>
+                <nav>
+                    <ul>
+                        <li onclick="loadSection('home')">
+                            <span><i class="bi bi-house-door-fill me-3 fs-2"></i></span>
+                        </li>
 
-                    <li onclick="loadSection('ventas')">
-                        <span><i class="bi bi-basket-fill me-3"></i></span>
-                    </li>
+                        <li>
+                            <div class="btn-group dropend">
+                                <button type="button" class="btn m-0 p-0 dropdown-toggle" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <span class="m-0">
+                                        <i class="bi bi-box-seam-fill fs-2"></i>
+                                    </span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li onclick="loadSection('ver-productos')">Ver todos los productos</li>
+                                    <li onclick="loadSection('agregar-producto')">Agregar producto</li>
+                                </ul>
+                            </div>
+                        </li>
 
-                    <li class="has-submenu">
-                        <span onclick="toggleSubmenu(this)"><i class="bi bi-person-vcard-fill me-3"></i></span>
-                        <ul class="submenu">
-                            <li onclick="loadSection('agregar-productor')">Agregar productor</li>
-                        </ul>
-                    </li>
+                        <li onclick="loadSection('ventas')">
+                            <span><i class="bi bi-basket-fill me-3 fs-2"></i></span>
+                        </li>
 
-                    <li class="has-submenu">
-                        <span onclick="toggleSubmenu(this)"><i class="bi bi-stickies-fill me-3"></i></span>
-                        <ul class="submenu">
-                            <li onclick="loadSection('ver-publicaciones')">Ver publicaciones</li>
-                            <li onclick="loadSection('agregar-publicacion')">Agregar publicación</li>
-                        </ul>
-                    </li>
-                    <li onclick="loadSection('admin')">
-                        <span><i class="bi bi-person-circle me-3"></i></span>
-                    </li>
-                </ul>
-        </nav>
+                        <li>
+                            <div class="btn-group dropend">
+                                <button type="button" class="btn m-0 p-0 dropdown-toggle" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <span class="m-0">
+                                        <i class="bi bi-person-vcard-fill fs-2"></i>
+                                    </span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li onclick="loadSection('agregar-productor')">Agregar productor</li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="btn-group dropend">
+                                <button type="button" class="btn m-0 p-0 dropdown-toggle" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <span class="m-0">
+                                        <i class="bi bi-stickies-fill fs-2"></i>
+                                    </span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li onclick="loadSection('ver-publicaciones')">Ver publicaciones</li>
+                                    <li onclick="loadSection('agregar-publicacion')">Agregar publicación</li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li onclick="loadSection('admin')">
+                            <span><i class="bi bi-person-circle fs-2"></i></span>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="sidebar-lg-footer">
+                <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Acerca"><i
+                        class="bi bi-info-circle me-3 fs-2"></i></a>
+                <a href="https://wa.me/573125534565?text=Hola,%20bienvenido%20a%20a%20Mesa%20de%20Ayuda%20de%20La%20Placita%20Colombiana"
+                    target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Soporte"><i
+                        class="bi bi-headset me-3 fs-2"></i></a>
+            </div>
+        </aside>
+
+
+
+        <main class="content">
+            <!-- Modal Acerca De-->
+            <div class="modal fade" id="acercaDe" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5 fw-bold text-center" id="staticBackdropLabel">Dashboard de
+                                Administración - La
+                                Placita Colombiana</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Este sistema de administración ha sido desarrollado para La Placita Colombiana, un
+                                negocio que
+                                comercializa productos provenientes de proyectos de sustitución de cultivos.</p>
+                            <p>Desde este panel, los administradores pueden gestionar el inventario de productos,
+                                registrar
+                                proveedores, controlar las ventas y visualizar indicadores clave del negocio mediante
+                                gráficos
+                                en el inicio.</p>
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <p class="fst-italic">Versión: 1.0 | Última actualización: Agosto 2025.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="breadcrumb">Dashboards / Gestión de productos / Agregar producto</div>
+            <div id="main-content"></div>
+        </main>
+        <footer id="footer">© 2025 La Placita Colombiana</footer>
     </div>
-    </nav>
 
-    <main class="content">
-        <div id="breadcrumb">Dashboards / Gestión de productos / Agregar producto</div>
-        <div id="main-content"></div>
-    </main>
-    </div>
 
-    <footer>© 2025 La Placita Colombiana</footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../js/dashboard.js"></script>
     <script src="../js/database.js"></script>
 </body>

@@ -36,7 +36,7 @@ function mostrarProductos(listaProductos, idContenedor) {
                                         <p class="card-text mb-3">${producto.descripcion}</p>
                                         <ul class="list-unstyled small mb-3">
                                             <li>Productor: <a href="#" class="producer-link">${producto.productor}</a></li>
-                                            <li>Presentación: ${producto.presentacion}</li>
+                                            <li>Presentación: ${producto.presentacion} <span>${producto.medida}</span></li>
                                         </ul>
                                         <div class="mt-auto d-flex flex-wrap gap-2 align-items-center">
                                             <span class="price mb-0">Precio: ${precioCOP(producto.precio)}</span>

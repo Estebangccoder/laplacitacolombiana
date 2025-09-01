@@ -11,13 +11,12 @@ function loadSection(section) {
       .then(html => {
         content.innerHTML = html;
         cargarSugerenciasProductores();
+        liveValidations(inputs());
       })
       .catch(err => {
         content.innerHTML = "<p>Error al cargar la sección.</p>";
         console.error("Error al cargar agregar-producto.html:", err);
       });
-
-
   } else if (section === "ver-productos") {
     breadcrumb.textContent = "Dashboards / Gestión de productos / Ver todos los productos";
 
@@ -28,6 +27,7 @@ function loadSection(section) {
         <h3>Lista de productos</h3>
         <p>No hay productos registrados.</p>
       `;
+
     } else {
       content.innerHTML = `
         <h3 class="mb-5">Lista de productos</h3>
@@ -47,7 +47,7 @@ function loadSection(section) {
             ${productos.map((p, index) =>
         `
               <tr>
-                <td><img src="${p.imagen.startsWith("data:") ? p.imagen : `../public/img/productos/${p.imagen}`}" 
+                <td><img src="${p.imagen ? (p.imagen.startsWith("data:") ? p.imagen : `../public/img/productos/${p.imagen}`) : ''}" 
                 alt="${p.nombre}" style="width:50px;height:50px;"></td>
                 <td>${p.nombre}</td>
                 <td>${p.categoria}</td>
@@ -93,6 +93,66 @@ function loadSection(section) {
       });
     }
 
+  } else if (section === "ventas") {
+    breadcrumb.textContent = "Dashboards / Ver todas las ventas";
+
+    const ventas = JSON.parse(localStorage.getItem("ventas") || "[]");
+
+    if (ventas.length === 0) {
+      content.innerHTML = `
+        <h3>Lista de ventas</h3>
+        <p>No hay ventas registradas.</p>
+      `;
+
+    } else {
+      content.innerHTML = `
+        <h3 class="mb-5">Lista de ventas</h3>
+        <table id="tabla-ventas" class="table table-hover">
+          <thead>
+            <tr class="table-primary">
+              <th>Fecha</th>
+              <th>No. Productos</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${ventas.map((v, index) =>
+        `
+              <tr>
+                <td>${v.fecha}</td>
+                <td>${v.num_productos}</td>
+                <td>$${v.total}</td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      `;
+
+      new DataTable("#tabla-ventas", {
+        responsive: true,
+        autoWidth: false,
+        language: {
+          decimal: "",
+          emptyTable: "No hay información",
+          info: "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+          infoEmpty: "Mostrando 0 a 0 de 0 Entradas",
+          infoFiltered: "(Filtrado de _MAX_ total entradas)",
+          thousands: ",",
+          lengthMenu: "Mostrar _MENU_ Entradas",
+          loadingRecords: "Cargando...",
+          processing: "Procesando...",
+          search: "Buscar:",
+          zeroRecords: "Sin resultados encontrados",
+          paginate: {
+            first: "Primero",
+            last: "Último",
+            next: "Siguiente",
+            previous: "Anterior"
+          }
+        }
+      });
+    }
+
   } else if (section === "agregar-productor") {
     breadcrumb.textContent = "Dashboards / Gestión de proveedores / Agregar productor";
     fetch("../pages/agregar-productor.html")
@@ -104,6 +164,13 @@ function loadSection(section) {
         if (form) {
           form.addEventListener("submit", guardarProductor);
         }
+        const nomProductor = document.getElementById('nombre-productor');
+        nomProductor.addEventListener('blur', function () { validateName(nomProductor, /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{2,}$/) });
+        nomProductor.addEventListener('input', function () {
+          if (this.classList.contains('is-invalid')) {
+            validateName(nomProductor, /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{2,}$/);
+          }
+        });
       })
       .catch(err => {
         content.innerHTML = "<p>Error al cargar la sección.</p>";
@@ -118,6 +185,21 @@ function loadSection(section) {
         content.innerHTML = html;
         const form = document.getElementById("form-publicacion");
         if (form) {
+          dateValidation();
+          const tituloPub = document.getElementById('titulo');
+          tituloPub.addEventListener('blur', function () { validateName(tituloPub, /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{2,}$/) });
+          tituloPub.addEventListener('input', function () {
+            if (this.classList.contains('is-invalid')) {
+              validateName(tituloPub, /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{2,}$/);
+            }
+          });
+          const descripcionPub = document.getElementById("descripcion");
+          descripcionPub.addEventListener('blur', function () { validateDescription(descripcionPub) });
+          descripcionPub.addEventListener('input', function () {
+            if (this.classList.contains('is-invalid')) {
+              validateDescription(descripcionPub);
+            }
+          });
           form.addEventListener("submit", guardarPublicacion);
         }
       })
@@ -153,26 +235,47 @@ function loadSection(section) {
     }
 
 
+  } else if (section === "home") {
+    breadcrumb.textContent = "Dashboards / Home";
+
+    if (window.chartVentas && typeof window.chartVentas.destroy === 'function') {
+      window.chartVentas.destroy();
+      window.chartVentas = null;
+    }
+
+    if (window.chartInventario && typeof window.chartInventario.destroy === 'function') {
+      window.chartInventario.destroy();
+      window.chartInventario = null;
+    }
+
+    content.innerHTML = `
+        <h3>Bienvenido Administrador</h3>
+        <div class="mt-5 d-flex flex-column flex-lg-row justify-content-center gap-5">
+          <div class=" p-3 border rounded shadow bg-body-tertiary" style="height: 500px; width: 500px;">
+            <canvas id="chartVentas"></canvas>
+          </div>
+          <div class=" p-3 border rounded shadow bg-body-tertiary" style="height: 500px; width: 500px;">
+            <canvas id="chartInventario"></canvas>
+          </div>
+        </div>
+      
+    `
+    setTimeout(() => {
+      chartVentas();
+      chartInventario();
+    }, 0);
   } else {
     breadcrumb.textContent = `Dashboards / ${section}`;
     content.innerHTML = `<h3>${section}</h3><p>Contenido en construcción...</p>`;
   }
-
 }
 
 function guardarProducto(event) {
   event.preventDefault();
 
-  const productor = document.getElementById('productor');
-  if (productor.value === "0") {
-    alert("Por favor seleccione un productor válido.");
-    return;
-  }
-  
-  const cantidad = document.getElementById('cantidad');
-  if (cantidad.value === "0") {
-    alert("La cantidad de un producto debe ser mayor a cero.");
-    return;
+  if (!validateForm(inputs())) {
+    alert("Hay campos incorrectos");
+    return
   }
 
   const reader = new FileReader();
@@ -193,7 +296,8 @@ function guardarProducto(event) {
       cantidad: document.getElementById("cantidad").value,
       precio: document.getElementById("precio").value,
       imagen: reader.result,
-      presentacion: document.getElementById("presentacion").value
+      presentacion: document.getElementById("presentacion").value,
+      medida: document.getElementById("medida").value,
     };
     productos.push(producto);
     localStorage.setItem("productos", JSON.stringify(productos));
@@ -202,47 +306,21 @@ function guardarProducto(event) {
   };
 
   if (file) {
+    // Validar tipo de archivo
+    if (!file.type.startsWith("image/")) {
+      alert("Solo puedes subir imágenes (JPG, PNG, etc).");
+      return;
+    }
+
+    // Validar tamaño (ejemplo: máximo 1MB)
+    if (file.size > 1024 * 1024) {
+      alert("La imagen no puede superar 1MB.");
+      return;
+    }
     reader.readAsDataURL(file);
   } else {
     alert("Por favor selecciona una imagen.");
   }
-}
-
-function guardarProductor(event) {
-  event.preventDefault();
-  const input = document.getElementById("nombre-productor");
-  const nombre = input.value.trim();
-
-  if (nombre === "") return;
-
-  const productores = JSON.parse(localStorage.getItem("productores") || "[]");
-  if (!productores.includes(nombre)) {
-    let maxCodigoProductores = productores.length > 0 ? Math.max(...productores.map(p => p.codigo)) : 1000;
-    const productor = {
-      codigo: maxCodigoProductores + 1,
-      nombre: p["nombre"],
-    };
-    productores.push(productor);
-    localStorage.setItem("productores", JSON.stringify(productores));
-    input.value = "";
-    mostrarProductoresRegistrados();
-    alert("Productor guardado correctamente");
-  } else {
-    alert("Este productor ya está registrado.");
-  }
-}
-
-function mostrarProductoresRegistrados() {
-  const lista = document.getElementById("lista-productores-registrados");
-  if (!lista) return;
-
-  const productores = JSON.parse(localStorage.getItem("productores") || "[]");
-  lista.innerHTML = productores.map(p => `<li>${p}</li>`).join("");
-}
-
-function toggleSubmenu(element) {
-  const parent = element.parentElement;
-  parent.classList.toggle("open");
 }
 
 function eliminarProducto(index) {
@@ -257,9 +335,122 @@ function eliminarProducto(index) {
 function editarProducto(index) {
   const productos = JSON.parse(localStorage.getItem("productos") || "[]");
   const producto = productos[index];
-  alert(`Editar producto: ${producto.nombre}`);
+
+  fetch("../pages/agregar-producto.html")
+    .then(res => res.text())
+    .then(html => {
+      const content = document.getElementById("main-content");
+      const breadcrumb = document.getElementById("breadcrumb");
+      breadcrumb.textContent = "Dashboards / Gestión de productos / Editar producto";
+      content.innerHTML = html;
+      cargarSugerenciasProductores();
+      liveValidations(inputs());
+
+      setTimeout(() => {
+        const form = document.getElementById("agregarProducto");
+        if (form) {
+          const selectCategoria = form.querySelector("#categoria");
+          for (let option of selectCategoria.options) {
+            if (option.value == producto.categoria) {
+              option.selected = true;
+            } else {
+              option.selected = false;
+            }
+          }
+          form.querySelector("#nombre").value = producto.nombre;
+          const selectProductor = form.querySelector("#productor");
+          for (let option of selectProductor.options) {
+            if (option.value == producto.productor) {
+              option.selected = true;
+            } else {
+              option.selected = false;
+            }
+          }
+          form.querySelector("#descripcion").value = producto.descripcion;
+          form.querySelector("#cantidad").value = producto.cantidad;
+          form.querySelector("#precio").value = producto.precio;
+          form.querySelector("#presentacion").value = producto.presentacion;
+          const selectMedida = form.querySelector("#medida");
+          for (let option of selectMedida.options) {
+            if (option.value == producto.medida) {
+              option.selected = true;
+            } else {
+              option.selected = false;
+            }
+          }
+
+          // Mostrar vista previa de la imagen actual
+          const preview = document.getElementById("img-previa");
+          preview.src = producto.imagen ? (producto.imagen.startsWith("data:") ? prodcuto.imagen : `../public/img/productos/${producto.imagen}`) : '';
+          preview.src !== '' ? preview.parentNode.classList.remove('d-none') : preview.parentNode.classList.add('d-none');
+          preview.style.display = "block";
+
+          // Cambiar texto del botón
+          const submitBtn = form.querySelector("button[type='submit']");
+          submitBtn.textContent = "Actualizar producto";
+
+          form.onsubmit = function (e) {
+            e.preventDefault();
+
+            if (!validateForm(inputs())) {
+              alert("Hay campos incorrectos");
+              return
+            }
+
+            const file = document.getElementById("imagen").files[0];
+
+            if (file) {
+              const reader = new FileReader();
+              reader.onload = function () {
+                actualizarProducto(index, reader.result);
+              };
+              reader.readAsDataURL(file);
+              // Validar tipo de archivo
+              if (!file.type.startsWith("image/")) {
+                alert("Solo puedes subir imágenes (JPG, PNG, etc).");
+                return;
+              }
+              // Validar tamaño (ejemplo: máximo 1MB)
+              if (file.size > 1024 * 1024) {
+                alert("La imagen no puede superar 1MB.");
+                return;
+              }
+            } else {
+              // Si no se selecciona nueva imagen, se mantiene la actual
+              actualizarProducto(index, producto.imagen);
+            }
+          };
+        }
+      }, 100);
+    })
+    .catch(err => {
+      console.error("Error al cargar el formulario de edición:", err);
+    });
 }
 
+function guardarProductor(event) {
+  event.preventDefault();
+  const input = document.getElementById("nombre-productor");
+  const nombre = input.value.trim();
+
+  validateName(input, /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{2,}$/)
+
+  const productores = JSON.parse(localStorage.getItem("productores") || "[]");
+  if (!productores.includes(nombre)) {
+    let maxCodigoProductores = productores.length > 0 ? Math.max(...productores.map(p => p.codigo)) : 1000;
+    const productor = {
+      codigo: maxCodigoProductores + 1,
+      nombre: nombre,
+    };
+    productores.push(productor);
+    localStorage.setItem("productores", JSON.stringify(productores));
+    input.value = "";
+    mostrarProductoresRegistrados();
+    alert("Productor guardado correctamente");
+  } else {
+    alert("Este productor ya está registrado.");
+  }
+}
 
 function cargarSugerenciasProductores() {
   const select = document.getElementById("productor");
@@ -277,8 +468,131 @@ function cargarSugerenciasProductores() {
   }
 }
 
+function mostrarProductoresRegistrados() {
+  const lista = document.getElementById("lista-productores-registrados");
+  if (!lista) return;
+
+  const productores = JSON.parse(localStorage.getItem("productores") || "[]");
+
+  lista.innerHTML = `
+        <h3 class="mb-5">Lista de productores</h3>
+        <table id="tabla-productoress" class="table table-hover">
+          <thead>
+            <tr class="table-primary">
+              <th>Nombre</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${productores.map((p, index) =>
+    `
+              <tr>
+                <td>${p.nombre}</td>
+                <td>
+                  <button type="button" class="btn btn-success" onclick="editarProductor(${index})">
+                    <i class="bi bi-pen"></i>
+                  </button>
+                  <button type="button" class="btn btn-danger" onclick="eliminarProductor(${index})">
+                    <i class="bi bi-trash3"></i>
+                  </button>
+                </td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      `;
+
+  new DataTable("#tabla-productores", {
+    responsive: true,
+    autoWidth: false,
+    language: {
+      decimal: "",
+      emptyTable: "No hay información",
+      info: "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+      infoEmpty: "Mostrando 0 a 0 de 0 Entradas",
+      infoFiltered: "(Filtrado de _MAX_ total entradas)",
+      thousands: ",",
+      lengthMenu: "Mostrar _MENU_ Entradas",
+      loadingRecords: "Cargando...",
+      processing: "Procesando...",
+      search: "Buscar:",
+      zeroRecords: "Sin resultados encontrados",
+      paginate: {
+        first: "Primero",
+        last: "Último",
+        next: "Siguiente",
+        previous: "Anterior"
+      }
+    }
+  });
+}
+
+function eliminarProductor(index) {
+  const productores = JSON.parse(localStorage.getItem("productores") || "[]");
+  if (confirm("¿Estás seguro de que deseas eliminar este proveedor?")) {
+    productores.splice(index, 1);
+    localStorage.setItem("productores", JSON.stringify(productores));
+    loadSection("agregar-productor");
+  }
+}
+
+function editarProductor(index) {
+  const productores = JSON.parse(localStorage.getItem("productores") || "[]");
+  const productor = productores[index];
+
+  fetch("../pages/agregar-productor.html")
+    .then(res => res.text())
+    .then(html => {
+      const content = document.getElementById("main-content");
+      const breadcrumb = document.getElementById("breadcrumb");
+      breadcrumb.textContent = "Dashboards / Gestión de proveedores / Editar proveedor";
+      content.innerHTML = html;
+
+      setTimeout(() => {
+        const form = document.getElementById("form-productor");
+        if (form) {
+          form.querySelector("#nombre-productor").value = productor.nombre;
+
+          // Cambiar texto del botón
+          const submitBtn = form.querySelector("button[type='submit']");
+          submitBtn.textContent = "Actualizar proveedor";
+
+          form.onsubmit = function (e) {
+            e.preventDefault();
+
+            const nombreProd = document.getElementById("nombre-productor");
+            validateName(nombreProd, /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{2,}$/)
+
+            productores[index] = {
+              nombre: nombreProd.value
+            }
+
+            localStorage.setItem("productores", JSON.stringify(productores));
+            alert("Productor actualizado correctamente.");
+            loadSection("agregar-productor");
+          };
+        }
+      }, 100);
+    })
+    .catch(err => {
+      console.error("Error al cargar el formulario de edición:", err);
+    });
+}
+
+function toggleSubmenu(element) {
+  const parent = element.parentElement;
+  parent.classList.toggle("open");
+}
+
 function guardarPublicacion(event) {
   event.preventDefault();
+
+  const tituloPub = document.getElementById("titulo");
+  validateName(tituloPub, /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{2,}$/)
+  const descripcionPub = document.getElementById("descripcion");
+  validateDescription(descripcionPub);
+  const fechaPub = document.getElementById("fechaPublicacion");
+  validateDate(fechaPub);
 
   const reader = new FileReader();
   const file = document.getElementById("imagen").files[0];
@@ -287,7 +601,7 @@ function guardarPublicacion(event) {
     const publicacion = {
       titulo: document.getElementById("titulo").value,
       descripcion: document.getElementById("descripcion").value,
-      fecha: document.getElementById("fecha").value,
+      fecha: document.getElementById("fechaPublicacion").value,
       imagen: reader.result
     };
 
@@ -299,12 +613,21 @@ function guardarPublicacion(event) {
   };
 
   if (file) {
+    // Validar tipo de archivo
+    if (!file.type.startsWith("image/")) {
+      alert("Solo puedes subir imágenes (JPG, PNG, etc).");
+      return;
+    }
+    // Validar tamaño (ejemplo: máximo 1MB)
+    if (file.size > 1024 * 1024) {
+      alert("La imagen no puede superar 1MB.");
+      return;
+    }
     reader.readAsDataURL(file);
   } else {
     alert("Por favor selecciona una imagen.");
   }
 }
-
 
 function eliminarPublicacion(index) {
   const publicaciones = JSON.parse(localStorage.getItem("publicaciones") || "[]");
@@ -314,7 +637,6 @@ function eliminarPublicacion(index) {
     loadSection("ver-publicaciones");
   }
 }
-
 
 function editarPublicacion(index) {
   const publicaciones = JSON.parse(localStorage.getItem("publicaciones") || "[]");
@@ -329,15 +651,16 @@ function editarPublicacion(index) {
       content.innerHTML = html;
 
       setTimeout(() => {
-        const form = document.getElementById("form-publicacion");
+        const form = document.getElementById("agregarPublicacion");
         if (form) {
           form.querySelector("#titulo").value = publicacion.titulo;
-          form.querySelector("#fecha").value = publicacion.fecha;
+          form.querySelector("#fechaPublicacion").value = publicacion.fecha;
           form.querySelector("#descripcion").value = publicacion.descripcion;
 
           // Mostrar vista previa de la imagen actual
-          const preview = document.getElementById("preview-imagen");
+          const preview = document.getElementById("img-previa");
           preview.src = publicacion.imagen;
+          preview.src !== '' ? preview.parentNode.classList.remove('d-none') : preview.parentNode.classList.add('d-none');
           preview.style.display = "block";
 
           // Cambiar texto del botón
@@ -347,6 +670,13 @@ function editarPublicacion(index) {
           form.onsubmit = function (e) {
             e.preventDefault();
 
+            const tituloPub = document.getElementById("titulo");
+            validateName(tituloPub, /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{2,}$/)
+            const descripcionPub = document.getElementById("descripcion");
+            validateDescription(descripcionPub);
+            const fechaPub = document.getElementById("fechaPublicacion");
+            validateDate(fechaPub);
+
             const file = document.getElementById("imagen").files[0];
 
             if (file) {
@@ -355,6 +685,16 @@ function editarPublicacion(index) {
                 actualizarPublicacion(index, reader.result);
               };
               reader.readAsDataURL(file);
+              // Validar tipo de archivo
+              if (!file.type.startsWith("image/")) {
+                alert("Solo puedes subir imágenes (JPG, PNG, etc).");
+                return;
+              }
+              // Validar tamaño (ejemplo: máximo 1MB)
+              if (file.size > 1024 * 1024) {
+                alert("La imagen no puede superar 1MB.");
+                return;
+              }
             } else {
               // Si no se selecciona nueva imagen, se mantiene la actual
               actualizarPublicacion(index, publicacion.imagen);
@@ -374,7 +714,7 @@ function actualizarPublicacion(index, imagenBase64) {
   publicaciones[index] = {
     titulo: document.getElementById("titulo").value,
     descripcion: document.getElementById("descripcion").value,
-    fecha: document.getElementById("fecha").value,
+    fecha: document.getElementById("fechaPublicacion").value,
     imagen: imagenBase64
   };
 
@@ -383,16 +723,323 @@ function actualizarPublicacion(index, imagenBase64) {
   loadSection("ver-publicaciones");
 }
 
+function actualizarProducto(index, imagenBase64) {
+  const productos = JSON.parse(localStorage.getItem("productos") || "[]");
+
+  productos[index] = {
+    nombre: document.getElementById("nombre").value,
+    productor: document.getElementById("productor").value,
+    descripcion: document.getElementById("descripcion").value,
+    categoria: document.getElementById("categoria").value,
+    cantidad: document.getElementById("cantidad").value,
+    precio: document.getElementById("precio").value,
+    presentacion: document.getElementById("presentacion").value,
+    medida: document.getElementById("medida").value,
+    imagen: imagenBase64
+  };
+
+  localStorage.setItem("productos", JSON.stringify(productos));
+  alert("Producto actualizado correctamente.");
+  loadSection("ver-productos");
+}
 
 /*-------------------------------------------------------------------------------------------------
 // Validación campos formulario
 -------------------------------------------------------------------------------------------------*/
+// Validaciones para formulario de contacto con Bootstrap y Formspree
 
+function inputs() {
+  const inputs = {
+    'form': document.getElementById('agregarProducto'),  // Elementos del formulario
+    'categoria': document.getElementById('categoria'),
+    'nomProducto': document.getElementById('nombre'),
+    'productor': document.getElementById('productor'),
+    'descripcion': document.getElementById('descripcion'),
+    'cantidad': document.getElementById('cantidad'),
+    'precio': document.getElementById('precio'),
+    'presentacion': document.getElementById('presentacion'),
+    'medida': document.getElementById('medida'),
+    'imagen': document.getElementById('imagen'),
+    'nameRegex': /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{2,}$/,
+  }
+  return inputs;
+}
 
+// Función para mostrar campo válido
+function setValid(field) {
+
+  field.classList.remove('is-invalid');
+  field.classList.add('is-valid');
+
+  const feedback = field.parentNode.querySelector('.invalid-feedback');
+  if (feedback) feedback.style.display = 'none';
+}
+
+// Función para mostrar campo inválido
+function setInvalid(field, message) {
+  field.classList.remove('is-valid');
+  field.classList.add('is-invalid');
+
+  const validFeedback = field.parentNode.querySelector('.valid-feedback');
+  if (validFeedback) validFeedback.style.display = 'none';
+
+  let feedback = field.parentNode.querySelector('.invalid-feedback');
+  if (!feedback) {
+    feedback = document.createElement('div');
+    feedback.classList.add('invalid-feedback');
+    field.parentNode.appendChild(feedback);
+  }
+  feedback.textContent = message;
+  feedback.style.display = 'block';
+}
+
+// Validación de nombre producto
+function validateName(field, regex) {
+  const value = field.value.trim();
+  if (value === '') {
+    setInvalid(field, 'El nombre del producto es obligatorio');
+    return false;
+  } else if (!regex.test(value)) {
+    setInvalid(field, 'El nombre del producto debe tener al menos 2 caracteres y solo letras');
+    return false;
+  } else {
+    setValid(field);
+    return true;
+  }
+}
+
+// Validación de descripcion
+function validateDescription(field) {
+  const value = field.value.trim();
+  if (value === '') {
+    setInvalid(field, 'La descripción es obligatoria');
+    return false;
+  } else if (value.length < 10) {
+    setInvalid(field, 'La descripción debe tener al menos 10 caracteres');
+    return false;
+  } else {
+    setValid(field);
+    return true;
+  }
+}
+
+// Validación de categoria
+function validateInquiry(field) {
+  if (field.value === '0' || field.value === 'Selecciona el tipo de requerimiento') {
+    setInvalid(field, 'Por favor selecciona una opción');
+    return false;
+  } else {
+    setValid(field);
+    return true;
+  }
+}
+
+// Validación valores negativos
+function validateNegative(field) {
+
+  if (field.value === '0' || field.value === '') {
+    setInvalid(field, 'El valor debe ser mayor a 0');
+    return false;
+  } else {
+    setValid(field);
+    return true;
+  }
+}
+
+function validateDate(field) {
+  if (field.value === '') {
+    setInvalid(field, "Se debe escoger una fecha de publicación");
+    return false;
+  } else {
+    setValid(field);
+    return true;
+  }
+}
+
+// Validar todo el formulario
+function validateForm(inputsFields) {
+  const inputs = inputsFields;
+  const validations = [
+    validateName(inputs['nomProducto'], inputs['nameRegex']),
+    validateDescription(inputs['descripcion']),
+    validateInquiry(inputs['categoria']),
+    validateInquiry(inputs['productor']),
+    validateInquiry(inputs['medida']),
+    validateNegative(inputs['cantidad']),
+    validateNegative(inputs['precio']),
+    validateNegative(inputs['presentacion']),
+  ];
+  return validations.every(validation => validation === true);
+}
+
+// Validaciones en vivo
+function liveValidations(inputsFields) {
+  const inputs = inputsFields;
+  // Event listeners para validación en tiempo real
+  inputs['nomProducto'].addEventListener('blur', function () { validateName(inputs['nomProducto'], inputs['nameRegex']) });
+  inputs['nomProducto'].addEventListener('input', function () {
+    if (this.classList.contains('is-invalid')) {
+      validateName(inputs['nomProducto'], inputs['nameRegex']);
+    }
+  });
+
+  inputs['descripcion'].addEventListener('blur', function () { validateDescription(inputs['descripcion']) });
+  inputs['descripcion'].addEventListener('input', function () {
+    if (this.classList.contains('is-invalid')) {
+      validateDescription(inputs['descripcion']);
+    }
+  });
+
+  inputs['categoria'].addEventListener('change', function () { validateInquiry(inputs['categoria']) });
+  inputs['productor'].addEventListener('change', function () { validateInquiry(inputs['productor']) });
+  inputs['medida'].addEventListener('change', function () { validateInquiry(inputs['medida']) });
+
+  inputs['cantidad'].addEventListener('blur', function () { validateNegative(inputs['cantidad']) });
+  inputs['cantidad'].addEventListener('input', function () {
+    if (this.classList.contains('is-invalid')) {
+      validateNegative();
+    }
+  });
+
+  inputs['precio'].addEventListener('blur', function () { validateNegative(inputs['precio']) });
+  inputs['precio'].addEventListener('input', function () {
+    if (this.classList.contains('is-invalid')) {
+      validateNegative();
+    }
+  });
+
+  inputs['presentacion'].addEventListener('blur', function () { validateNegative(inputs['presentacion']) });
+  inputs['presentacion'].addEventListener('input', function () {
+    if (this.classList.contains('is-invalid')) {
+      validateNegative();
+    }
+  });
+}
+
+function dateValidation() {
+  const fechaPub = document.getElementById('fechaPublicacion');
+
+  const hoy = new Date();
+  const dia = String(hoy.getDate()).padStart(2, '0');
+  const mes = String(hoy.getMonth() + 1).padStart(2, '0');
+  const anio = hoy.getFullYear();
+
+  const fechaActual = `${anio}-${mes}-${dia}`;
+
+  fechaPub.setAttribute("min", fechaActual);
+}
 
 /*-------------------------------------------------------------------------------------------------
 // Fin validación campos formulario
 -------------------------------------------------------------------------------------------------*/
+
+/*-------------------------------------------------------------------------------------------------
+// Chart Ventas
+-------------------------------------------------------------------------------------------------*/
+
+function chartVentas() {
+  const ventas = JSON.parse(localStorage.getItem("ventas") || "[]");
+  const ventasPorMes = {};
+
+  ventas.forEach(v => {
+    const [dia, mes, anio] = v.fecha.split('/');
+    const mesF = parseInt(mes);
+    if (!ventasPorMes[mesF]) {
+      ventasPorMes[mesF] = 0;
+    }
+    ventasPorMes[mesF] += 1;
+  });
+
+  const labels = Object.keys(ventasPorMes).map(m => {
+    const mes = new Date(2025, m - 1).toLocaleString('es-ES', { month: 'long' });
+    return mes.charAt(0).toUpperCase() + mes.slice(1);
+  });
+  const data = {
+    labels: labels,
+    datasets: [
+      {
+        label: "CANTIDAD DE VENTAS POR MES",
+        data: Object.values(ventasPorMes),
+        borderColor: "rgba(54, 162, 235, 1)",       // azul
+        backgroundColor: "rgba(54, 162, 235, 0.5)", // azul transparente
+        borderWidth: 2,
+        borderRadius: 5,
+        borderSkipped: false,
+      }
+    ]
+  };
+  const config = {
+    type: 'bar',
+    data: data,
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      aspectRatio: 2,
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: false,
+        }
+      }
+    },
+  }
+
+  const ctx = document.getElementById("chartVentas");
+  new Chart(ctx, config);
+}
+
+function chartInventario() {
+  const productos = JSON.parse(localStorage.getItem("productos") || "[]");
+  const ventasPorCategoria = { Cafe: 0, Cacao: 0, Cerveza: 0 };
+
+  productos.forEach(p => {
+    ventasPorCategoria[p.categoria] += p.cantidad;
+  });
+
+  const labels = Object.keys(ventasPorCategoria)
+  const data = {
+    labels: labels,
+    datasets: [
+      {
+        label: "CANTIDAD DE PRODUCTOS POR CATEGORIA",
+        data: Object.values(ventasPorCategoria),
+        backgroundColor: [
+          'rgb(255, 99, 132)',
+          'rgb(54, 162, 235)',
+          'rgb(255, 205, 86)'
+        ],
+        hoverOffset: 4
+      }
+    ]
+  };
+  const config = {
+    type: 'pie',
+    data: data,
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      aspectRatio: 1,
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: false,
+        }
+      }
+    },
+  }
+
+  const ctx = document.getElementById("chartInventario");
+  new Chart(ctx, config);
+
+}
+
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
 window.loadSection = loadSection;
 window.toggleSubmenu = toggleSubmenu;
 window.eliminarProducto = eliminarProducto;
@@ -401,6 +1048,8 @@ window.guardarProducto = guardarProducto;
 window.guardarProductor = guardarProductor;
 window.eliminarPublicacion = eliminarPublicacion;
 window.editarPublicacion = editarPublicacion;
+
+document.addEventListener("load", loadSection('home'));
 
 
 

@@ -1,20 +1,34 @@
 <h3>Agregar publicación</h3>
-<form id="form-publicacion">
-    <label for="titulo">Título:</label>
-    <input type="text" id="titulo" required>
 
-    <label for="descripcion">Descripción:</label>
-    <textarea id="descripcion" rows="4" required></textarea>
+<form id="agregarPublicacion" class="row g-3 p-3 mx-auto rounded-4 border border-2 mt-5" onsubmit="guardarPublicacion(event)">
+    <div class="col-12">
+        <label for="titulo" class="form-label">Titulo:</label>
+        <input type="text" id="titulo" class="form-control" required>
+    </div>
 
-    <!-- Vista previa de imagen -->
-    <label>Imagen actual:</label>
-    <img id="preview-imagen" src="" alt="Vista previa" style="width:100px; margin-bottom:10px; display:none;">
+    <div class="col-12">
+        <label for="descripcion" class="form-label">Descripción</label>
+        <textarea class="form-control" id="descripcion" rows="3"></textarea>
+    </div>
 
-    <label for="imagen">Nueva imagen:</label>
-    <input type="file" id="imagen" accept="image/*">
 
-    <label for="fecha">Fecha:</label>
-    <input type="date" id="fecha" required>
+    <div id="container-img-previa" class="d-none col-12">
+        <!-- Vista previa de imagen -->
+        <label class="form-label">Imagen actual:</label>
+        <img id="img-previa" src="" alt="Vista previa" style="width:100px; margin-bottom:10px;">
+    </div>
 
-    <button type="submit">Guardar publicación</button>
+    <div class="col-12">
+        <label for="imagen" class="form-label">Nueva imagen:</label>
+        <input type="file" id="imagen" accept="image/*" required>
+    </div>
+
+    <div class="col-12">
+        <label for="fechaPublicacion" class="form-label">Fecha:</label>
+        <input type="date" id="fechaPublicacion" class="form-control" required>
+    </div>
+
+    <div class="col-12 pt-4 text-center">
+        <button id="submitBtn" class="contactForm button btn btn-primary" type="submit">Guardar</button>
+    </div>
 </form>
