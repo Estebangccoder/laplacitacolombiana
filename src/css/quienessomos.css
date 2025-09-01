@@ -389,7 +389,7 @@ body {
     border-radius: 16px;
     padding: var(--box-pad);
     margin-top: 4rem;
-    margin: 4rem ; 
+    margin: 4rem auto;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     overflow: hidden;
 }
@@ -406,12 +406,6 @@ body {
     margin: -2rem -2rem 2rem -2rem;
 }
 
-#container-nosotros .row {
-    margin-left: calc(var(--box-pad) * -1);
-    margin-right: calc(var(--box-pad) * -1);
-    padding-left: var(--box-pad);
-    padding-right: var(--box-pad);
-}
 
 .flip-card {
     background-color: transparent;
@@ -504,8 +498,5 @@ body {
     fill: #AD132B;
 }
 
-.nuestro-equipo{
-    padding-left: 17rem;
-}
 
 /* ------ */
