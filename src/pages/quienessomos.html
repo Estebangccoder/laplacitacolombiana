@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>¿Quiénes somos?</title>
-     <link rel="shortcut icon" href="../public/img/favicon-nb.png" type="image/png">
+    <link rel="shortcut icon" href="../public/img/favicon-nb.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
@@ -21,7 +21,7 @@
 <body>
     <header id="navbar"></header>
     <main>
-           <!--Carrito de compras-->
+        <!--Carrito de compras-->
         <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="carrito" aria-labelledby="carrito">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title fw-bold" id="carrito">Carrito de compras</h5>
@@ -32,9 +32,70 @@
             </div>
         </div>
 
+        <!--Carrusel y frase -->
+
+        <section class="frase-carrusel container my-4">
+            <div class="row align-items-center">
+                <div
+                    class="col-12 col-lg-5 d-flex flex-column justify-content-center align-items-center text-center mb-3 mb-lg-0">
+                    <p class="frase">
+                        "Cada proyecto vinculado a La Placita Colombiana tiene una historia que contar,
+                        y cada producto refleja ese camino de transformación, trabajo honesto y esperanza."
+                    </p>
+                    <span class="frase-underline"></span>
+                </div>
+
+                <div class="col-12 col-lg-7">
+                    <div id="carouselExampleCaptions" class="carousel slide">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="../public/img/CAFE-PERSONAS-CARRUSEL--WEBP.webp" class="d-block w-100"
+                                    alt="Familia Colombiana y café de origen">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>Orgullo que florece</h5>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="../public/img/CHOCOLATE-PERSONAS-CARRUSEL--WEBP.webp" class="d-block w-100"
+                                    alt="...">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>La fuerza del renacer</h5>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="../public/img/CERVEZA-PERSONAS-CARRUSEL--WEBP.webp" class="d-block w-100"
+                                    alt="...">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>Un brindis por la igualdad</h5>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="../public/img/CACAO-PERSONAS-CARRUSEL-WEBP.webp" class="d-block w-100"
+                                    alt="...">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>El sabor de la historia</h5>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- SECCION CON QUIENES TRABAJAMOS -->
         <section id="con-quien-trabajamos">
-            <div class="contenido container my-5 p-0 mx-auto">
+            <div class="contenido container my-4 p-0 mx-auto">
                 <p class="text-center titulo my-0 py-2" id="title-con-quien">¿CON QUIÉN TRABAJAMOS?</p>
                 <div class="container-texto p-0 m-0">
                     <div class="px-lg-4 my-4">
@@ -69,70 +130,60 @@
         </section>
 
         <!-- SECCION Mision y vision -->
-        <section id="mision-vision" class="container ms-0 ps-0 py-5">
-            <div class="contenedor-mision-vision ms-0 ps-0">
-                <div class="card-mision-vision card-custom ms-0 ps-0">
-                    <div class="tab-bar" role="tablist">
-                        <button class="tab-btn-mision-vision active" data-target="mision" aria-selected="true"
-                            id="title_general">MISIÓN</button>
-                        <button class="tab-btn-mision-vision" data-target="vision" aria-selected="false"
-                            id="title_general">VISIÓN</button>
+        <section id="mision-vision" class="container my-4 px-3">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="contenedor-mision-vision  ms-0 ps-0">
+                        <div class="card-mision-vision card-custom ms-0 ps-0">
+                            <div class="tab-bar" role="tablist">
+                                <button class="tab-btn-mision-vision active" data-target="mision" aria-selected="true"
+                                    id="title_general">MISIÓN</button>
+                                <button class="tab-btn-mision-vision" data-target="vision" aria-selected="false"
+                                    id="title_general">VISIÓN</button>
+                            </div>
+                            <div id="contenido-mision-vision" class="content-text px-5">
+                            </div>
+                        </div>
                     </div>
-
-                    <div id="contenido-mision-vision" class="content-text px-5">
-                    </div>
+                </div>
+                <div class="col-md-6 text-center my-4">
+                    <img src="../public/img/Mision-vision-WEBP.webp" alt="Foto aliado la placita"
+                        class="img-fluid rounded">
                 </div>
             </div>
         </section>
 
         <!-- SECCION NUESTROS VALORES Y APORTE A LA ODS -->
-        <section id="valores-ods" class="container me-0 pe-0 py-5">
-            <div class="contenedor-valores-ods me-0 pe-0">
-                <div class="card-valores-ods card-custom me-0">
-                    <div class="tab-bar px-5" role="tablist">
-                        <button class="tab-btn-valores-ods active" data-target="valores" aria-selected="true"
-                            id="title_general">VALORES</button>
-                        <button class="tab-btn-valores-ods" data-target="ods" aria-selected="false"
-                            id="title_general">APORTE A LOS ODS</button>
-                    </div>
+        <section id="valores-ods" class="container my-4 px-3">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center ">
+                    <img src="../public/img/valores-WEBP.webp" alt="Foto valores y ODS" class="img-fluid rounded">
+                </div>
+                <div class="col-md-6 my-4">
+                    <div class="contenedor-valores-ods me-0 pe-0">
+                        <div class="card-valores-ods card-custom me-0">
+                            <div class="tab-bar px-5" role="tablist">
+                                <button class="tab-btn-valores-ods active" data-target="valores" aria-selected="true"
+                                    id="title_general">VALORES</button>
+                                <button class="tab-btn-valores-ods" data-target="ods" aria-selected="false"
+                                    id="title_general">APORTE A LOS ODS</button>
+                            </div>
 
-                    <div id="contenido-valores-ods" class="content-text px-5">
-
+                            <div id="contenido-valores-ods" class="content-text px-5">
+                                <p>Aquí va el contenido de valores o de aporte a los ODS.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </section>
-
-
-
-        <!-- SECCION PRODUCTOS FRASE -->
-        <section id="con-quien-trabajamos">
-            <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center m-3 m-lg-5">
-                <div class="d-flex flex-column justify-content-center align-items-center rounded-5 p-3 m-3 menu">
-                    <p class="text-center fw-bold titulo-menu">Productos Principales</p>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item texto">Café</li>
-                        <li class="list-group-item texto">Cacao</li>
-                        <li class="list-group-item texto">Cerveza Artesanal</li>
-                        <li class="list-group-item texto">Artesanías</li>
-                    </ul>
-                </div>
-
-                <p class="p-2 fst-italic text-center frase">"Cada proyecto vinculado a La Placita Colombiana
-                    tiene una
-                    historia que contar, y cada producto refleja ese camino de transformación, trabajo honesto y
-                    esperanza."
-                </p>
-            </div>
-        </section>
-
-
 
 
         <!--SECCION NUESTRO EQUIPO-->
-        <section>
-            <div id="container-nosotros" class="container py-4">
-                <h2 id="nosotros"> NUESTRO EQUIPO</h2>
+        <section class="nuestro-equipo">
+            <div id="container-nosotros" class="container my-4 px-3">
+                <h2 id="nosotros"> CONOCE A NUESTRO EQUIPO: </h2>
                 <div class="row justify-content-center">
                     <!--VALERIA-->
                     <div
@@ -304,6 +355,7 @@
 
     </main>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
     crossorigin="anonymous"></script>

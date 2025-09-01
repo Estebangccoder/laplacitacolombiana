@@ -14,7 +14,7 @@ function mostrarNavBar() {
             </a>
             <div class="d-inline-flex">
                 <div class="d-inline-flex d-lg-none gap-3 me-3">
-                    <button class="btn p-0 me-2" type="button"><i class="bi bi-person-circle fs-3 text-white m-0"></i></button>
+                    <button class="btn p-0 me-2 login-button" type="button"><i class="bi bi-person-circle fs-3 text-white m-0"></i></button>
                     <button  class="btn p-0 me-2 carrito-button" type="button carrito-button" data-bs-toggle="offcanvas" data-bs-target="#carrito"
                     aria-controls="carrito"><i class="bi bi-basket-fill fs-3 text-white m-0"></i></button>
                 </div>
@@ -29,7 +29,7 @@ function mostrarNavBar() {
                     <li class="nav-item"><a class="nav-link fw-bold, fw-bolder" href="catalogo.html">TIENDA</a></li>
                 </ul>
                 <ul class="navbar-nav d-none d-lg-inline-flex">
-                    <button class="btn p-0 me-2" type="button"><i class="bi bi-person-circle fs-3 text-white m-0"></i></button>
+                    <button class="btn p-0 me-2 login-button" type="button"><i class="bi bi-person-circle fs-3 text-white m-0"></i></button>
                    <button class="btn p-0 me-2 carrito-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#carrito"
                     aria-controls="carrito"><i class="bi bi-basket-fill fs-3 text-white m-0"></i></button>
                 </ul>
@@ -40,10 +40,38 @@ function mostrarNavBar() {
     `
 }
 
+
+
+
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("navbar").innerHTML = mostrarNavBar();
 });
+document.addEventListener('DOMContentLoaded', () => {
+  const root = document.getElementById('navbar');
+  root.innerHTML = mostrarNavBar(); // inyectar [2]
+  root.querySelectorAll('.login-button').forEach((btn) => { // seleccionar elementos ya insertados [1]
+    btn.addEventListener('click', handleUserClick);
+  });
+});
 
+function handleUserClick() {
+  const current = JSON.parse(localStorage.getItem('currentUser') || 'null'); // [4]
+  if (!current) return (window.location.href = '../pages/login.html'); // [5]
+  Swal.fire({
+    title: 'Sesión activa',
+    html: `<p><b>Nombre:</b> ${current.name}</p><p><b>Correo:</b> ${current.email}</p>`,
+    icon: 'info',
+    confirmButtonText: 'Aceptar',
+    showDenyButton: true,
+    denyButtonText: 'Cerrar sesión'
+  }).then((r) => {
+    if (r.isDenied) {
+      localStorage.removeItem('currentUser'); // [4]
+      Swal.fire({ title: 'Sesión cerrada', icon: 'success', timer: 1400, showConfirmButton: false })
+        .then(() => (window.location.href = '../pages/login.html')); // [5]
+    }
+  });
+}
 //tener en cuenta importar CSS y JS y los iconos de bootstrap en cada página
 
 // iconos: <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
