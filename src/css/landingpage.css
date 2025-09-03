@@ -1,0 +1,248 @@
+@import url(./normalize.css);
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Nunito:wght@400;600&display=swap');
+
+/* Variables CSS */
+:root {
+    --fuente-titulos: 'Cormorant Garamond', serif;
+    --fuente-texto: 'Nunito', sans-serif;
+
+    --peso-ligero: 300;
+    --peso-normal: 400;
+    --peso-semi-bold: 600;
+    --peso-bold: 700;
+
+    --bg-titulos: #f0d260;
+    --bg-botones: #ad132b;
+
+    --rojo-principal: #ad132b;
+    --verde-claro: #9faa58;
+    --marron-cafe: #a56c2f;
+    --naranja-cacao: #f2880b;
+    --amarillo-claro: #f0d260;
+
+    --box-pad: 2rem;
+}
+
+body {
+    background-color: #9FAA68;
+    background-image: url("../public/img/fonndo-intro.webp");
+    background-repeat: repeat;
+    background-size: auto;
+    background-attachment: scroll;
+    ;
+}
+
+#intro-section {
+    width: 100%;
+    padding: var(--box-pad);
+}
+
+
+.flex-container-intro {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    max-width: none;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    flex-wrap: wrap;
+}
+
+.contenido {
+    flex: 1 1 300px;
+    font-family: var(--fuente-texto);
+    color: #fff;
+    background-color: rgba(240, 210, 96, 0.3);
+    backdrop-filter: blur(6px) saturate(120%);
+    color: #2a2a2a;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    text-align: center;
+}
+
+#logo-placita {
+    display: block;
+    margin: 0 auto 1rem;
+    width: clamp(100px, 25%, 140px);
+    height: auto;
+}
+
+#nombre-pagina {
+    font-family: var(--fuente-titulos);
+    font-size: clamp(1.9rem, 4vw, 2.5rem);
+    font-weight: var(--peso-bold);
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--bg-botones);
+}
+
+#intro-pagina {
+    font-size: 1rem;
+    line-height: 1.6;
+    text-align: center;
+    margin-bottom: 2rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.contenido .btn.btn-primary {
+    display: inline-block;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.btn.btn-primary {
+    background-color: var(--rojo-principal);
+    border: none;
+    color: #fff;
+    font-weight: var(--peso-semi-bold);
+    padding: 0.6rem 1.4rem;
+    border-radius: 999px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+    transition: all 0.2s ease;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.btn.btn-primary:hover {
+    background-color: #8d0f23;
+    transform: translateY(-2px);
+}
+
+.imagen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imagen img {
+    display: block;
+    width: clamp(280px, 95vw, 720px);
+    height: auto;
+    object-fit: contain;
+}
+
+
+@media (max-width: 768px) {
+    .flex-container-intro {
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .contenido {
+        width: 100%;
+        padding: 1.5rem;
+        text-align: center;
+    }
+
+    #intro-pagina {
+        text-align: justify;
+    }
+
+    .imagen {
+        width: 100%;
+    }
+
+    .imagen img {
+        .imagen img {
+            width: min(100%, 560px);
+        }
+    }
+}
+
+/* destacados */
+
+.titulo-destacados {
+    width: fit-content;
+    max-width: 100%;
+    margin: 2rem auto;
+    background-color: rgba(240, 210, 96, 0.3);
+    backdrop-filter: blur(6px) saturate(120%);
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .25);
+}
+
+#destacados {
+    font-family: var(--fuente-titulos);
+    font-size: clamp(1.9rem, 4vw, 2.5rem);
+    font-weight: var(--peso-bold);
+    text-align: center;
+    color: var(--bg-botones);
+}
+
+.destacado {
+    position: relative;
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+    overflow: hidden;
+    width: clamp(250px, 50%, 300px);
+    border-radius: 16px;
+}
+
+.col-4 .destacado {
+    width: clamp(350px, 50%, 400px);
+}
+
+.destacado img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.destacado:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+.destacado:hover img {
+    transform: scale(1.05);
+}
+
+.destacado h3 {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    padding: 0.6rem 1rem;
+    text-align: center;
+    font-family: var(--fuente-titulos, 'Cormorant Garamond', serif);
+    font-weight: 700;
+    font-size: clamp(1rem, 1.4vw, 1.25rem);
+    color: #fff;
+    background: rgba(0, 0, 0, .55);
+    border-radius: 0 0 16px 16px;
+    backdrop-filter: saturate(120%) blur(2px);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+@media (max-width: 768px) {
+  .row.my-4.mx-4 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    justify-items: center; 
+  }
+
+  .destacado {
+    width: min(92vw, 420px);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .destacado img {
+    width: 100%;
+    height: auto;
+  }
+}
