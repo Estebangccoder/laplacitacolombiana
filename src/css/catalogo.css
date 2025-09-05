@@ -69,7 +69,7 @@
 .banner-copy h2 {
     font-family: var(--fuente-titulos);
     font-weight: var(--peso-bold);
-    font-size: clamp(1.8rem, 4.8vw, 3.4rem);
+    font-size: clamp(1.5rem, 4.8vw, 2.5rem);
     line-height: 1.1;
     margin: 0 0 .6rem 0;
     color: #fff;
@@ -93,6 +93,12 @@
     color: #222;
     box-shadow: 0 8px 20px rgba(240, 210, 96, .35);
     transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease;
+}
+
+.btn-hero:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 26px rgba(240, 210, 96, .55);
+    opacity: .95;
 }
 
 .container-banner::before {
