@@ -1,6 +1,18 @@
 const productos = JSON.parse(localStorage.getItem("productos") || "[]");
 const productores = JSON.parse(localStorage.getItem("productores") || "[]");
 const ventas = JSON.parse(localStorage.getItem("ventas") || "[]");
+const users = JSON.parse(localStorage.getItem("users") || "[]");
+
+const usersDB = [
+  {
+    "id": 1757101430488,
+    "name": "admin",
+    "email": "admin@laplacita.com.co",
+    "passHash": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+    "passPlain": null,
+    "rol": "admin"
+  }
+]
 
 const productosDB = [
   {
@@ -174,7 +186,7 @@ const productoresDB = [
   },
   {
     codigo: 1010,
-    nombre:  "Late Chocó",
+    nombre: "Late Chocó",
   },
 ];
 
@@ -298,9 +310,23 @@ function cargarLocalStorage() {
       maxCodigoVentas++;
     });
   }
+  if (users.length === 0) {
+    usersDB.forEach(u => {
+      const usuario = {
+        id: u['id'],
+        name: u['name'],
+        email: u['email'],
+        passHash: u['passHash'],
+        passPlain: u['passPlain'],
+        rol: u['rol']
+      };
+      users.push(usuario);
+    });
+  }
   localStorage.setItem("productos", JSON.stringify(productos));
   localStorage.setItem("productores", JSON.stringify(productores));
   localStorage.setItem("ventas", JSON.stringify(ventas));
+  localStorage.setItem("users", JSON.stringify(users));
 }
 
 document.addEventListener("DOMContentLoaded", cargarLocalStorage);

@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => { // esperar DOM listo
   const LS_KEYS = { USERS: 'users', CURRENT: 'currentUser' }; // claves
   const getUsers = () => JSON.parse(localStorage.getItem(LS_KEYS.USERS) || '[]');
   const saveUsers = (users) => localStorage.setItem(LS_KEYS.USERS, JSON.stringify(users));
-  const setCurrentUser = (u) => localStorage.setItem(LS_KEYS.CURRENT, JSON.stringify({ email: u.email, name: u.name }));
+  const setCurrentUser = (u) => localStorage.setItem(LS_KEYS.CURRENT, JSON.stringify({ email: u.email, name: u.name, rol: u.rol }));
   const getCurrentUser = () => JSON.parse(localStorage.getItem(LS_KEYS.CURRENT) || 'null');
   const clearCurrentUser = () => localStorage.removeItem(LS_KEYS.CURRENT);
 
@@ -83,7 +83,8 @@ document.addEventListener('DOMContentLoaded', () => { // esperar DOM listo
       name,
       email,
       passHash: passHash,         // si hay hash, se usa
-      passPlain: passHash ? null : pass // si no hay hash, guardamos plano (solo pruebas)
+      passPlain: passHash ? null : pass, // si no hay hash, guardamos plano (solo pruebas)
+      rol: usuario
     };
     users.push(newUser);
     saveUsers(users);
@@ -95,7 +96,11 @@ document.addEventListener('DOMContentLoaded', () => { // esperar DOM listo
       icon: 'success',
       confirmButtonText: 'Aceptar'
     }).then(() => {
+      if(getCurrentUser().rol == 'usuario') {
       window.location.href = '../pages/catalogo.html';
+      } else if(getCurrentUser().rol == 'admin') {
+        window.location.href = '../pages/dashboard.html';
+      }
     });
   });
 
@@ -130,7 +135,11 @@ document.addEventListener('DOMContentLoaded', () => { // esperar DOM listo
       title: `Bienvenido, ${user.name}`,
       confirmButtonText: 'Aceptar'
     }).then(() => {
+      if(getCurrentUser().rol == 'usuario') {
       window.location.href = '../pages/catalogo.html';
+      } else if(getCurrentUser().rol == 'admin') {
+        window.location.href = '../pages/dashboard.html';
+      }
     });
   });
 });
