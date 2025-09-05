@@ -25,11 +25,10 @@
 }
 
 .container-banner{
-  background-image: url("../public/img/fondo-cotactanos.png");
+  background-image: url("../public/img/fondo-cotactanos.webp");
   background-repeat: repeat;
   background-size: 600px auto;          
   background-position: center;
-
   position: relative;                   
   min-height: clamp(380px, 48vw, 640px);
   display: grid;
@@ -65,7 +64,7 @@
 .banner-copy h2{
   font-family: var(--fuente-titulos);
   font-weight: var(--peso-bold);
-  font-size: clamp(1.8rem, 4.8vw, 3.4rem);
+  font-size: clamp(1.5rem, 4.8vw, 2.5rem);
   line-height: 1.1;
   margin: 0 0 .6rem 0;
   color: #fff;               

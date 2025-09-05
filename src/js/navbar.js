@@ -1,8 +1,8 @@
-function mostrarNavBar() {
+    function mostrarNavBar() {
     return `
     <nav class="navbar navbar-expand-lg navbar-dark " id="navbarFull">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="../pages/landingpage.html">
                 <div class="d-inline-flex justify-content-center align-items-center">
                     <img src="../public/img/navbarlogo.png" alt="Logo"
                         class="logo-navbar border border-4 border-white rounded-circle">
@@ -15,6 +15,7 @@ function mostrarNavBar() {
             <div class="d-inline-flex">
                 <div class="d-inline-flex d-lg-none gap-3 me-3">
                     <button class="btn p-0 me-2 login-button" type="button"><i class="bi bi-person-circle fs-3 text-white m-0"></i></button>
+                    <button class="d-none btn p-0 me-2 logout-button" type="button"><i class="bi bi-box-arrow-right fs-3 text-white m-0"></i></button>
                     <button  class="btn p-0 me-2 carrito-button" type="button carrito-button" data-bs-toggle="offcanvas" data-bs-target="#carrito"
                     aria-controls="carrito"><i class="bi bi-basket-fill fs-3 text-white m-0"></i></button>
                 </div>
@@ -23,13 +24,14 @@ function mostrarNavBar() {
                 </button>
             </div>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ms-auto me-2">
                     <li class="nav-item"><a class="nav-link fw-bold, fw-bolder" href="quienessomos.html">QUIENES SOMOS</a></li>
                     <li class="nav-item"><a class="nav-link fw-bold, fw-bolder" href="contactanos.html">CONTACTANOS</a></li>
                     <li class="nav-item"><a class="nav-link fw-bold, fw-bolder" href="catalogo.html">TIENDA</a></li>
                 </ul>
                 <ul class="navbar-nav d-none d-lg-inline-flex">
-                    <button class="btn p-0 me-2 login-button" type="button"><i class="bi bi-person-circle fs-3 text-white m-0"></i></button>
+                    <button class="btn p-0 me-3 login-button" type="button"><i class="bi bi-person-circle fs-3 text-white m-0"></i></button>
+                    <button class="d-none btn p-0 me-3 logout-button" type="button"><i class="bi bi-box-arrow-right fs-3 text-white m-0"></i></button>
                    <button class="btn p-0 me-2 carrito-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#carrito"
                     aria-controls="carrito"><i class="bi bi-basket-fill fs-3 text-white m-0"></i></button>
                 </ul>
@@ -46,12 +48,28 @@ function mostrarNavBar() {
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("navbar").innerHTML = mostrarNavBar();
 });
+
 document.addEventListener('DOMContentLoaded', () => {
     const root = document.getElementById('navbar');
     root.innerHTML = mostrarNavBar(); // inyectar [2]
-    root.querySelectorAll('.login-button').forEach((btn) => { // seleccionar elementos ya insertados [1]
-        btn.addEventListener('click', handleUserClick);
-    });
+    const login = root.querySelectorAll('.login-button');
+    const logout = root.querySelectorAll('.logout-button');
+    const current = JSON.parse(localStorage.getItem('currentUser') || 'null'); // [4]
+    if (current && current.rol !== 'admin' && logout) {
+        logout.forEach((btn) => {
+            btn.classList.remove('d-none');
+            btn.classList.add('d-block');
+            btn.addEventListener('click', handleUserClick);
+        });
+        login.forEach((btn) => { // seleccionar elementos ya insertados [1]
+            btn.classList.remove('d-block');
+            btn.classList.add('d-none');
+        });
+    } else {
+        login.forEach((btn) => { // seleccionar elementos ya insertados [1]
+            btn.addEventListener('click', handleUserClick);
+        });
+    }
 });
 
 function handleUserClick() {
@@ -63,14 +81,14 @@ function handleUserClick() {
             title: 'Sesión activa',
             html: `<p><b>Nombre:</b> ${current.name}</p><p><b>Correo:</b> ${current.email}</p>`,
             icon: 'info',
-            confirmButtonText: 'Aceptar',
+            confirmButtonText: 'Cancelar',
             showDenyButton: true,
             denyButtonText: 'Cerrar sesión'
         }).then((r) => {
             if (r.isDenied) {
                 localStorage.removeItem('currentUser'); // [4]
                 Swal.fire({ title: 'Sesión cerrada', icon: 'success', timer: 1400, showConfirmButton: false })
-                    .then(() => (window.location.href = '../pages/login.html')); // [5]
+                    .then(() => (window.location.href = '../pages/landingpage.html')); // [5]
             }
         });
     }

@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => { // esperar DOM listo
       email,
       passHash: passHash,         // si hay hash, se usa
       passPlain: passHash ? null : pass, // si no hay hash, guardamos plano (solo pruebas)
-      rol: usuario
+      rol: 'usuario'
     };
     users.push(newUser);
     saveUsers(users);
