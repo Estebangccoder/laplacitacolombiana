@@ -184,9 +184,9 @@ function btnsQuitar(cod) {
 
 function validarSesion() {
   const current = JSON.parse(localStorage.getItem('currentUser') || 'null'); // [4]
-  if (!current) return (window.location.href = '../pages/login.html'); // [5]
+  if (!current || (current && current.rol === 'admin')) return (window.location.href = '../pages/login.html'); // [5]
   if (current && current.rol !== 'admin') {
-    currentUser ? window.location.href = '../pages/ver-carrito.html' : window.location.href = '../pages/login.html'
+    window.location.href = '../pages/ver-carrito.html'
   }
 }
 
