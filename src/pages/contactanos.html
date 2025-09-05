@@ -22,28 +22,13 @@
 <body>
     <header id="navbar"></header>
     <main>
-
-        <!--Carrito de compras-->
-        <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="carrito" aria-labelledby="carrito">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title fw-bold" id="carrito">Carrito de compras</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <!--HERO-->
+        <section class="hero-banner">
+            <div class="hero-fondo" role="img" aria-label="Paisaje dos personas, cafe y cerveza">
             </div>
-            <div id="carrito-body" class="offcanvas-body">
 
-            </div>
-        </div>
-
-        <!-- Seccion hero-->
-        <section id="hero-section">
             <div class="hero-content">
-                <div class="hero-text">
-                    <h2> CONTÁCTANOS </h2>
-                    <p> Haz parte del cambio </p>
-                </div>
-            </div>
-            <div class="hero-image">
-                <img src="../public/img/Invita.png" alt="Manos ofreciendo café">
+                <h2> CONTACTANOS Y SE PARTE DEL CAMBIO</h2>
             </div>
         </section>
 
@@ -70,7 +55,7 @@
                 </div>
                 <!--card productores-->
                 <div class="col-12 col-lg-4">
-                    <div class="card card-productores mb-3 h-100">
+                    <div class="card border-warning mb-3 h-100">
                         <div class="card-body">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="icon-cards bi bi-person-raised-hand" viewBox="0 0 16 16">
@@ -81,7 +66,7 @@
                             <h5 class="card-title">Contacto productores</h5>
                             <p class="card-text">¿Eres un productor y quieres hacer parte del cambio? Escríbenos</p>
                         </div>
-                        <div class="card-footer-productores card-footer">
+                        <div class="card-footer">
                             <a href="#contactForm" class="btn-contact">Ir al formulario</a>
                         </div>
 
@@ -110,7 +95,7 @@
             </div>
         </div>
 
-        <!--Formulario-->
+        <!--Formulario contacto-->
         <div class="container px-3 px-md-5">
             <div class="container mt-5 p-4 p-xl-5 rounded-4 bg-formulario">
                 <p id="mensaje-formulario-1">Si no encontraste la respuesta en nuestra sección de <a href=""
@@ -192,8 +177,8 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
 <script type="module" src="../js/contactanos.js"></script>
 <script src="../js/navbar.js"></script>
-<script type="module" src="../js/carrito.js"></script>
 
 </html>
