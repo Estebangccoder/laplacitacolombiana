@@ -1,4 +1,4 @@
-    function mostrarNavBar() {
+function mostrarNavBar() {
     return `
     <nav class="navbar navbar-expand-lg navbar-dark " id="navbarFull">
         <div class="container-fluid">
@@ -15,7 +15,6 @@
             <div class="d-inline-flex">
                 <div class="d-inline-flex d-lg-none gap-3 me-3">
                     <button class="btn p-0 me-2 login-button" type="button"><i class="bi bi-person-circle fs-3 text-white m-0"></i></button>
-                    <button class="d-none btn p-0 me-2 logout-button" type="button"><i class="bi bi-box-arrow-right fs-3 text-white m-0"></i></button>
                     <button  class="btn p-0 me-2 carrito-button" type="button carrito-button" data-bs-toggle="offcanvas" data-bs-target="#carrito"
                     aria-controls="carrito"><i class="bi bi-basket-fill fs-3 text-white m-0"></i></button>
                 </div>
@@ -31,7 +30,6 @@
                 </ul>
                 <ul class="navbar-nav d-none d-lg-inline-flex">
                     <button class="btn p-0 me-3 login-button" type="button"><i class="bi bi-person-circle fs-3 text-white m-0"></i></button>
-                    <button class="d-none btn p-0 me-3 logout-button" type="button"><i class="bi bi-box-arrow-right fs-3 text-white m-0"></i></button>
                    <button class="btn p-0 me-2 carrito-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#carrito"
                     aria-controls="carrito"><i class="bi bi-basket-fill fs-3 text-white m-0"></i></button>
                 </ul>
@@ -43,8 +41,6 @@
 }
 
 
-
-
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("navbar").innerHTML = mostrarNavBar();
 });
@@ -53,26 +49,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const root = document.getElementById('navbar');
     root.innerHTML = mostrarNavBar(); // inyectar [2]
     const login = root.querySelectorAll('.login-button');
-    const logout = root.querySelectorAll('.logout-button');
     const current = JSON.parse(localStorage.getItem('currentUser') || 'null'); // [4]
-    if (current && current.rol !== 'admin' && logout) {
-        logout.forEach((btn) => {
-            btn.classList.remove('d-none');
-            btn.classList.add('d-block');
-            btn.addEventListener('click', handleUserClick);
-        });
+
+
+    if (current && current.rol !== 'admin' && login) {
         login.forEach((btn) => { // seleccionar elementos ya insertados [1]
-            btn.classList.remove('d-block');
-            btn.classList.add('d-none');
+            btn.firstChild.classList.remove('bi-person-circle');
+            btn.firstChild.classList.add('bi-box-arrow-right');
+            btn.addEventListener('click', handleUserClick);
         });
     } else {
         login.forEach((btn) => { // seleccionar elementos ya insertados [1]
-            btn.addEventListener('click', handleUserClick);
+            btn.firstChild.classList.remove('bi-box-arrow-right');
+            btn.firstChild.classList.add('bi-person-circle');
+            btn.addEventListener('click', () => window.location.href = '../pages/login.html');
         });
     }
 });
 
 function handleUserClick() {
+    
     const current = JSON.parse(localStorage.getItem('currentUser') || 'null'); // [4]
     if (!current) return (window.location.href = '../pages/login.html'); // [5]
     if (current && current.rol !== 'admin') {
