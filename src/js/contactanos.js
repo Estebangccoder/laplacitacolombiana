@@ -24,8 +24,13 @@ function setValid(field) {
     field.classList.remove('is-invalid');
     field.classList.add('is-valid');
 
-    const feedback = field.parentNode.querySelector('.invalid-feedback');
-    if (feedback) feedback.style.display = 'none';
+    if (field == phoneField) {
+        const feedback = field.parentNode.parentNode.querySelector('.invalid-feedback');
+        if (feedback) feedback.style.display = 'none';
+    } else {
+        const feedback = field.parentNode.querySelector('.invalid-feedback');
+        if (feedback) feedback.style.display = 'none';
+    }
 }
 
 // Función para mostrar campo inválido
@@ -36,14 +41,25 @@ function setInvalid(field, message) {
     const validFeedback = field.parentNode.querySelector('.valid-feedback');
     if (validFeedback) validFeedback.style.display = 'none';
 
-    let feedback = field.parentNode.querySelector('.invalid-feedback');
-    if (!feedback) {
-        feedback = document.createElement('div');
-        feedback.classList.add('invalid-feedback');
-        field.parentNode.appendChild(feedback);
+    if (field == phoneField) {
+        let feedback = field.parentNode.parentNode.querySelector('.invalid-feedback');
+        if (!feedback) {
+            feedback = document.createElement('div');
+            feedback.classList.add('invalid-feedback');
+            field.parentNode.after(feedback);
+        }
+        feedback.textContent = message;
+        feedback.style.display = 'block';
+    } else {
+        let feedback = field.parentNode.querySelector('.invalid-feedback');
+        if (!feedback) {
+            feedback = document.createElement('div');
+            feedback.classList.add('invalid-feedback');
+            field.parentNode.appendChild(feedback);
+        }
+        feedback.textContent = message;
+        feedback.style.display = 'block';
     }
-    feedback.textContent = message;
-    feedback.style.display = 'block';
 }
 
 // Validación de nombre
@@ -222,10 +238,10 @@ messageField.addEventListener('input', function () {
 checkboxField.addEventListener('change', validateCheckbox);
 
 //términos y condiciones alert y escuchador
- enlaceTerminos.addEventListener("click", (e) => {
-        e.preventDefault();
-        mostrarTerminos();
-    });
+enlaceTerminos.addEventListener("click", (e) => {
+    e.preventDefault();
+    mostrarTerminos();
+});
 
 
 //función mostrar terminos y condiciones
@@ -316,13 +332,13 @@ form.addEventListener('submit', function (e) {
         .then(response => {
             if (response.ok) {
                 // Éxito
-               
+
                 Swal.fire({
-            icon: 'success',
-            title: '¡Enviado!',
-            text: 'El formulario se envió correctamente.',
-            confirmButtonText: 'Aceptar'
-        })
+                    icon: 'success',
+                    title: '¡Enviado!',
+                    text: 'El formulario se envió correctamente.',
+                    confirmButtonText: 'Aceptar'
+                })
                 form.reset();
 
                 // Quitar todas las clases de validación
@@ -400,7 +416,7 @@ form.addEventListener('reset', function () {
 
 //Funcionalidad del indicativo - faltan validaciones
 const iti = window.intlTelInput(phoneField, {
-  initialCountry: "co",                // Colombia
-  separateDialCode: true,
-  utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js" // opcional, para formateo/validación
+    initialCountry: "co",                // Colombia
+    separateDialCode: true,
+    utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js" // opcional, para formateo/validación
 });
