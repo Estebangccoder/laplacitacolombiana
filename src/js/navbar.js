@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function handleUserClick() {
-    
+
     const current = JSON.parse(localStorage.getItem('currentUser') || 'null'); // [4]
     if (!current) return (window.location.href = '../pages/login.html'); // [5]
     if (current && current.rol !== 'admin') {
@@ -83,6 +83,13 @@ function handleUserClick() {
         }).then((r) => {
             if (r.isDenied) {
                 localStorage.removeItem('currentUser'); // [4]
+                if (localStorage.getItem('carrito') !== null) {
+                    // Vaciar el carrito, pero mantener la key
+                    localStorage.setItem('carrito', JSON.stringify([]));
+                } else {
+                    // Si no existe, la creamos vacía
+                    localStorage.setItem('carrito', JSON.stringify([]));
+                }
                 Swal.fire({ title: 'Sesión cerrada', icon: 'success', timer: 1400, showConfirmButton: false })
                     .then(() => (window.location.href = '../pages/landingpage.html')); // [5]
             }

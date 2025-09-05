@@ -95,9 +95,9 @@ document.addEventListener('DOMContentLoaded', () => { // esperar DOM listo
       icon: 'success',
       confirmButtonText: 'Aceptar'
     }).then(() => {
-      if(getCurrentUser().rol == 'usuario') {
-      window.location.href = '../pages/catalogo.html';
-      } else if(getCurrentUser().rol == 'admin') {
+      if (getCurrentUser().rol == 'usuario') {
+        window.location.href = '../pages/catalogo.html';
+      } else if (getCurrentUser().rol == 'admin') {
         window.location.href = '../pages/dashboard.html';
       }
     });
@@ -134,9 +134,9 @@ document.addEventListener('DOMContentLoaded', () => { // esperar DOM listo
       title: `Bienvenido, ${user.name}`,
       confirmButtonText: 'Aceptar'
     }).then(() => {
-      if(getCurrentUser().rol == 'usuario') {
-      window.location.href = '../pages/catalogo.html';
-      } else if(getCurrentUser().rol == 'admin') {
+      if (getCurrentUser().rol == 'usuario') {
+        window.location.href = '../pages/catalogo.html';
+      } else if (getCurrentUser().rol == 'admin') {
         window.location.href = '../pages/dashboard.html';
       }
     });
