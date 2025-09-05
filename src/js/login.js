@@ -2,13 +2,21 @@ const container = document.querySelector(".container");
 const btnSignIn = document.getElementById("btn-sign-in");
 const btnSignUp = document.getElementById("btn-sign-up");
 
-btnSignIn.addEventListener("click", () => {
-   container.classList.remove("toggle");
-});
-btnSignUp.addEventListener("click", () => {
-   container.classList.add("toggle");
-});
+if (btnSignIn && btnSignUp) {
+  btnSignIn?.addEventListener("click", () => {
+    container.classList.remove("toggle");
+  });
+  btnSignUp?.addEventListener("click", () => {
+    container.classList.add("toggle");
+  });
 
+  document.addEventListener("DOMContentLoaded", () => {
+    const canasta = document.querySelectorAll('.carrito-button');
+    canasta.forEach(element => {
+      element.classList.add('d-none');
+    });
+  });
+}
 
 /*const btn = document.getElementById("btn");
 const container = document.querySelector(".container");
@@ -96,10 +104,10 @@ document.addEventListener('DOMContentLoaded', () => { // esperar DOM listo
   formLogin?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const email = document.getElementById('loginEmail').value.trim().toLowerCase();
-    const pass  = document.getElementById('loginPass').value;
+    const pass = document.getElementById('loginPass').value;
 
     const users = getUsers();
-    const user  = users.find(u => u.email === email);
+    const user = users.find(u => u.email === email);
     if (!user) {
       return Swal.fire({ icon: 'error', title: 'Usuario no encontrado' });
     }

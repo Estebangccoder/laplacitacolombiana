@@ -18,14 +18,14 @@ function mostrarProductosCarrito() {
     const contenedorFactura = document.getElementById("valorCarrito");
     contenedorFactura.innerHTML = ""; // limpiar antes de renderizar
 
-    
+
     let totalCarrito = 0;
     let descuento = 0;
     let costoEnvio = 0;
 
     carrito.forEach(p => {
         const item = document.createElement('div');
-        item.classList.add('row', 'justify-content-center', 'align-items-center', 
+        item.classList.add('row', 'justify-content-center', 'align-items-center',
             'mb-2', 'item-carrito', 'p-3', 'rounded-3', 'border', 'border-2', 'border-dark-subtle');
 
         const totalProducto = p.precio * p.cantidad_carrito;
@@ -81,6 +81,8 @@ function mostrarProductosCarrito() {
             </div>
         </div>
     `
+
+    mostrarRecomendados();
 }
 
 function precioCOP(valor) {
@@ -145,10 +147,158 @@ function btnsQuitar(cod) {
     mostrarProductosCarrito();
 }
 
+function recomendaciones() {
+    if (carrito.length === 0) return null;
+
+    const counts = carrito.reduce((acc, p) => {
+        acc[p.categoria] = (acc[p.categoria] || 0) + 1;
+        return acc;
+    }, {});
+
+    const max = Math.max(...Object.values(counts));
+
+    const categoriasGanadoras = Object.keys(counts).filter(cat => counts[cat] === max);
+
+    const categoriasValidas = categoriasGanadoras.filter(cat =>
+        productos.some(p => p.categoria === cat && !carrito.some(c => c.codigo === p.codigo))
+    );
+
+    let recomendados = [];
+
+    const numCatValidas = categoriasValidas.length;
+
+    categoriasValidas.forEach(cat => {
+        const productosCategoria = productos.filter(p =>
+            p.categoria === cat && !carrito.some(c => c.codigo === p.codigo)
+        );
+
+        switch (numCatValidas) {
+            case 1:
+                const mezclados1 = productosCategoria.sort(() => 0.5 - Math.random());
+                recomendados.push(...mezclados1.slice(0, 3));
+                break;
+
+            case 2:
+                const catMaxProd = Math.random() < 0.5 ? categoriasValidas[0] : categoriasValidas[1];
+                if (cat === catMaxProd) {
+                    const mezclados2 = productosCategoria.sort(() => 0.5 - Math.random());
+                    recomendados.push(...mezclados2.slice(0, 2));
+                } else {
+                    const randomIndex = Math.floor(Math.random() * productosCategoria.length);
+                    recomendados.push(productosCategoria[randomIndex]);
+                }
+                break;
+
+            case 3:
+                const randomIndex2 = Math.floor(Math.random() * productosCategoria.length);
+                recomendados.push(productosCategoria[randomIndex2]);
+                break;
+        }
+    });
+    
+    return recomendados;
+}
+
+function mostrarRecomendados(){
+    const contenedor = document.getElementById("recomendacionesContainer");
+    contenedor.innerHTML = ""; // limpiar antes de renderizar
+
+    listaProductos = recomendaciones();
+
+    if (listaProductos.length === 0) {
+        contenedor.innerHTML = `
+        <h3>Lista de productos</h3>
+        <p>No hay productos registrados.</p>
+      `;
+    } else {
+
+        listaProductos.forEach(producto => {
+            if (producto.cantidad > 0) {
+                contenedor.innerHTML += `
+                    <div class="col">
+                        <div class="card mb-3 product-h" data-category="${producto.categoria}">
+                            <div class="row g-0 align-items-center">
+                                <div class="col-md-4">
+                                    <img src="${producto.imagen.startsWith("data:") ? producto.imagen : `../public/img/productos/${producto.imagen}`}" 
+                                    class="img-fluid rounded-start product-h-img" alt="${producto.nombre}" />
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body d-flex flex-column h-100">
+                                        <h5 class="card-title mb-2">${producto.nombre}</h5>
+                                        <p class="card-text mb-3">${producto.descripcion}</p>
+                                        <ul class="list-unstyled small mb-3">
+                                            <li>Productor: <a href="#" class="producer-link">${producto.productor}</a></li>
+                                            <li>Presentación: ${producto.presentacion} <span>${producto.medida}</span></li>
+                                        </ul>
+                                        <div class="mt-auto d-flex flex-wrap gap-2 align-items-center">
+                                            <span class="price mb-0">Precio: ${precioCOP(producto.precio)}</span>
+                                            <button href="#" class="btn btn-primary ms-auto agregar-btn" 
+                                            onclick="agregarAcarrito(${producto.codigo})">Agregar a la canasta</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        });
+    }
+}
+
+function agregarAcarrito(cod) {
+
+  const productoSeleccionado = productos.find(p => p.codigo === cod);
+  const indexProducto = productos.findIndex(p => p.codigo == cod);
+  if (!productoSeleccionado) return;
+
+  const indexProductoEnCarrito = carrito.findIndex(p => p.codigo === cod);
+  if (productos[indexProducto]['cantidad'] > 0) {
+    if (indexProductoEnCarrito !== -1) {
+      carrito[indexProductoEnCarrito].cantidad_carrito += 1;
+      productos[indexProducto]['cantidad'] -= 1;
+    } else {
+      const p = {
+        codigo: productoSeleccionado["codigo"],
+        nombre: productoSeleccionado["nombre"],
+        precio: productoSeleccionado["precio"],
+        imagen: productoSeleccionado["imagen"],
+        categoria: productoSeleccionado["categoria"],
+        cantidad_carrito: 1,
+      };
+      carrito.push(p);
+      productos[indexProducto]['cantidad'] -= 1;
+    }
+
+    Swal.fire({
+      text: "Producto agregado a carrito",
+      icon: "success",
+      showConfirmButton: false,
+      timer: 2000,
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+    });
+  } else {
+    Swal.fire({
+      text: "No hay unidades disponibles",
+      icon: "error",
+      showConfirmButton: false,
+      timer: 2000,
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+    });
+    return;
+  };
+  localStorage.setItem('carrito', JSON.stringify(carrito));
+  localStorage.setItem('productos', JSON.stringify(productos));
+
+  mostrarProductosCarrito();
+};
 
 // Inicialización al cargar la página
 document.addEventListener("DOMContentLoaded", () => {
     carrito = JSON.parse(localStorage.getItem("carrito") || "[]");
     productos = JSON.parse(localStorage.getItem("productos") || "[]");
     mostrarProductosCarrito();
+    mostrarRecomendados();
 });
