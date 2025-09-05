@@ -27,7 +27,6 @@ btn.addEventListener("click",()=>{
 
 // --- utilidades de localStorage ---
 
-
 document.addEventListener('DOMContentLoaded', () => { // esperar DOM listo
   // Toggle del UI
   const container = document.querySelector('.container');
