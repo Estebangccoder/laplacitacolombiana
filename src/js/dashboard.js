@@ -1037,19 +1037,33 @@ function chartInventario() {
 
 }
 
+// exit
+function handleUserClick() {
+  if (!current) return (window.location.href = '../pages/login.html'); // [5]
+  localStorage.removeItem('currentUser');
+  window.location.href = '../pages/login.html';
+}
+
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
-window.loadSection = loadSection;
-window.toggleSubmenu = toggleSubmenu;
-window.eliminarProducto = eliminarProducto;
-window.editarProducto = editarProducto;
-window.guardarProducto = guardarProducto;
-window.guardarProductor = guardarProductor;
-window.eliminarPublicacion = eliminarPublicacion;
-window.editarPublicacion = editarPublicacion;
 
-document.addEventListener("load", loadSection('home'));
+
+const current = JSON.parse(localStorage.getItem('currentUser') || 'null');
+if (current && current.rol === 'admin') {
+  window.loadSection = loadSection;
+  window.toggleSubmenu = toggleSubmenu;
+  window.eliminarProducto = eliminarProducto;
+  window.editarProducto = editarProducto;
+  window.guardarProducto = guardarProducto;
+  window.guardarProductor = guardarProductor;
+  window.eliminarPublicacion = eliminarPublicacion;
+  window.editarPublicacion = editarPublicacion;
+  document.addEventListener("load", loadSection('home'));
+} else {
+  window.location.href = '../pages/login.html';
+}
+
 
 
 

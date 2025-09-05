@@ -183,8 +183,11 @@ function btnsQuitar(cod) {
 }
 
 function validarSesion() {
-  const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
-  currentUser ? window.location.href = '../pages/ver-carrito.html' : window.location.href = '../pages/login.html'
+  const current = JSON.parse(localStorage.getItem('currentUser') || 'null'); // [4]
+  if (!current) return (window.location.href = '../pages/login.html'); // [5]
+  if (current && current.rol !== 'admin') {
+    currentUser ? window.location.href = '../pages/ver-carrito.html' : window.location.href = '../pages/login.html'
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
