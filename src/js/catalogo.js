@@ -62,7 +62,6 @@ function filtrarPorCategoria(categoria) {
 
 
 
-
 // Inicialización al cargar la página
 document.addEventListener("DOMContentLoaded", () => {
     // Mostrar todos los productos al inicio

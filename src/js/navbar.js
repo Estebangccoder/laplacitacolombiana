@@ -2,7 +2,7 @@ function mostrarNavBar() {
     return `
     <nav class="navbar navbar-expand-lg navbar-dark " id="navbarFull">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="../pages/landingpage.html">
                 <div class="d-inline-flex justify-content-center align-items-center">
                     <img src="../public/img/navbarlogo.png" alt="Logo"
                         class="logo-navbar border border-4 border-white rounded-circle">
