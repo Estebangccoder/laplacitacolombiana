@@ -3,33 +3,48 @@
 
 /* Fonts */
 :root {
-    --fuente-titulos: 'Cormorant Garamond', serif;
-    --fuente-texto: 'Nunito', sans-serif;
+  --fuente-titulos: 'Cormorant Garamond', serif;
+  --fuente-texto: 'Nunito', sans-serif;
 
-    --peso-ligero: 300;
-    --peso-normal: 400;
-    --peso-semi-bold: 600;
-    --peso-bold: 700;
+  --peso-ligero: 300;
+  --peso-normal: 400;
+  --peso-semi-bold: 600;
+  --peso-bold: 700;
 
-    --bg-titulos: #f0d260;
-    --bg-bloques: #ad132b;
+  --bg-titulos: #f0d260;
+  --bg-bloques: #ad132b;
 }
 
 /*------------------------------------------
 # seccion hero 
 ------------------------------------------*/
+#carrito .btn-close {
+  background-image: var(--bs-btn-close-bg);
+  background-size: 1em;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 1em;
+  height: 1em;
+  opacity: .5;
+  margin: -.5rem -.5rem -.5rem auto;
+}
+
+#carrito .btn-close:hover {
+  opacity: .75;
+}
+
 /* Sección */
-.hero-banner{
+.hero-banner {
   position: relative;
   overflow: hidden;
 }
 
-.container-banner{
+.container-banner {
   background-image: url("../public/img/fondo-cotactanos.webp");
   background-repeat: repeat;
-  background-size: 600px auto;          
+  background-size: 600px auto;
   background-position: center;
-  position: relative;                   
+  position: relative;
   min-height: clamp(380px, 48vw, 640px);
   display: grid;
   grid-template-columns: minmax(320px, 640px) 1fr;
@@ -39,39 +54,40 @@
   border-top: 6px solid var(--rojo);
 }
 
-.container-banner::before{
-  content:"";
-  position:absolute; inset:0;
+.container-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
   background:
-    linear-gradient(90deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.15) 45%, transparent 60%);
-  pointer-events:none;
+    linear-gradient(90deg, rgba(0, 0, 0, .35) 0%, rgba(0, 0, 0, .15) 45%, transparent 60%);
+  pointer-events: none;
 }
 
-.banner-copy{
-  position: relative; 
+.banner-copy {
+  position: relative;
   z-index: 1;
-  color:#fff;
+  color: #fff;
   font-family: var(--fuente-texto);
-  background: rgba(0,0,0,.25);
+  background: rgba(0, 0, 0, .25);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   border-radius: 16px;
   padding: clamp(14px, 3vw, 28px);
-  box-shadow: 0 10px 28px rgba(0,0,0,.25);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, .25);
   text-align: center;
 }
 
-.banner-copy h2{
+.banner-copy h2 {
   font-family: var(--fuente-titulos);
   font-weight: var(--peso-bold);
   font-size: clamp(1.5rem, 4.8vw, 2.5rem);
   line-height: 1.1;
   margin: 0 0 .6rem 0;
-  color: #fff;               
-  text-shadow: 0 2px 6px rgba(0,0,0,.25);
+  color: #fff;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, .25);
 }
 
-.banner-copy p{
+.banner-copy p {
   margin: 0 0 1rem 0;
   color: #f7f7f7;
   font-size: clamp(.95rem, 2.2vw, 1.06rem);
@@ -79,14 +95,14 @@
 
 .btn-hero {
   display: inline-block;
-  margin: 0 auto; 
+  margin: 0 auto;
   font-weight: var(--peso-semi-bold);
   text-decoration: none;
   padding: .7rem 1.1rem;
   border-radius: 999px;
-  background: #F0D260;              
-  color: #222;                      
-  box-shadow: 0 8px 20px rgba(240, 210, 96, .35); 
+  background: #F0D260;
+  color: #222;
+  box-shadow: 0 8px 20px rgba(240, 210, 96, .35);
   transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease;
 }
 
@@ -96,23 +112,34 @@
   opacity: .95;
 }
 
-#img-banner{
+#img-banner {
   width: min(720px, 94%);
   height: auto;
   border-radius: 16px;
-  outline: 6px solid var(--bg-titulos); 
-  box-shadow: 0 18px 40px rgba(0,0,0,.35);
+  outline: 6px solid var(--bg-titulos);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, .35);
   object-fit: cover;
 }
 
-@media (max-width: 992px){
-  .container-banner{
-    grid-template-columns: 1fr;      
-    background-size: 440px auto;    
+@media (max-width: 992px) {
+  .container-banner {
+    grid-template-columns: 1fr;
+    background-size: 440px auto;
   }
-  .banner-copy{ text-align:center; margin: 0 auto; }
-  .banner-figure{ justify-content:center; }
-  .banner-figure img{ width: min(560px, 92%); outline-width:4px; }
+
+  .banner-copy {
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .banner-figure {
+    justify-content: center;
+  }
+
+  .banner-figure img {
+    width: min(560px, 92%);
+    outline-width: 4px;
+  }
 }
 
 
@@ -124,154 +151,154 @@
 ------------------------------------------*/
 
 .card {
-    border-radius: 15px;
-    padding: 30px;
-    position: relative;
-    overflow: hidden;
-    box-sizing: border-box;
+  border-radius: 15px;
+  padding: 30px;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .icon-cards {
-    fill: var(--bg-bloques);
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 20px;
+  fill: var(--bg-bloques);
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
 }
 
 .card-footer {
-    background-color: white !important;
-    border: none !important;
+  background-color: white !important;
+  border: none !important;
 }
 
 .card-title {
-    font-family: var(--fuente-texto);
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: black;
-    margin-bottom: 15px;
-    text-align: center;
+  font-family: var(--fuente-texto);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: black;
+  margin-bottom: 15px;
+  text-align: center;
 }
 
 .card-text {
-    font-family: var(--fuente-texto);
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 25px;
-    text-align: center
+  font-family: var(--fuente-texto);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 25px;
+  text-align: center
 }
 
 .btn-contact {
-    background: var(--bg-bloques);
-    border: 0;
-    border-radius: 25px;
-    padding: 12px 16px;
-    color: #fff;
-    text-decoration: none;
-    font-weight: 600;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-    width: 100%;
-    max-width: 280px;
-    font-size: 1rem;
-    overflow-wrap: anywhere;
-    text-align: center;
+  background: var(--bg-bloques);
+  border: 0;
+  border-radius: 25px;
+  padding: 12px 16px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 280px;
+  font-size: 1rem;
+  overflow-wrap: anywhere;
+  text-align: center;
 }
 
 .btn-contact:hover {
-    opacity: 0.7;
+  opacity: 0.7;
 }
 
 /*------------------------------------------
 # seccion formulario
 ------------------------------------------*/
 #mensaje-formulario-1 {
-    font-family: var(--fuente-titulos);
-    font-size: 1.5rem;
-    margin: 2rem 1rem 0 1rem;
-    text-align: center;
-    line-height: 1.2;
+  font-family: var(--fuente-titulos);
+  font-size: 1.5rem;
+  margin: 2rem 1rem 0 1rem;
+  text-align: center;
+  line-height: 1.2;
 }
 
 #mensaje-formulario-1 .link-faq {
-    cursor: pointer;
-    text-decoration: none;
-    color: black;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
 }
 
 #mensaje-formulario-1 .link-faq:hover {
-    cursor: pointer;
-    text-decoration: underline;
-    color: black;
+  cursor: pointer;
+  text-decoration: underline;
+  color: black;
 }
 
 #mensaje-formulario-1::after {
-    content: "";
-    display: block;
-    width: 75%;
-    height: 3px;
-    background-color: var(--bg-bloques);
-    margin: 10px auto;
+  content: "";
+  display: block;
+  width: 75%;
+  height: 3px;
+  background-color: var(--bg-bloques);
+  margin: 10px auto;
 }
 
 #mensaje-formulario-2 {
-    font-family: var(--fuente-titulos);
-    font-size: 3rem;
-    margin: 0 1rem 2rem 1rem;
-    text-align: center;
-    line-height: 1.2;
+  font-family: var(--fuente-titulos);
+  font-size: 3rem;
+  margin: 0 1rem 2rem 1rem;
+  text-align: center;
+  line-height: 1.2;
 }
 
 #contactForm {
-    font-family: var(--fuente-texto);
-    font-size: 1rem;
-    color: black;
-    margin: 0;
-    padding: 1rem;
+  font-family: var(--fuente-texto);
+  font-size: 1rem;
+  color: black;
+  margin: 0;
+  padding: 1rem;
 }
 
 .bg-formulario {
-    background: transparent;
-    border: 2px solid var(--bg-titulos);
-    border-radius: 15px;
-    margin: auto;
+  background: transparent;
+  border: 2px solid var(--bg-titulos);
+  border-radius: 15px;
+  margin: auto;
 }
 
 #contactForm button {
-    background-color: var(--bg-bloques);
-    border: none;
-    border-radius: 25px;
-    padding: 12px 30px;
-    color: white;
-    font-size: 1rem;
-    position: relative;
-    top: -15px;
+  background-color: var(--bg-bloques);
+  border: none;
+  border-radius: 25px;
+  padding: 12px 30px;
+  color: white;
+  font-size: 1rem;
+  position: relative;
+  top: -15px;
 }
 
 #contactForm button:hover {
-    opacity: 0.7;
+  opacity: 0.7;
 }
 
 #contactForm .tyc {
-    cursor: pointer;
-    text-decoration: none;
-    color: black;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
 }
 
 #contactForm .tyc:hover {
-    cursor: pointer;
-    text-decoration: underline;
-    color: black;
+  cursor: pointer;
+  text-decoration: underline;
+  color: black;
 }
 
 .iti {
-    width: 100%;
+  width: 100%;
 }
 
 .iti.iti--allow-dropdown.iti--show-flags {
-    position: relative;
+  position: relative;
 }

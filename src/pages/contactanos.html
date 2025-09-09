@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../css/contactanos.css">
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/carrito.css">
+    <link rel="stylesheet" href="../css/footer.css">
     </link>
 
 
@@ -22,6 +23,16 @@
 <body>
     <header id="navbar"></header>
     <main>
+        <!--Carrito de compras-->
+        <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="carrito" aria-labelledby="carrito">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title fw-bold" id="carrito">Carrito de compras</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div id="carrito-body" class="offcanvas-body">
+            </div>
+        </div>
+
         <!-- HERO -->
         <section class="hero-banner">
             <div class="container-banner">
@@ -173,6 +184,7 @@
             <p>* Servicio disponible de Lunes - Viernes: 9:00 AM a 5:00 PM</p>
         </div>
     </main>
+    <footer id="footer"></footer>
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
@@ -184,5 +196,7 @@
 
 <script type="module" src="../js/contactanos.js"></script>
 <script src="../js/navbar.js"></script>
+<script src="../js/carrito.js"></script>
+<script src="../js/footer.js"></script>
 
 </html>

@@ -90,6 +90,18 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+
+    const Cate = new URLSearchParams(window.location.search);
+    const categoria = Cate.get("categoria");
+    if (categoria) {
+        const input = document.getElementById(categoria);
+        if (input) {
+            input.checked = true;
+            input.dispatchEvent(new Event("change"));
+            document.getElementById("filtros").scrollIntoView({ behavior: "smooth" });
+        }
+    }
+
 });
 
 

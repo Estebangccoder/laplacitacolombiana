@@ -24,7 +24,7 @@ main {
   align-items: center;
 }
 
-.container{
+.login-container{
     width: 800px;
     height: 500px;
     display: flex;
@@ -32,7 +32,8 @@ main {
     background-image: url(../public/img/login/fondologin1.png);
     border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 0 10px #EEEEEE(0, 0,0,0.3)
+    box-shadow: 0 0 10px #EEEEEE(0, 0,0,0.3);
+    margin: auto;  
 }
 .container-form{
     width: 100%;
@@ -110,10 +111,10 @@ main {
 .sign-up{
     transform: translateX(-100%);
 }
-.container.toggle .sign-in{
+.login-container.toggle .sign-in{
     transform: translateX(100%);
 }
-.container.toggle .sign-up{
+.login-container.toggle .sign-up{
     transform: translateX(0);
 }
 
@@ -131,7 +132,7 @@ main {
     overflow: hidden;
     border-radius: 50% 0 0 50%;
 }
-.container.toggle .container-welcome{
+.login-container.toggle .container-welcome{
     transform: translateX(0);
     border-radius: 0 50% 50% 0;
     background-color: #9faa68;
@@ -163,9 +164,9 @@ main {
     text-transform: none;
 }
 
-.container.toggle .welcome-sign-in{
+.login-container.toggle .welcome-sign-in{
     transform: translateX(0);
 }
-.container.toggle .welcome-sign-up{
+.login-container.toggle .welcome-sign-up{
     transform: translateX(-100%);
 }

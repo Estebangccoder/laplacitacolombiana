@@ -30,7 +30,7 @@ btn.addEventListener("click",()=>{
 
 document.addEventListener('DOMContentLoaded', () => { // esperar DOM listo
   // Toggle del UI
-  const container = document.querySelector('.container');
+  const container = document.querySelector('.login-container');
   const btnSignIn = document.getElementById('btn-sign-in');
   const btnSignUp = document.getElementById('btn-sign-up');
   btnSignIn?.addEventListener('click', () => container?.classList.remove('toggle'));
