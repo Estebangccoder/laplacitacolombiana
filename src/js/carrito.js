@@ -1,9 +1,9 @@
-function ajustarOffcanvas() {
+function ajustarCarrito() {
   const navbar = document.querySelector('#navbar');
-  const offcanvas = document.querySelector('#carrito');
+  const carrito = document.querySelector('#carrito');
   const navbarHeight = navbar.offsetHeight;
-  offcanvas ? offcanvas.style.top = navbarHeight + 'px' : null;
-  offcanvas ? offcanvas.style.height = `calc(100% - ${navbarHeight}px)` : null;
+  carrito ? carrito.style.top = navbarHeight + 'px' : null;
+  carrito ? carrito.style.height = `calc(100% - ${navbarHeight}px)` : null;
 }
 
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
@@ -69,7 +69,7 @@ function renderCarrito() {
   if (carrito.length > 0) {
     carrito.forEach(p => {
       const item = document.createElement('div');
-      item.classList.add('row', 'justify-content-center', 'align-items-center', 'mb-2');
+      item.classList.add('row', 'justify-content-center', 'align-items-center', 'mb-2', 'mx-1');
 
       const totalProducto = p.precio * p.cantidad_carrito;
       totalCarrito += totalProducto;
@@ -191,7 +191,6 @@ function validarSesion() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  ajustarOffcanvas();
   renderCarrito();
 });
 

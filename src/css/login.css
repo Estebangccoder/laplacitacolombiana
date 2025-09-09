@@ -1,30 +1,31 @@
-
-*{
+@import url(./normalize.css);
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: "Montserrat", sans-serif;
 }
-body{
+
+body {
     width: 100%;
-    min-height: 100vh;        
+    min-height: 100vh;
     display: flex;
-    flex-direction: column;    
+    flex-direction: column;
     background: #F0F4F3;
 }
 
 #navbar {
-  width: 100%;
-  flex: 0 0 auto;   
+    width: 100%;
+    flex: 0 0 auto;
 }
 
 main {
-  flex: 1 0 auto;   
-  justify-content: center;
-  align-items: center;
+    flex: 1 0 auto;
+    justify-content: center;
+    align-items: center;
 }
 
-.container{
+.container {
     width: 800px;
     height: 500px;
     display: flex;
@@ -32,44 +33,51 @@ main {
     background-image: url(../public/img/login/fondologin1.png);
     border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 0 10px #EEEEEE(0, 0,0,0.3)
+    box-shadow: 0 0 10px #EEEEEE(0, 0, 0, 0.3)
 }
-.container-form{
+
+.container-form {
     width: 100%;
     overflow: hidden;
-    
+
 }
-.container-form form{
+
+.container-form form {
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     transition: transform 0.5s ease-in;
-    
+
 }
-.container-form h2{
+
+.container-form h2 {
     color: white;
     font-size: 30px;
     margin-bottom: 20px;
 }
-.social-networks{
+
+.social-networks {
     display: flex;
     gap: 12px;
     margin-bottom: 25px;
 }
-.social-networks ion-icon{
+
+.social-networks ion-icon {
     border: 1px solid #C9CCCB;
     border-radius: 6px;
     padding: 8px;
     cursor: pointer;
 }
-.container-form span{
+
+.container-form span {
     color: #EEEEEE;
     font-size: 12px;
     margin-bottom: 15px;
 }
-.container-input{
+
+.container-input {
     width: 300px;
     height: 40px;
     margin-bottom: 10px;
@@ -80,45 +88,51 @@ main {
     padding: 0 15px;
     background-color: #EEEEEE;
 }
-.container-input input{
+
+.container-input input {
     border: none;
     outline: none;
     width: 100%;
     height: 100%;
     background-color: inherit;
 }
-.container-form a{
+
+.container-form a {
     color: #EEEEEE;
-    font-size:  14px;
+    font-size: 14px;
     margin-bottom: 20px;
     margin-top: 5px;
 }
-.button{
+
+.button {
     width: 170px;
     height: 45px;
     font-size: 15px;
     border: 2px solid #EEEEEE;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 10px;  
-    background-color: #97a35a;  
+    margin-top: 10px;
+    background-color: #97a35a;
     color: white;
     text-transform: none;
 }
+
 /*transisiones*/
 
-.sign-up{
+.sign-up {
     transform: translateX(-100%);
 }
-.container.toggle .sign-in{
+
+.container.toggle .sign-in {
     transform: translateX(100%);
 }
-.container.toggle .sign-up{
+
+.container.toggle .sign-up {
     transform: translateX(0);
 }
 
 /*bienvenida*/
-.container-welcome{
+.container-welcome {
     position: absolute;
     left: 0;
     width: 50%;
@@ -131,13 +145,15 @@ main {
     overflow: hidden;
     border-radius: 50% 0 0 50%;
 }
-.container.toggle .container-welcome{
+
+.container.toggle .container-welcome {
     transform: translateX(0);
     border-radius: 0 50% 50% 0;
     background-color: #9faa68;
     left: 0;
 }
-.container-welcome .welcome{
+
+.container-welcome .welcome {
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -147,25 +163,65 @@ main {
     color: white;
     transition: transform 0.5s ease-in-out;
 }
-.welcome-sign-in{
+
+.welcome-sign-in {
     transform: translateX(100%);
 }
-.container-welcome h3{
+
+.container-welcome h3 {
     font-size: 40px;
 }
-.container-welcome p{
+
+.container-welcome p {
     font-size: 14px;
     text-align: center;
 }
-.container-welcome .button{
+
+.container-welcome .button {
     border: 2px solid white;
     background-color: #A5132b;
     text-transform: none;
 }
 
-.container.toggle .welcome-sign-in{
+.container.toggle .welcome-sign-in {
     transform: translateX(0);
 }
-.container.toggle .welcome-sign-up{
+
+.container.toggle .welcome-sign-up {
     transform: translateX(-100%);
+}
+
+@media (max-width: 765px) {
+    .container {
+        flex-direction: column;
+        width: 90%;
+        height: auto;
+        margin: 0 auto;
+        padding-bottom: 1rem ;
+    }
+
+    .container-welcome {
+        position: absolute;
+        width: 100%;
+        height: 50%;
+        transform: translateY(100%);
+    }
+
+    .container-welcome .welcome {
+        left: 20px;
+    }
+
+    .container-welcome h3 {
+        font-size: 30px;
+    }
+
+    .container-form .sign-in {
+        margin-top: 1rem;
+    }
+
+    .container-form .sign-up {
+        padding-top: 3rem;
+        margin-top: 3rem;
+    }
+
 }

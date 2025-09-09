@@ -25,13 +25,13 @@ function mostrarProductos(listaProductos, idContenedor) {
                 contenedor.innerHTML += `
                     <div class="col">
                         <div class="card mb-3 product-h" data-category="${producto.categoria}">
-                            <div class="row g-0 align-items-center">
+                            <div class="row g-0 align-items-center my-auto">
                                 <div class="col-md-4">
                                     <img src="${producto.imagen.startsWith("data:") ? producto.imagen : `../public/img/productos/${producto.imagen}`}" 
                                     class="img-fluid rounded-start product-h-img" alt="${producto.nombre}" />
                                 </div>
                                 <div class="col-md-8">
-                                    <div class="card-body d-flex flex-column h-100">
+                                    <div class="card-body d-flex flex-column justify-content-between h-100">
                                         <h5 class="card-title mb-2">${producto.nombre}</h5>
                                         <p class="card-text mb-3">${producto.descripcion}</p>
                                         <ul class="list-unstyled small mb-3">

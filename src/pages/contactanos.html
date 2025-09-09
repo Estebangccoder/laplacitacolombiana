@@ -22,6 +22,17 @@
 <body>
     <header id="navbar"></header>
     <main>
+
+        <!--Carrito de compras-->
+        <div class="container rounded-bottom d-none px-4" id="carrito">
+            <div class="container-fluid d-flex justify-content-between carrito-header text-center my-3 border-bottom border-black border-3">
+                <h5 class="fw-bold" id="carrito-titulo">Carrito de compras</h5>
+                <button type="button" id="btn-close" class="btn-close"></button>
+            </div>
+            <div id="carrito-body" class="carrito-body mb-3">
+            </div>
+        </div>
+
         <!-- HERO -->
         <section class="hero-banner">
             <div class="container-banner">
@@ -30,7 +41,7 @@
                     <p>Conecta con productores de café, cacao y cerveza artesanal.</p>
                     <a class="btn-hero" href="#contacto">¡Hablemos! </a>
                 </div>
-                <div class="col">
+                <div class="col text-center">
                     <img id="img-banner" src="../public/img/imagen-campesinos.webp" alt="Pintura campesinos">
                 </div>
             </div>
@@ -184,5 +195,7 @@
 
 <script type="module" src="../js/contactanos.js"></script>
 <script src="../js/navbar.js"></script>
+<script src="../js/carrito.js"></script>
+<script src="../js/dataBase.js"></script>
 
 </html>

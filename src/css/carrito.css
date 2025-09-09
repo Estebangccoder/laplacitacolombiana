@@ -2,8 +2,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Nunito:wght@400;600&display=swap');
 
 #carrito {
+  background-color: white;
   position: absolute;
-  height: auto !important;     
+  z-index: 100;
+  height: auto !important;  
+  width: 60%;  
+  right: 0; 
                     
 }
 

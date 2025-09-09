@@ -15,8 +15,8 @@ function mostrarNavBar() {
             <div class="d-inline-flex">
                 <div class="d-inline-flex d-lg-none gap-3 me-3">
                     <button class="btn p-0 me-2 login-button" type="button"><i class="bi bi-person-circle fs-3 text-white m-0"></i></button>
-                    <button  class="btn p-0 me-2 carrito-button" type="button carrito-button" data-bs-toggle="offcanvas" data-bs-target="#carrito"
-                    aria-controls="carrito"><i class="bi bi-basket-fill fs-3 text-white m-0"></i></button>
+                    <button class="btn p-0 me-2 carrito-button" type="button carrito-button">
+                    <i class="bi bi-basket-fill fs-3 text-white m-0"></i></button>
                 </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
@@ -30,8 +30,8 @@ function mostrarNavBar() {
                 </ul>
                 <ul class="navbar-nav d-none d-lg-inline-flex">
                     <button class="btn p-0 me-3 login-button" type="button"><i class="bi bi-person-circle fs-3 text-white m-0"></i></button>
-                   <button class="btn p-0 me-2 carrito-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#carrito"
-                    aria-controls="carrito"><i class="bi bi-basket-fill fs-3 text-white m-0"></i></button>
+                   <button class="btn p-0 me-2 carrito-button" type="button">
+                   <i class="bi bi-basket-fill fs-3 text-white m-0"></i></button>
                 </ul>
             </div>
         </div>
@@ -48,9 +48,22 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener('DOMContentLoaded', () => {
     const root = document.getElementById('navbar');
     root.innerHTML = mostrarNavBar(); // inyectar [2]
+    const carritoBtn = root.querySelectorAll('.carrito-button');
+    const closeBtn = document.getElementById('btn-close');
     const login = root.querySelectorAll('.login-button');
     const current = JSON.parse(localStorage.getItem('currentUser') || 'null'); // [4]
 
+    carritoBtn.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const carrito = document.getElementById('carrito');
+            carrito?.classList.toggle('d-none');
+        });
+    })
+
+    closeBtn?.addEventListener('click', () => {
+        const carrito = document.getElementById('carrito');
+        carrito.classList.toggle('d-none');
+    });
 
     if (current && current.rol !== 'admin' && login) {
         login.forEach((btn) => { // seleccionar elementos ya insertados [1]
@@ -96,6 +109,7 @@ function handleUserClick() {
         });
     }
 }
+
 //tener en cuenta importar CSS y JS y los iconos de bootstrap en cada página
 
 // iconos: <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">

@@ -22,16 +22,15 @@
     <header id="navbar"></header>
     <main>
         <!--Carrito de compras-->
-        <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="carrito" aria-labelledby="carrito">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title fw-bold" id="carrito">Carrito de compras</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <div class="container rounded-bottom d-none px-4" id="carrito">
+            <div class="container-fluid d-flex justify-content-between carrito-header text-center my-3 border-bottom border-black border-3">
+                <h5 class="fw-bold" id="carrito-titulo">Carrito de compras</h5>
+                <button type="button" id="btn-close" class="btn-close"></button>
             </div>
-            <div id="carrito-body" class="offcanvas-body">
-
+            <div id="carrito-body" class="carrito-body mb-3">
             </div>
         </div>
-
+        
         <!--Carrusel y frase -->
 
         <section class="frase-carrusel container my-4">

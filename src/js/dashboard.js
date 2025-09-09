@@ -274,7 +274,12 @@ function guardarProducto(event) {
   event.preventDefault();
 
   if (!validateForm(inputs())) {
-    alert("Hay campos incorrectos");
+    Swal.fire({
+      icon: "error",
+      title: "Hay campos incorrectos",
+      showConfirmButton: false,
+      timer: 1500
+    });
     return
   }
 
@@ -301,35 +306,58 @@ function guardarProducto(event) {
     };
     productos.push(producto);
     localStorage.setItem("productos", JSON.stringify(productos));
-    alert("Producto agregado correctamente");
+    Toastify({
+      text: "Producto agregado correctamente", // Mensaje de éxito de la sesión
+      duration: 2000, // Duración de la notificación (2 segundos)
+      close: true, // Mostrar botón de cerrar
+      gravity: "top", // Posición de la notificación (arriba)
+      position: "right", // Posición a la derecha
+      stopOnFocus: true, // Evitar que la notificación se cierre al pasar el ratón por encima
+      style: {
+        background: "linear-gradient(to right, #00b09b, #96c93d)", // Estilo de fondo
+      },
+    }).showToast();
     loadSection("ver-productos");
   };
 
   if (file) {
-    // Validar tipo de archivo
-    if (!file.type.startsWith("image/")) {
-      alert("Solo puedes subir imágenes (JPG, PNG, etc).");
+    if (!file.type.startsWith("image/") || file.size > 1024 * 1024) {
       return;
+    } else {
+      reader.readAsDataURL(file);
     }
-
-    // Validar tamaño (ejemplo: máximo 1MB)
-    if (file.size > 1024 * 1024) {
-      alert("La imagen no puede superar 1MB.");
-      return;
-    }
-    reader.readAsDataURL(file);
-  } else {
-    alert("Por favor selecciona una imagen.");
   }
 }
 
 function eliminarProducto(index) {
   const productos = JSON.parse(localStorage.getItem("productos") || "[]");
-  if (confirm("¿Estás seguro de que deseas eliminar este producto?")) {
-    productos.splice(index, 1);
-    localStorage.setItem("productos", JSON.stringify(productos));
-    loadSection("ver-productos");
-  }
+  Swal.fire({
+    title: "¿Desea eliminar este producto?",
+    text: "No puede revertir esta acción",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Eliminar",
+    cancelButtonText: "Cancelar"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      productos.splice(index, 1);
+      localStorage.setItem("productos", JSON.stringify(productos));
+      loadSection("ver-productos");
+      Toastify({
+        text: "Producto eliminado correctamente", // Mensaje de éxito de la sesión
+        duration: 2000, // Duración de la notificación (2 segundos)
+        close: true, // Mostrar botón de cerrar
+        gravity: "top", // Posición de la notificación (arriba)
+        position: "right", // Posición a la derecha
+        stopOnFocus: true, // Evitar que la notificación se cierre al pasar el ratón por encima
+        style: {
+          background: "linear-gradient(to right, #00b09b, #96c93d)", // Estilo de fondo
+        },
+      }).showToast();
+    }
+  });
 }
 
 function editarProducto(index) {
@@ -381,43 +409,46 @@ function editarProducto(index) {
 
           // Mostrar vista previa de la imagen actual
           const preview = document.getElementById("img-previa");
-          preview.src = producto.imagen ? (producto.imagen.startsWith("data:") ? prodcuto.imagen : `../public/img/productos/${producto.imagen}`) : '';
+          preview.src = producto.imagen ? (producto.imagen.startsWith("data:") ? producto.imagen : `../public/img/productos/${producto.imagen}`) : '';
           preview.src !== '' ? preview.parentNode.classList.remove('d-none') : preview.parentNode.classList.add('d-none');
           preview.style.display = "block";
 
+          const divBtns = document.getElementById("btns");
           // Cambiar texto del botón
           const submitBtn = form.querySelector("button[type='submit']");
           submitBtn.textContent = "Actualizar producto";
+          //Agregar boton cancelar
+          const cancelBtn = document.createElement("button");
+          cancelBtn.type = "button";
+          cancelBtn.classList.add('btn', 'btn-danger');
+          cancelBtn.textContent = "Cancelar";
+          cancelBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            loadSection("ver-productos");
+          });
+          divBtns.appendChild(cancelBtn);
 
           form.onsubmit = function (e) {
             e.preventDefault();
 
             if (!validateForm(inputs())) {
-              alert("Hay campos incorrectos");
+              Swal.fire({
+                icon: "error",
+                title: "Hay campos incorrectos",
+                showConfirmButton: false,
+                timer: 1500
+              });
               return
             }
 
             const file = document.getElementById("imagen").files[0];
 
             if (file) {
-              const reader = new FileReader();
-              reader.onload = function () {
-                actualizarProducto(index, reader.result);
-              };
-              reader.readAsDataURL(file);
-              // Validar tipo de archivo
-              if (!file.type.startsWith("image/")) {
-                alert("Solo puedes subir imágenes (JPG, PNG, etc).");
+              if (!file.type.startsWith("image/") || file.size > 1024 * 1024) {
                 return;
+              } else {
+                reader.readAsDataURL(file);
               }
-              // Validar tamaño (ejemplo: máximo 1MB)
-              if (file.size > 1024 * 1024) {
-                alert("La imagen no puede superar 1MB.");
-                return;
-              }
-            } else {
-              // Si no se selecciona nueva imagen, se mantiene la actual
-              actualizarProducto(index, producto.imagen);
             }
           };
         }
@@ -436,7 +467,9 @@ function guardarProductor(event) {
   validateName(input, /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{2,}$/)
 
   const productores = JSON.parse(localStorage.getItem("productores") || "[]");
-  if (!productores.includes(nombre)) {
+  // Verificar si el nombre ya existe (ignorando mayúsculas/minúsculas y espacios extras)
+  let existe = productores.some(p => p.nombre.trim().toLowerCase() === input.value.trim().toLowerCase());
+  if (!existe) {
     let maxCodigoProductores = productores.length > 0 ? Math.max(...productores.map(p => p.codigo)) : 1000;
     const productor = {
       codigo: maxCodigoProductores + 1,
@@ -446,9 +479,24 @@ function guardarProductor(event) {
     localStorage.setItem("productores", JSON.stringify(productores));
     input.value = "";
     mostrarProductoresRegistrados();
-    alert("Productor guardado correctamente");
+    Toastify({
+      text: "Productor agregado correctamente", // Mensaje de éxito de la sesión
+      duration: 2000, // Duración de la notificación (2 segundos)
+      close: true, // Mostrar botón de cerrar
+      gravity: "top", // Posición de la notificación (arriba)
+      position: "right", // Posición a la derecha
+      stopOnFocus: true, // Evitar que la notificación se cierre al pasar el ratón por encima
+      style: {
+        background: "linear-gradient(to right, #00b09b, #96c93d)", // Estilo de fondo
+      },
+    }).showToast();
   } else {
-    alert("Este productor ya está registrado.");
+    Swal.fire({
+      icon: "error",
+      title: "El productor ya se encuentra registrado",
+      showConfirmButton: false,
+      timer: 1500
+    });
   }
 }
 
@@ -529,11 +577,33 @@ function mostrarProductoresRegistrados() {
 
 function eliminarProductor(index) {
   const productores = JSON.parse(localStorage.getItem("productores") || "[]");
-  if (confirm("¿Estás seguro de que deseas eliminar este proveedor?")) {
-    productores.splice(index, 1);
-    localStorage.setItem("productores", JSON.stringify(productores));
-    loadSection("agregar-productor");
-  }
+  Swal.fire({
+    title: "¿Desea eliminar este proveedor?",
+    text: "No puede revertir esta acción",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Eliminar",
+    cancelButtonText: "Cancelar"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      productores.splice(index, 1);
+      localStorage.setItem("productores", JSON.stringify(productores));
+      loadSection("agregar-productor");
+      Toastify({
+        text: "Proveedor eliminado correctamente", // Mensaje de éxito de la sesión
+        duration: 2000, // Duración de la notificación (2 segundos)
+        close: true, // Mostrar botón de cerrar
+        gravity: "top", // Posición de la notificación (arriba)
+        position: "right", // Posición a la derecha
+        stopOnFocus: true, // Evitar que la notificación se cierre al pasar el ratón por encima
+        style: {
+          background: "linear-gradient(to right, #00b09b, #96c93d)", // Estilo de fondo
+        },
+      }).showToast();
+    }
+  });
 }
 
 function editarProductor(index) {
@@ -553,9 +623,20 @@ function editarProductor(index) {
         if (form) {
           form.querySelector("#nombre-productor").value = productor.nombre;
 
+          const divBtns = document.getElementById("btns");
           // Cambiar texto del botón
           const submitBtn = form.querySelector("button[type='submit']");
           submitBtn.textContent = "Actualizar proveedor";
+          //Agregar boton cancelar
+          const cancelBtn = document.createElement("button");
+          cancelBtn.type = "button";
+          cancelBtn.classList.add('btn', 'btn-danger');
+          cancelBtn.textContent = "Cancelar";
+          cancelBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            loadSection("agregar-productor");
+          });
+          divBtns.appendChild(cancelBtn);
 
           form.onsubmit = function (e) {
             e.preventDefault();
@@ -568,7 +649,17 @@ function editarProductor(index) {
             }
 
             localStorage.setItem("productores", JSON.stringify(productores));
-            alert("Productor actualizado correctamente.");
+            Toastify({
+              text: "Productor actualizado correctamente", // Mensaje de éxito de la sesión
+              duration: 2000, // Duración de la notificación (2 segundos)
+              close: true, // Mostrar botón de cerrar
+              gravity: "top", // Posición de la notificación (arriba)
+              position: "right", // Posición a la derecha
+              stopOnFocus: true, // Evitar que la notificación se cierre al pasar el ratón por encima
+              style: {
+                background: "linear-gradient(to right, #00b09b, #96c93d)", // Estilo de fondo
+              },
+            }).showToast();
             loadSection("agregar-productor");
           };
         }
@@ -608,7 +699,17 @@ function guardarPublicacion(event) {
     const publicaciones = JSON.parse(localStorage.getItem("publicaciones") || "[]");
     publicaciones.push(publicacion);
     localStorage.setItem("publicaciones", JSON.stringify(publicaciones));
-    alert("Publicación guardada correctamente");
+    Toastify({
+      text: "Publicación guardada correctamente", // Mensaje de éxito de la sesión
+      duration: 2000, // Duración de la notificación (2 segundos)
+      close: true, // Mostrar botón de cerrar
+      gravity: "top", // Posición de la notificación (arriba)
+      position: "right", // Posición a la derecha
+      stopOnFocus: true, // Evitar que la notificación se cierre al pasar el ratón por encima
+      style: {
+        background: "linear-gradient(to right, #00b09b, #96c93d)", // Estilo de fondo
+      },
+    }).showToast();
     loadSection("ver-publicaciones");
   };
 
@@ -719,7 +820,17 @@ function actualizarPublicacion(index, imagenBase64) {
   };
 
   localStorage.setItem("publicaciones", JSON.stringify(publicaciones));
-  alert("Publicación actualizada correctamente.");
+  Toastify({
+    text: "Publicación actualizada correctamente", // Mensaje de éxito de la sesión
+    duration: 2000, // Duración de la notificación (2 segundos)
+    close: true, // Mostrar botón de cerrar
+    gravity: "top", // Posición de la notificación (arriba)
+    position: "right", // Posición a la derecha
+    stopOnFocus: true, // Evitar que la notificación se cierre al pasar el ratón por encima
+    style: {
+      background: "linear-gradient(to right, #00b09b, #96c93d)", // Estilo de fondo
+    },
+  }).showToast();
   loadSection("ver-publicaciones");
 }
 
@@ -739,7 +850,17 @@ function actualizarProducto(index, imagenBase64) {
   };
 
   localStorage.setItem("productos", JSON.stringify(productos));
-  alert("Producto actualizado correctamente.");
+  Toastify({
+    text: "Producto actualizado correctamente", // Mensaje de éxito de la sesión
+    duration: 2000, // Duración de la notificación (2 segundos)
+    close: true, // Mostrar botón de cerrar
+    gravity: "top", // Posición de la notificación (arriba)
+    position: "right", // Posición a la derecha
+    stopOnFocus: true, // Evitar que la notificación se cierre al pasar el ratón por encima
+    style: {
+      background: "linear-gradient(to right, #00b09b, #96c93d)", // Estilo de fondo
+    },
+  }).showToast();
   loadSection("ver-productos");
 }
 
@@ -759,7 +880,7 @@ function inputs() {
     'precio': document.getElementById('precio'),
     'presentacion': document.getElementById('presentacion'),
     'medida': document.getElementById('medida'),
-    'imagen': document.getElementById('imagen'),
+    'imagen': document.getElementById("imagen"),
     'nameRegex': /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{2,}$/,
   }
   return inputs;
@@ -856,6 +977,25 @@ function validateDate(field) {
   }
 }
 
+function validateFile(field) {
+  const file = field.files[0];
+  if (file) {
+    // Validar tipo de archivo
+    if (!file.type.startsWith("image/")) {
+      setInvalid(field, "Solo puedes subir imágenes (JPG, PNG, etc).");
+      return false;
+    } else if (file.size > 1024 * 1024) { // Validar tamaño (ejemplo: máximo 1MB)
+      setInvalid(field, "La imagen no puede superar 1MB.");
+      return false;
+    } else {
+      setValid(field);
+      return true;
+    }
+  } else {
+    setInvalid(field, "Por favor selecciona una imagen.");
+  }
+}
+
 // Validar todo el formulario
 function validateForm(inputsFields) {
   const inputs = inputsFields;
@@ -868,6 +1008,7 @@ function validateForm(inputsFields) {
     validateNegative(inputs['cantidad']),
     validateNegative(inputs['precio']),
     validateNegative(inputs['presentacion']),
+    validateFile(inputs['imagen']),
   ];
   return validations.every(validation => validation === true);
 }
@@ -893,6 +1034,7 @@ function liveValidations(inputsFields) {
   inputs['categoria'].addEventListener('change', function () { validateInquiry(inputs['categoria']) });
   inputs['productor'].addEventListener('change', function () { validateInquiry(inputs['productor']) });
   inputs['medida'].addEventListener('change', function () { validateInquiry(inputs['medida']) });
+  inputs['imagen'].addEventListener('change', function () { validateFile(inputs['imagen']) });
 
   inputs['cantidad'].addEventListener('blur', function () { validateNegative(inputs['cantidad']) });
   inputs['cantidad'].addEventListener('input', function () {

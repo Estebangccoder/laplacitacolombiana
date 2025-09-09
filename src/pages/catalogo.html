@@ -23,19 +23,19 @@
     <main>
 
         <!--Carrito de compras-->
-        <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="carrito" aria-labelledby="carrito">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title fw-bold" id="carrito">Carrito de compras</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <div class="container rounded-bottom d-none px-4" id="carrito">
+            <div class="container-fluid d-flex justify-content-between carrito-header text-center my-3 border-bottom border-black border-3">
+                <h5 class="fw-bold" id="carrito-titulo">Carrito de compras</h5>
+                <button type="button" id="btn-close" class="btn-close"></button>
             </div>
-            <div id="carrito-body" class="offcanvas-body">
+            <div id="carrito-body" class="carrito-body mb-3">
             </div>
         </div>
 
         <!--HERO-->
         <section class="hero-banner">
             <div class="container-banner">
-                <div class="col">
+                <div class="col text-center">
                     <img id="img-banner" src="../public/img/imagen-catalogo.webp" alt="Pintura campesinos desayunando">
                 </div>
                 <div class="banner-copy">
@@ -47,7 +47,7 @@
 
         <!--texto-->
         <section id="intro-catalogo" class="container-introducción my-4">
-            <div class="row justify-content-center">
+            <div class="row justify-content-center mx-4">
                 <h3 class="h4 mb-3">Origen con Propósito</h2>
                     <p>
                         Desde el corazón de Colombia, nuestros cafetales y cacaotales cuentan su origen.
