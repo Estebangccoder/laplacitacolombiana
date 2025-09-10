@@ -71,7 +71,11 @@ function mostrarProductosCarrito() {
             <p class="col-4">$${precioCOP(descuento)}</p>
         </div>
         <div class="row mx-2">
-            <p class="col-8">Costo de envío</p>
+            <p class="col-8">
+                Costo de envío 
+                <i class="bi bi-question-circle-fill" data-bs-toggle="tooltip" data-bs-placement="left" 
+                data-bs-title="El costo del envío se calcula en el momento del pago"></i>
+            </p>
             <p class="col-4">$${precioCOP(costoEnvio)}</p>
         </div>
         <div class="row mx-0">
@@ -80,8 +84,9 @@ function mostrarProductosCarrito() {
                 <p class="col-4 my-2 fw-bold">$${precioCOP(costoTotal)}</p>
             </div>
         </div>
-    `
-
+    `    
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
     mostrarRecomendados();
 }
 
@@ -216,8 +221,8 @@ function mostrarRecomendados() {
             if (producto.cantidad > 0) {
                 contenedor.innerHTML += `
                     <div class="col">
-                        <div class="card mb-3 product-h" data-category="${producto.categoria}">
-                            <div class="row g-0 align-items-center">
+                        <div class="card mb-3 product-h h-100" data-category="${producto.categoria}">
+                            <div class="row g-0 align-items-center my-auto">
                                 <div class="col-md-4">
                                     <img src="${producto.imagen.startsWith("data:") ? producto.imagen : `../public/img/productos/${producto.imagen}`}" 
                                     class="img-fluid rounded-start product-h-img" alt="${producto.nombre}" />

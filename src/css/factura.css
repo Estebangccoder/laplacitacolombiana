@@ -1,0 +1,21 @@
+#container-factura {
+    width: 50%
+}
+
+@media (max-width: 768px){
+    #container-factura {
+    width: 90%;
+}
+}
+
+@media (min-width: 576px){
+    #content-body {
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+}
+
+#header .img-header {
+    width: 10%;
+    /* filter: grayscale(); */
+}
