@@ -14,6 +14,7 @@ function mostrarNavBar() {
             </a>
             <div class="d-inline-flex">
                 <div class="d-inline-flex d-lg-none gap-3 me-3">
+                    <a class="btn" href="../pages/landingpage.html"><i class="bi bi-house-heart-fill fs-3 text-white m-0"></i></a>
                     <button class="btn p-0 me-2 login-button" type="button"><i class="bi bi-person-circle fs-3 text-white m-0"></i></button>
                     <button class="btn p-0 me-2 carrito-button" type="button carrito-button">
                     <i class="bi bi-basket-fill fs-3 text-white m-0"></i></button>
@@ -29,8 +30,9 @@ function mostrarNavBar() {
                     <li class="nav-item"><a class="nav-link fw-bold, fw-bolder" href="catalogo.html">TIENDA</a></li>
                 </ul>
                 <ul class="navbar-nav d-none d-lg-inline-flex">
+                    <a class="btn" href="../pages/landingpage.html"><i class="bi bi-house-heart-fill fs-3 text-white m-0"></i></a>
                     <button class="btn p-0 me-3 login-button" type="button"><i class="bi bi-person-circle fs-3 text-white m-0"></i></button>
-                   <button class="btn p-0 me-2 carrito-button" type="button">
+                    <button class="btn p-0 me-2 carrito-button" type="button">
                    <i class="bi bi-basket-fill fs-3 text-white m-0"></i></button>
                 </ul>
             </div>
