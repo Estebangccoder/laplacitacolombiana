@@ -189,7 +189,7 @@ main {
 }
 
 @media (max-width: 765px) {
-    .container {
+    .login-container {
         flex-direction: column;
         width: 90%;
         height: auto;
