@@ -2,6 +2,7 @@ const factura = JSON.parse(localStorage.getItem("factura") || "[]");
 const carrito = JSON.parse(localStorage.getItem("carrito") || "[]");
 const factInfo = document.getElementById('content-body');
 const factProd = document.getElementById('productos-fact');
+const factBtn = document.getElementById('btnVolver');
 factInfo.innerHTML = '';
 factProd.innerHTML = '';
 
@@ -42,9 +43,9 @@ factProd.innerHTML = `
         </thead>
         <tbody>
             ${carrito.map(p => {
-                const totalProducto = p.precio * p.cantidad_carrito;
-                totalCarrito += totalProducto;
-                return `
+    const totalProducto = p.precio * p.cantidad_carrito;
+    totalCarrito += totalProducto;
+    return `
                     <tr>
                         <td>${p.nombre}</td>
                         <td>${p.cantidad_carrito}</td>
@@ -52,7 +53,7 @@ factProd.innerHTML = `
                         <td>$${totalProducto.toLocaleString()}</td>
                     </tr>
                 `;
-            }).join('')}
+}).join('')}
         </tbody>
     </table>
     <div class="text-end fw-bold me-3">
@@ -65,3 +66,11 @@ factProd.innerHTML = `
         Total: $${(totalCarrito + factura.valor_domicilio).toLocaleString()},00
     </div>
 `;
+
+const btnVolver = document.createElement('button');
+btnVolver.classList.add('btn', 'btn-primary');
+btnVolver.innerHTML = `
+    <i class="bi bi-arrow-left"></i>
+    <span>Volver al comercio</span>
+`
+factBtn.appendChild(btnVolver);
