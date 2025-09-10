@@ -6,7 +6,7 @@ function mostrarFooter() {
                 <div class="footer-sections">
                     <h4>Secciones</h4>
                     <ul>
-                        <li><a href="../pages/landingpage.html">Home</a></li>
+                        <li><a href="/src/pages/landingpage.html">Home</a></li>
                         <li><a href="../pages/quienessomos.html">Quienes somos</a></li>
                         <li><a href="../pages/contactanos.html">Contáctanos</a></li>
                         <li><a href="../pages/catalogo.html">Tienda</a></li>
@@ -17,7 +17,7 @@ function mostrarFooter() {
                     <ul>
                         <li><a href="mailto:colombianalaplacita@gmail.com">colombianalaplacita@gmail.com</a></li>
                         <li><a href="../pages/quienessomos.html#con-quien-trabajamos">¿Con quién trabajamos?</a></li>
-                        <li><a href="../pages/landingpage.html#FAQ">Preguntas frecuentes</a></li>
+                        <li><a href="/src/pages/landingpage.html#FAQ">Preguntas frecuentes</a></li>
                         <li>Bogotá D.C., Colombia</li>
                         <li>Medellín, Colombia</li>
                     </ul>

@@ -77,7 +77,7 @@ factBtn.appendChild(btnVolver);
 factBtn.setAttribute("onclick", "volver()");
 
 function volver() {
-    window.location.href = '../pages/landingpage.html';
+    window.location.href = '/src/pages/landingpage.html';
 }
 
 window.addEventListener("pagehide", () => {

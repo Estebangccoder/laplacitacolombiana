@@ -36,6 +36,32 @@ document.addEventListener('DOMContentLoaded', () => { // esperar DOM listo
   btnSignIn?.addEventListener('click', () => container?.classList.remove('toggle'));
   btnSignUp?.addEventListener('click', () => container?.classList.add('toggle'));
 
+  //Toggle password
+  const inputPass = document.getElementById("loginPass");
+  const inputPass2 = document.getElementById("regPass");
+  const togglePass = document.getElementById("toggle-pass");
+  const togglePass2 = document.getElementById("toggle-pass-2");
+
+  togglePass.addEventListener("click", () => {
+    if (inputPass.type === "password") {
+      inputPass.type = "text"; // muestra caracteres
+      togglePass.innerHTML = `<i class="bi bi-eye-slash text-black fs-3"></i>`;
+    } else {
+      inputPass.type = "password"; // muestra puntos
+      togglePass.innerHTML = `<i class="bi bi-eye text-black fs-3"></i>`;
+    }
+  });
+  
+  togglePass2.addEventListener("click", () => {
+    if (inputPass2.type === "password") {
+      inputPass2.type = "text"; // muestra caracteres
+      togglePass2.innerHTML = `<i class="bi bi-eye-slash text-black fs-3"></i>`;
+    } else {
+      inputPass2.type = "password"; // muestra puntos
+      togglePass2.innerHTML = `<i class="bi bi-eye text-black fs-3"></i>`;
+    }
+  });
+
   // Helpers de localStorage
   const LS_KEYS = { USERS: 'users', CURRENT: 'currentUser' }; // claves
   const getUsers = () => JSON.parse(localStorage.getItem(LS_KEYS.USERS) || '[]');
@@ -96,9 +122,9 @@ document.addEventListener('DOMContentLoaded', () => { // esperar DOM listo
       icon: 'success',
       confirmButtonText: 'Aceptar'
     }).then(() => {
-      if(getCurrentUser().rol == 'usuario') {
-      window.location.href = '../pages/catalogo.html';
-      } else if(getCurrentUser().rol == 'admin') {
+      if (getCurrentUser().rol == 'usuario') {
+        window.location.href = '../pages/catalogo.html';
+      } else if (getCurrentUser().rol == 'admin') {
         window.location.href = '../pages/dashboard.html';
       }
     });
@@ -135,9 +161,9 @@ document.addEventListener('DOMContentLoaded', () => { // esperar DOM listo
       title: `Bienvenido, ${user.name}`,
       confirmButtonText: 'Aceptar'
     }).then(() => {
-      if(getCurrentUser().rol == 'usuario') {
-      window.location.href = '../pages/catalogo.html';
-      } else if(getCurrentUser().rol == 'admin') {
+      if (getCurrentUser().rol == 'usuario') {
+        window.location.href = '../pages/catalogo.html';
+      } else if (getCurrentUser().rol == 'admin') {
         window.location.href = '../pages/dashboard.html';
       }
     });

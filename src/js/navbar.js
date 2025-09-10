@@ -2,7 +2,7 @@ function mostrarNavBar() {
     return `
     <nav class="navbar navbar-expand-lg navbar-dark " id="navbarFull">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../pages/landingpage.html">
+            <a class="navbar-brand" href="/src/pages/landingpage.html">
                 <div class="d-inline-flex justify-content-center align-items-center">
                     <img src="../public/img/navbarlogo.png" alt="Logo"
                         class="logo-navbar border border-4 border-white rounded-circle">
@@ -14,7 +14,7 @@ function mostrarNavBar() {
             </a>
             <div class="d-inline-flex">
                 <div class="d-inline-flex d-lg-none gap-3 me-3">
-                    <a class="btn" href="../pages/landingpage.html"><i class="bi bi-house-heart-fill fs-3 text-white m-0"></i></a>
+                    <a class="btn" href="/src/pages/landingpage.html"><i class="bi bi-house-heart-fill fs-3 text-white m-0"></i></a>
                     <button class="btn p-0 me-2 login-button" type="button"><i class="bi bi-person-circle fs-3 text-white m-0"></i></button>
                     <button class="btn p-0 me-2 carrito-button" type="button carrito-button">
                     <i class="bi bi-basket-fill fs-3 text-white m-0"></i></button>
@@ -30,7 +30,7 @@ function mostrarNavBar() {
                     <li class="nav-item"><a class="nav-link fw-bold, fw-bolder" href="catalogo.html">TIENDA</a></li>
                 </ul>
                 <ul class="navbar-nav d-none d-lg-inline-flex">
-                    <a class="btn" href="../pages/landingpage.html"><i class="bi bi-house-heart-fill fs-3 text-white m-0"></i></a>
+                    <a class="btn" href="/src/pages/landingpage.html"><i class="bi bi-house-heart-fill fs-3 text-white m-0"></i></a>
                     <button class="btn p-0 me-3 login-button" type="button"><i class="bi bi-person-circle fs-3 text-white m-0"></i></button>
                     <button class="btn p-0 me-2 carrito-button" type="button">
                    <i class="bi bi-basket-fill fs-3 text-white m-0"></i></button>
@@ -106,7 +106,7 @@ function handleUserClick() {
                     localStorage.setItem('carrito', JSON.stringify([]));
                 }
                 Swal.fire({ title: 'Sesión cerrada', icon: 'success', timer: 1400, showConfirmButton: false })
-                    .then(() => (window.location.href = '../pages/landingpage.html')); // [5]
+                    .then(() => (window.location.href = '/src/pages/landingpage.html')); // [5]
             }
         });
     }
