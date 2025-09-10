@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 const carrito = JSON.parse(localStorage.getItem("carrito") || "[]");
 const currentUser = JSON.parse(localStorage.getItem("currentUser") || "[]");
-const currentUserId = users.find(u => u.email === currentUser.email).id ?? 0;
+const currentUserId = users.find(u => u.email === currentUser?.email)?.id ?? 0;
 const form = document.forms['infoPago'];
 const inputs = form.elements
 const num_productos = carrito.length;
