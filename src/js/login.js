@@ -1,4 +1,4 @@
-const container = document.querySelector(".container");
+const container = document.querySelector(".login-container");
 const btnSignIn = document.getElementById("btn-sign-in");
 const btnSignUp = document.getElementById("btn-sign-up");
 

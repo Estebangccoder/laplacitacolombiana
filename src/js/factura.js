@@ -80,4 +80,7 @@ function volver() {
     window.location.href = '../pages/landingpage.html';
 }
 
-document.addEventListener("")
+window.addEventListener("pagehide", () => {
+  localStorage.removeItem("factura");
+  localStorage.removeItem("carrito");
+});
