@@ -74,7 +74,7 @@ btnVolver.innerHTML = `
     <span>Volver al comercio</span>
 `
 factBtn.appendChild(btnVolver);
-btn.setAttribute("onclick", "volver()");
+factBtn.setAttribute("onclick", "volver()");
 
 function volver() {
     window.location.href = '../pages/landingpage.html';

@@ -1203,8 +1203,24 @@ if (current && current.rol === 'admin') {
   window.editarPublicacion = editarPublicacion;
   document.addEventListener("load", loadSection('home'));
 } else {
-  window.location.href = '../pages/login.html';
+  const content = document.getElementById("body-dashboard");
+  content.innerHTML = '';
+  content.classList.add('d-flex', 'flex-column', 'justify-content-center', 'align-items-center');
+  content.innerHTML = `
+    <h3 class="mt-5">ACCESO NO AUTORIZADO</h3>
+    <p>Redirigiendo a La Placita Colombiana</p>
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  `
+  setTimeout(() => {
+    window.location.href = '../pages/login.html';
+  }, 500);
 }
+
+window.addEventListener("pagehide", () => {
+  localStorage.removeItem("currentUser");
+});
 
 
 
