@@ -40,7 +40,7 @@ function mostrarProductos(listaProductos, idContenedor) {
                                         </ul>
                                         <div class="mt-auto d-flex flex-wrap gap-2 align-items-center">
                                             <span class="price mb-0">Precio: ${precioCOP(producto.precio)}</span>
-                                            <button href="#" class="btn btn-primary ms-auto agregar-btn" 
+                                            <button href="#" class="btn btn-primary ms-auto agregar-btn val-agregar-btn" 
                                             onclick="agregarAcarrito(${producto.codigo})">Agregar a la canasta</button>
                                         </div>
                                     </div>

@@ -109,7 +109,7 @@ function renderCarrito() {
     footer.innerHTML = `
     <hr>
     <h5>Total: $${precioCOP(totalCarrito)}</h5>
-    <button type="button" id="btn-pagar" class="btn btn-success mt-2">Ir a pagar</button>
+    <button type="button" id="btn-pagar" class="btn btn-success mt-2" onclick="validarSesion()">Ir a pagar</button>
   `;
 
     carritoCuerpo.appendChild(footer);
@@ -192,9 +192,12 @@ function validarSesion() {
 
 document.addEventListener("DOMContentLoaded", () => {
   renderCarrito();
-  const btns = document.querySelectorAll('.btn');
+  const current = JSON.parse(localStorage.getItem('currentUser') || 'null'); // [4]
+  const btns = document.querySelectorAll('.val-agregar-btn');
   btns.forEach(btn => {
-    btn.addEventListener('click', validarSesion); 
+    btn.addEventListener('click', () => {
+      if (current && current.rol === 'admin') return (window.location.href = '../pages/login.html'); // [5]
+    }); 
   });
 });
 
