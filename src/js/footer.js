@@ -17,7 +17,7 @@ function mostrarFooter() {
                     <ul>
                         <li><a href="mailto:colombianalaplacita@gmail.com">colombianalaplacita@gmail.com</a></li>
                         <li><a href="../pages/quienessomos.html#con-quien-trabajamos">¿Con quién trabajamos?</a></li>
-                        <li><a href="#">Preguntas frecuentes</a></li>
+                        <li><a href="../pages/landingpage.html#FAQ">Preguntas frecuentes</a></li>
                         <li>Bogotá D.C., Colombia</li>
                         <li>Medellín, Colombia</li>
                     </ul>
