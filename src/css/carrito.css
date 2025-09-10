@@ -24,7 +24,6 @@
 
 #carrito .offcanvas-header {
     position: relative;
-    /* 👈 clave */
 }
 
 #carrito .offcanvas-header::after {
