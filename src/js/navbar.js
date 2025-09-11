@@ -1,10 +1,13 @@
+const pageName = window.location.pathname.split("/").pop().split(".")[0];
+const src = (pageName == 'landingpage') ? "src" : "..";
+
 function mostrarNavBar() {
     return `
     <nav class="navbar navbar-expand-lg navbar-dark " id="navbarFull">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/src/pages/landingpage.html">
+            <a class="navbar-brand" href="/landingpage.html">
                 <div class="d-inline-flex justify-content-center align-items-center">
-                    <img src="../public/img/navbarlogo.png" alt="Logo"
+                    <img src="${src}/public/img/navbarlogo.png" alt="Logo"
                         class="logo-navbar border border-4 border-white rounded-circle">
                     <div class="d-inline-flex flex-column justify-content-center align-items-center ms-2">
                         <p class="text-logo m-0 p-0">La Placita</p>
@@ -14,7 +17,7 @@ function mostrarNavBar() {
             </a>
             <div class="d-inline-flex">
                 <div class="d-inline-flex d-lg-none gap-3 me-3">
-                    <a class="btn" href="/src/pages/landingpage.html"><i class="bi bi-house-heart-fill fs-3 text-white m-0"></i></a>
+                    <a class="btn" href="/landingpage.html"><i class="bi bi-house-heart-fill fs-3 text-white m-0"></i></a>
                     <button class="btn p-0 me-2 login-button" type="button"><i class="bi bi-person-circle fs-3 text-white m-0"></i></button>
                     <button class="btn p-0 me-2 carrito-button" type="button carrito-button">
                     <i class="bi bi-basket-fill fs-3 text-white m-0"></i></button>
@@ -25,12 +28,12 @@ function mostrarNavBar() {
             </div>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto me-2">
-                    <li class="nav-item"><a class="nav-link fw-bold, fw-bolder" href="quienessomos.html">QUIENES SOMOS</a></li>
-                    <li class="nav-item"><a class="nav-link fw-bold, fw-bolder" href="contactanos.html">CONTACTANOS</a></li>
-                    <li class="nav-item"><a class="nav-link fw-bold, fw-bolder" href="catalogo.html">TIENDA</a></li>
+                    <li class="nav-item"><a class="nav-link fw-bold, fw-bolder" href="${src}/pages/quienessomos.html">QUIENES SOMOS</a></li>
+                    <li class="nav-item"><a class="nav-link fw-bold, fw-bolder" href="${src}/pages/contactanos.html">CONTACTANOS</a></li>
+                    <li class="nav-item"><a class="nav-link fw-bold, fw-bolder" href="${src}/pages/catalogo.html">TIENDA</a></li>
                 </ul>
                 <ul class="navbar-nav d-none d-lg-inline-flex">
-                    <a class="btn" href="/src/pages/landingpage.html"><i class="bi bi-house-heart-fill fs-3 text-white m-0"></i></a>
+                    <a class="btn" href="/landingpage.html"><i class="bi bi-house-heart-fill fs-3 text-white m-0"></i></a>
                     <button class="btn p-0 me-3 login-button" type="button"><i class="bi bi-person-circle fs-3 text-white m-0"></i></button>
                     <button class="btn p-0 me-2 carrito-button" type="button">
                    <i class="bi bi-basket-fill fs-3 text-white m-0"></i></button>
@@ -77,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
         login.forEach((btn) => { // seleccionar elementos ya insertados [1]
             btn.firstChild.classList.remove('bi-box-arrow-right');
             btn.firstChild.classList.add('bi-person-circle');
-            btn.addEventListener('click', () => window.location.href = '../pages/login.html');
+            btn.addEventListener('click', () => window.location.href = `${src}/pages/login.html`);
         });
     }
 });
@@ -85,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function handleUserClick() {
 
     const current = JSON.parse(localStorage.getItem('currentUser') || 'null'); // [4]
-    if (!current) return (window.location.href = '../pages/login.html'); // [5]
+    if (!current) return (window.location.href = `${src}/pages/login.html`); // [5]
     if (current && current.rol !== 'admin') {
 
         Swal.fire({
@@ -106,7 +109,7 @@ function handleUserClick() {
                     localStorage.setItem('carrito', JSON.stringify([]));
                 }
                 Swal.fire({ title: 'Sesión cerrada', icon: 'success', timer: 1400, showConfirmButton: false })
-                    .then(() => (window.location.href = '/src/pages/landingpage.html')); // [5]
+                    .then(() => (window.location.href = `${src}/pages/landingpage.html`)); // [5]
             }
         });
     }

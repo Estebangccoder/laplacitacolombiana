@@ -1215,7 +1215,7 @@ if (current && current.rol === 'admin') {
   `
   setTimeout(() => {
     window.location.href = '../pages/login.html';
-  }, 500);
+  }, 1000);
 }
 
 window.addEventListener("pagehide", () => {

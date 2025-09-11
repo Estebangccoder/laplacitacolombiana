@@ -1,4 +1,6 @@
 function mostrarFooter() {
+    const pageName = window.location.pathname.split("/").pop().split(".")[0];
+    const src = (pageName == 'landingpage') ? "src" : "..";
     return `
     <footer class="footer">
         <div class="container">
@@ -6,24 +8,24 @@ function mostrarFooter() {
                 <div class="footer-sections">
                     <h4>Secciones</h4>
                     <ul>
-                        <li><a href="/src/pages/landingpage.html">Home</a></li>
-                        <li><a href="../pages/quienessomos.html">Quienes somos</a></li>
-                        <li><a href="../pages/contactanos.html">Contáctanos</a></li>
-                        <li><a href="../pages/catalogo.html">Tienda</a></li>
+                        <li><a href="/landingpage.html">Home</a></li>
+                        <li><a href="${src}/pages/quienessomos.html">Quienes somos</a></li>
+                        <li><a href="${src}/pages/contactanos.html">Contáctanos</a></li>
+                        <li><a href="${src}/pages/catalogo.html">Tienda</a></li>
                     </ul>
                 </div>
                 <div class="footer-com">
                     <h4>Contacto & Comunidad</h4>
                     <ul>
                         <li><a href="mailto:colombianalaplacita@gmail.com">colombianalaplacita@gmail.com</a></li>
-                        <li><a href="../pages/quienessomos.html#con-quien-trabajamos">¿Con quién trabajamos?</a></li>
-                        <li><a href="/src/pages/landingpage.html#FAQ">Preguntas frecuentes</a></li>
+                        <li><a href="${src}/pages/quienessomos.html#con-quien-trabajamos">¿Con quién trabajamos?</a></li>
+                        <li><a href="landingpage.html#FAQ">Preguntas frecuentes</a></li>
                         <li>Bogotá D.C., Colombia</li>
                         <li>Medellín, Colombia</li>
                     </ul>
                 </div>
                 <div class="footer-brand">
-                    <img src="../public/img/navbarlogo.png" class="brand-logo" />
+                    <img src="${src}/public/img/navbarlogo.png" class="brand-logo" />
                     <span class="brand-name">La Placita Colombiana</span>
                     <!-- Redes sociales -->
                     <a class="icon-link" href="https://www.facebook.com/profile.php?id=61580594820633">
@@ -60,9 +62,9 @@ function mostrarFooter() {
                 <div class="Categorias">
                     <h4>Categorías</h4>
                     <ul>
-                        <li><a href="../pages/catalogo.html?categoria=cafe#filtros">Café de origen</a></li>
-                        <li><a href="../pages/catalogo.html?categoria=cacao#filtros">Chocolate de origen</a></li>
-                        <li><a href="../pages/catalogo.html?categoria=cerveza#filtros">Cerveza artesanal</a></li>
+                        <li><a href="${src}/pages/catalogo.html?categoria=cafe#filtros">Café de origen</a></li>
+                        <li><a href="${src}/pages/catalogo.html?categoria=cacao#filtros">Chocolate de origen</a></li>
+                        <li><a href="${src}/pages/catalogo.html?categoria=cerveza#filtros">Cerveza artesanal</a></li>
                     </ul>
                 </div>
                 <div class="foo-bottom">

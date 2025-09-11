@@ -25,7 +25,7 @@ function recomendaciones() {
         const mezclados = productosCategoria.sort(() => 0.5 - Math.random());
         const recomendado = recomendados.find(item => item.categoria === cat);
         if (mezclados[0].imagen) {
-            recomendado['elemento'].src = mezclados[0].imagen.startsWith("data:") ? mezclados[0].imagen : `../public/img/productos/${mezclados[0].imagen}`;
+            recomendado['elemento'].src = mezclados[0].imagen.startsWith("data:") ? mezclados[0].imagen : `src/public/img/productos/${mezclados[0].imagen}`;
         }
     });
 
