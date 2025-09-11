@@ -1,12 +1,3 @@
-let carrito;
-
-document.addEventListener("DOMContentLoaded", () => {
-    const canasta = document.querySelectorAll('.carrito-button');
-    canasta.forEach(element => {
-        element.classList.add('d-none');
-    });
-});
-
 // Función para mostrar todos los productos
 function mostrarProductosCarrito() {
     const contenedor = document.getElementById("prodCarrito");
@@ -21,6 +12,15 @@ function mostrarProductosCarrito() {
     let totalCarrito = 0;
     let descuento = 0;
     let costoEnvio = 0;
+
+    if (!carrito || carrito.length == 0) {
+        const btnIrPago = document.getElementById('irPago');
+        btnIrPago.disabled = true;
+        btnIrPago.classList.remove('btn-warning');
+        btnIrPago.classList.add('btn-secondary');
+        contenedor.innerHTML = "";
+    }
+
 
     carrito.forEach(p => {
         const item = document.createElement('div');
@@ -152,7 +152,19 @@ function btnsQuitar(cod) {
 }
 
 function recomendaciones() {
-    if (carrito.length === 0) return null;
+    let recomendados = [];
+
+    if (carrito.length === 0) {
+        let categorias = ['Cafe', 'Cacao', 'Cerveza'];
+
+        categorias.forEach(cat => {
+            const productosCategoria = productos.filter(p =>
+                p.categoria === cat && p.cantidad > 0);
+
+            const mezclados = productosCategoria.sort(() => 0.5 - Math.random());
+            recomendados.push(mezclados[0]);
+        });
+    };
 
     const counts = carrito.reduce((acc, p) => {
         acc[p.categoria] = (acc[p.categoria] || 0) + 1;
@@ -167,7 +179,6 @@ function recomendaciones() {
         productos.some(p => p.categoria === cat && !carrito.some(c => c.codigo === p.codigo) && p.cantidad > 0)
     );
 
-    let recomendados = [];
 
     const numCatValidas = categoriasValidas.length;
 
@@ -315,7 +326,21 @@ function agregarAcarrito(cod) {
 
 // Inicialización al cargar la página
 document.addEventListener("DOMContentLoaded", () => {
+
+    const canasta = document.querySelectorAll('.carrito-button');
+    canasta.forEach(element => {
+        element.classList.add('d-none');
+    });
+
     carrito = JSON.parse(localStorage.getItem("carrito") || "[]");
+
+    if (carrito.length == 0) {
+        const btnIrPago = document.getElementById('irPago');
+        btnIrPago.disabled = true;
+        btnIrPago.classList.remove('btn-warning');
+        btnIrPago.classList.add('btn-secondary');
+    }
     mostrarProductosCarrito();
     mostrarRecomendados();
 });
+

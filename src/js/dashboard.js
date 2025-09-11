@@ -1189,8 +1189,6 @@ function handleUserClick() {
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
-
-
 const current = JSON.parse(localStorage.getItem('currentUser') || 'null');
 if (current && current.rol === 'admin') {
   window.loadSection = loadSection;
@@ -1201,7 +1199,7 @@ if (current && current.rol === 'admin') {
   window.guardarProductor = guardarProductor;
   window.eliminarPublicacion = eliminarPublicacion;
   window.editarPublicacion = editarPublicacion;
-  document.addEventListener("load", loadSection('home'));
+  loadSection('home');
 } else {
   const content = document.getElementById("body-dashboard");
   content.innerHTML = '';
@@ -1218,9 +1216,16 @@ if (current && current.rol === 'admin') {
   }, 1000);
 }
 
-window.addEventListener("pagehide", () => {
-  localStorage.removeItem("currentUser");
+window.addEventListener("storage", () => {
+  const current = JSON.parse(localStorage.getItem('currentUser') || 'null');
+  if (!current || current.rol !== 'admin') {
+    window.location.href = '/src/pages/login.html';
+  }
 });
+
+// window.addEventListener("pagehide", () => {
+//   localStorage.removeItem("currentUser");
+// });
 
 
 

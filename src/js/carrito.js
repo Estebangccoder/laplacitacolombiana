@@ -2,7 +2,7 @@ function ajustarCarrito() {
   const navbar = document.querySelector('#navbar');
   const carrito = document.querySelector('#carrito');
   const navbarHeight = navbar.offsetHeight;
-  carrito ? carrito.style.top = (navbarHeight ) + 'px' : null;
+  carrito ? carrito.style.top = (navbarHeight) + 'px' : null;
 }
 
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
@@ -10,6 +10,17 @@ let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 // Funcion de agregar Carrito
 
 function agregarAcarrito(cod) {
+
+  const current = JSON.parse(localStorage.getItem('currentUser') || 'null'); // [4]
+  if (!current || (current && current.rol === 'admin')) {
+    if (localStorage.getItem('carrito') !== null) {
+      // Vaciar el carrito, pero mantener la key
+      localStorage.setItem('carrito', JSON.stringify([]));
+    } else {
+      // Si no existe, la creamos vacía
+      localStorage.setItem('carrito', JSON.stringify([]));
+    }
+  } // [5]
 
   const productoSeleccionado = productos.find(p => p.codigo === cod);
   const indexProducto = productos.findIndex(p => p.codigo == cod);
@@ -183,7 +194,9 @@ function btnsQuitar(cod) {
 
 function validarSesion() {
   const current = JSON.parse(localStorage.getItem('currentUser') || 'null'); // [4]
-  if (!current || (current && current.rol === 'admin')) return (window.location.href = '/src/pages/login.html'); // [5]
+  if (!current || (current && current.rol === 'admin')) {
+    window.location.href = '/src/pages/login.html';
+  } // [5]
   if (current && current.rol !== 'admin') {
     window.location.href = '/src/pages/ver-carrito.html'
   }
@@ -196,7 +209,7 @@ document.addEventListener("DOMContentLoaded", () => {
   btns.forEach(btn => {
     btn.addEventListener('click', () => {
       if (current && current.rol === 'admin') return (window.location.href = '/src/pages/login.html'); // [5]
-    }); 
+    });
   });
 });
 
