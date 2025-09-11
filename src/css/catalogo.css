@@ -32,7 +32,6 @@
     background-repeat: repeat;
     background-size: 600px auto;
     background-position: center;
-
     position: relative;
     min-height: clamp(380px, 48vw, 640px);
     display: grid;
@@ -214,7 +213,7 @@ input[type="radio"][value="TODOS"]:checked~.container-category [for="todos"] {
 
 /* PRODUCTOS */
 
-.row>.col {
+.productos .row>.col {
     display: flex;
 }
 

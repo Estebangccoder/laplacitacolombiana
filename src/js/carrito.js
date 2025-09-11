@@ -2,8 +2,7 @@ function ajustarCarrito() {
   const navbar = document.querySelector('#navbar');
   const carrito = document.querySelector('#carrito');
   const navbarHeight = navbar.offsetHeight;
-  carrito ? carrito.style.top = navbarHeight + 'px' : null;
-  carrito ? carrito.style.height = `calc(100% - ${navbarHeight}px)` : null;
+  carrito ? carrito.style.top = (navbarHeight ) + 'px' : null;
 }
 
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
@@ -191,6 +190,7 @@ function validarSesion() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  ajustarCarrito();
   renderCarrito();
   const current = JSON.parse(localStorage.getItem('currentUser') || 'null'); // [4]
   const btns = document.querySelectorAll('.val-agregar-btn');

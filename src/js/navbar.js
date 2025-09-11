@@ -1,5 +1,5 @@
 const pageName = window.location.pathname.split("/").pop().split(".")[0];
-const src = (pageName == 'index') ? "src" : "..";
+const src = (pageName == 'index' || pageName === '') ? "src" : "..";
 
 function mostrarNavBar() {
     return `

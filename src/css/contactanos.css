@@ -253,6 +253,12 @@
   line-height: 1.2;
 }
 
+@media (max-width: 768px) {
+  #mensaje-formulario-2 {
+    font-size: 1rem;
+  }
+}
+
 #contactForm {
   font-family: var(--fuente-texto);
   font-size: 1rem;
