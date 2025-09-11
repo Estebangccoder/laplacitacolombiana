@@ -237,7 +237,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     title: 'Pago Completado',
                     text: 'Factura creada correctamente',
                 }).then(function () {
-                    window.location.href = '../pages/factura.html';
+                    window.location.href = '/src/pages/factura.html';
                 });
             });
         }

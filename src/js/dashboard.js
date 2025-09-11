@@ -6,7 +6,7 @@ function loadSection(section) {
   if (section === "agregar-producto") {
 
     breadcrumb.textContent = "Dashboards / Gestión de productos / Agregar producto";
-    fetch("../pages/agregar-producto.html")
+    fetch("/src/pages/agregar-producto.html")
       .then(res => res.text())
       .then(html => {
         content.innerHTML = html;
@@ -47,7 +47,7 @@ function loadSection(section) {
             ${productos.map((p, index) =>
         `
               <tr>
-                <td><img src="${p.imagen ? (p.imagen.startsWith("data:") ? p.imagen : `../public/img/productos/${p.imagen}`) : ''}" 
+                <td><img src="${p.imagen ? (p.imagen.startsWith("data:") ? p.imagen : `/src/public/img/productos/${p.imagen}`) : ''}" 
                 alt="${p.nombre}" style="width:50px;height:50px;"></td>
                 <td>${p.nombre}</td>
                 <td>${p.categoria}</td>
@@ -155,7 +155,7 @@ function loadSection(section) {
 
   } else if (section === "agregar-productor") {
     breadcrumb.textContent = "Dashboards / Gestión de proveedores / Agregar productor";
-    fetch("../pages/agregar-productor.html")
+    fetch("/src/pages/agregar-productor.html")
       .then(res => res.text())
       .then(html => {
         content.innerHTML = html;
@@ -179,7 +179,7 @@ function loadSection(section) {
 
   } else if (section === "agregar-publicacion") {
     breadcrumb.textContent = "Dashboards / Gestión de publicaciones / Agregar publicación";
-    fetch("../pages/agregar-publicacion.html")
+    fetch("/src/pages/agregar-publicacion.html")
       .then(res => res.text())
       .then(html => {
         content.innerHTML = html;
@@ -364,7 +364,7 @@ function editarProducto(index) {
   const productos = JSON.parse(localStorage.getItem("productos") || "[]");
   const producto = productos[index];
 
-  fetch("../pages/agregar-producto.html")
+  fetch("/src/pages/agregar-producto.html")
     .then(res => res.text())
     .then(html => {
       const content = document.getElementById("main-content");
@@ -409,7 +409,7 @@ function editarProducto(index) {
 
           // Mostrar vista previa de la imagen actual
           const preview = document.getElementById("img-previa");
-          preview.src = producto.imagen ? (producto.imagen.startsWith("data:") ? producto.imagen : `../public/img/productos/${producto.imagen}`) : '';
+          preview.src = producto.imagen ? (producto.imagen.startsWith("data:") ? producto.imagen : `/src/public/img/productos/${producto.imagen}`) : '';
           preview.src !== '' ? preview.parentNode.classList.remove('d-none') : preview.parentNode.classList.add('d-none');
           preview.style.display = "block";
 
@@ -610,7 +610,7 @@ function editarProductor(index) {
   const productores = JSON.parse(localStorage.getItem("productores") || "[]");
   const productor = productores[index];
 
-  fetch("../pages/agregar-productor.html")
+  fetch("/src/pages/agregar-productor.html")
     .then(res => res.text())
     .then(html => {
       const content = document.getElementById("main-content");
@@ -743,7 +743,7 @@ function editarPublicacion(index) {
   const publicaciones = JSON.parse(localStorage.getItem("publicaciones") || "[]");
   const publicacion = publicaciones[index];
 
-  fetch("../pages/agregar-publicacion.html")
+  fetch("/src/pages/agregar-publicacion.html")
     .then(res => res.text())
     .then(html => {
       const content = document.getElementById("main-content");
@@ -1181,9 +1181,9 @@ function chartInventario() {
 
 // exit
 function handleUserClick() {
-  if (!current) return (window.location.href = '../pages/login.html'); // [5]
+  if (!current) return (window.location.href = '/src/pages/login.html'); // [5]
   localStorage.removeItem('currentUser');
-  window.location.href = '../pages/login.html';
+  window.location.href = '/src/pages/login.html';
 }
 
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
@@ -1210,11 +1210,11 @@ if (current && current.rol === 'admin') {
     <h3 class="mt-5">ACCESO NO AUTORIZADO</h3>
     <p>Redirigiendo a La Placita Colombiana</p>
     <div class="spinner-border" role="status">
-      <span class="visually-hidden">Loading...</span>
+      <span class="visually-hidden">Cargando...</span>
     </div>
   `
   setTimeout(() => {
-    window.location.href = '../pages/login.html';
+    window.location.href = '/src/pages/login.html';
   }, 1000);
 }
 

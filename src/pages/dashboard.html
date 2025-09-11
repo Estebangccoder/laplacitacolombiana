@@ -5,10 +5,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin - La Placita Colombiana</title>
-    <link rel="shortcut icon" href="../public/img/favicon-nb.png" type="image/png">
+    <link rel="shortcut icon" href="/src/public/img/favicon-nb.png" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/dashboard.css" />
+    <link rel="stylesheet" href="/src/css/dashboard.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.dataTables.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -21,7 +21,7 @@
 <body id="body-dashboard">
     <div id="dashboard" class="container-fluid p-0">
         <aside class="sidebar d-lg-inline-flex d-none">
-            <img src="../public/img/navbarlogo.png" alt="Logo"
+            <img src="/src/public/img/navbarlogo.png" alt="Logo"
                 class="logo-navbar border border-4 border-white rounded-circle mx-auto d-block" width="90">
             <h2 class="mb-5 text-center">La Placita Colombiana</h2>
 
@@ -79,7 +79,7 @@
 
         <aside class="sidebar-lg d-lg-none d-inline-flex">
             <div class="d-flex flex-column justify-content-between">
-                <img src="../public/img/navbarlogo.png" alt="Logo"
+                <img src="/src/public/img/navbarlogo.png" alt="Logo"
                     class="logo-navbar border border-4 border-white rounded-circle d-block mb-4" width="42">
 
                 <nav>
@@ -121,7 +121,7 @@
                             </div>
                         </li>
 
-                        <li>
+                        <li class="d-none">
                             <div class="btn-group dropend">
                                 <button type="button" class="btn m-0 p-0 dropdown-toggle" data-bs-toggle="dropdown"
                                     aria-expanded="false">
@@ -136,7 +136,7 @@
                             </div>
                         </li>
 
-                        <li onclick="loadSection('admin')">
+                        <li class="d-none" onclick="loadSection('admin')">
                             <span><i class="bi bi-person-circle fs-2"></i></span>
                         </li>
                     </ul>
@@ -148,6 +148,9 @@
                 <a href="https://wa.me/573125534565?text=Hola,%20bienvenido%20a%20a%20Mesa%20de%20Ayuda%20de%20La%20Placita%20Colombiana"
                     target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Soporte"><i
                         class="bi bi-headset me-3 fs-2"></i></a>
+                <button type="button" class="btn p-0 border border-0" onclick="handleUserClick()">
+                    <i class="bi bi-box-arrow-right me-3 fs-2"></i>
+                </button>
             </div>
         </aside>
 
@@ -199,8 +202,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../js/dashboard.js"></script>
-    <script src="../js/database.js"></script>
+    <script src="/src/js/dashboard.js"></script>
+    <script src="/src/js/database.js"></script>
 </body>
 
 </html>

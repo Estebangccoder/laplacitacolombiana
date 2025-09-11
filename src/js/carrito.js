@@ -75,7 +75,7 @@ function renderCarrito() {
 
       item.innerHTML = `
         <div class="col-2">
-          <img src="${p.imagen ? (p.imagen.startsWith("data:") ? p.imagen : `../public/img/productos/${p.imagen}`) : " "}" 
+          <img src="${p.imagen ? (p.imagen.startsWith("data:") ? p.imagen : `/src/public/img/productos/${p.imagen}`) : " "}" 
           alt="${p.nombre}" style="width:60px; height:60px; object-fit:cover;">
         </div>
         <div class="col-5 flex-grow-1">
@@ -183,22 +183,31 @@ function btnsQuitar(cod) {
 
 function validarSesion() {
   const current = JSON.parse(localStorage.getItem('currentUser') || 'null'); // [4]
-  if (!current || (current && current.rol === 'admin')) return (window.location.href = '../pages/login.html'); // [5]
+  if (!current || (current && current.rol === 'admin')) return (window.location.href = '/src/pages/login.html'); // [5]
   if (current && current.rol !== 'admin') {
-    window.location.href = '../pages/ver-carrito.html'
+    window.location.href = '/src/pages/ver-carrito.html'
   }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  ajustarCarrito();
   renderCarrito();
   const current = JSON.parse(localStorage.getItem('currentUser') || 'null'); // [4]
   const btns = document.querySelectorAll('.val-agregar-btn');
   btns.forEach(btn => {
     btn.addEventListener('click', () => {
-      if (current && current.rol === 'admin') return (window.location.href = '../pages/login.html'); // [5]
+      if (current && current.rol === 'admin') return (window.location.href = '/src/pages/login.html'); // [5]
     }); 
   });
 });
+
+// Cuando carga la página
+window.addEventListener('load', ajustarCarrito);
+
+// Cuando se redimensiona la ventana
+window.addEventListener('resize', ajustarCarrito);
+
+// Cuando se abre/cierra el menú hamburguesa (Bootstrap emite eventos)
+document.addEventListener('shown.bs.collapse', ajustarCarrito);
+document.addEventListener('hidden.bs.collapse', ajustarCarrito);
 
 

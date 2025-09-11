@@ -25,7 +25,7 @@
 
 body {
     background-color: #9FAA68;
-    background-image: url("../public/img/fonndo-intro.webp");
+    background-image: url("/src/public/img/fonndo-intro.webp");
     background-repeat: repeat;
     background-size: auto;
     background-attachment: scroll;

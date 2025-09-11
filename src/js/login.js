@@ -156,9 +156,9 @@ document.addEventListener('DOMContentLoaded', () => { // esperar DOM listo
       confirmButtonText: 'Aceptar'
     }).then(() => {
       if (getCurrentUser().rol == 'usuario') {
-        window.location.href = '../pages/catalogo.html';
+        window.location.href = '/src/pages/catalogo.html';
       } else if (getCurrentUser().rol == 'admin') {
-        window.location.href = '../pages/dashboard.html';
+        window.location.href = '/src/pages/dashboard.html';
       }
     });
   });
@@ -195,9 +195,9 @@ document.addEventListener('DOMContentLoaded', () => { // esperar DOM listo
       confirmButtonText: 'Aceptar'
     }).then(() => {
       if (getCurrentUser().rol == 'usuario') {
-        window.location.href = '../pages/catalogo.html';
+        window.location.href = '/src/pages/catalogo.html';
       } else if (getCurrentUser().rol == 'admin') {
-        window.location.href = '../pages/dashboard.html';
+        window.location.href = '/src/pages/dashboard.html';
       }
     });
   });

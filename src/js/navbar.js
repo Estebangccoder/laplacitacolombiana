@@ -1,13 +1,10 @@
-const pageName = window.location.pathname.split("/").pop().split(".")[0];
-const src = (pageName == 'index' || pageName === '') ? "src" : "..";
-
 function mostrarNavBar() {
     return `
     <nav class="navbar navbar-expand-lg navbar-dark " id="navbarFull">
         <div class="container-fluid">
             <a class="navbar-brand" href="/index.html">
                 <div class="d-inline-flex justify-content-center align-items-center">
-                    <img src="${src}/public/img/navbarlogo.png" alt="Logo"
+                    <img src="/src/public/img/navbarlogo.png" alt="Logo"
                         class="logo-navbar border border-4 border-white rounded-circle">
                     <div class="d-inline-flex flex-column justify-content-center align-items-center ms-2">
                         <p class="text-logo m-0 p-0">La Placita</p>
@@ -28,9 +25,9 @@ function mostrarNavBar() {
             </div>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto me-2">
-                    <li class="nav-item"><a class="nav-link fw-bold, fw-bolder" href="${src}/pages/quienessomos.html">QUIENES SOMOS</a></li>
-                    <li class="nav-item"><a class="nav-link fw-bold, fw-bolder" href="${src}/pages/contactanos.html">CONTACTANOS</a></li>
-                    <li class="nav-item"><a class="nav-link fw-bold, fw-bolder" href="${src}/pages/catalogo.html">TIENDA</a></li>
+                    <li class="nav-item"><a class="nav-link fw-bold, fw-bolder" href="/src/pages/quienessomos.html">QUIENES SOMOS</a></li>
+                    <li class="nav-item"><a class="nav-link fw-bold, fw-bolder" href="/src/pages/contactanos.html">CONTACTANOS</a></li>
+                    <li class="nav-item"><a class="nav-link fw-bold, fw-bolder" href="/src/pages/catalogo.html">TIENDA</a></li>
                 </ul>
                 <ul class="navbar-nav d-none d-lg-inline-flex">
                     <a class="btn" href="/index.html"><i class="bi bi-house-heart-fill fs-3 text-white m-0"></i></a>
@@ -52,6 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener('DOMContentLoaded', () => {
     const root = document.getElementById('navbar');
+    root.style.position = 'relative';
     root.innerHTML = mostrarNavBar(); // inyectar [2]
     const carritoBtn = root.querySelectorAll('.carrito-button');
     const closeBtn = document.getElementById('btn-close');
@@ -80,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
         login.forEach((btn) => { // seleccionar elementos ya insertados [1]
             btn.firstChild.classList.remove('bi-box-arrow-right');
             btn.firstChild.classList.add('bi-person-circle');
-            btn.addEventListener('click', () => window.location.href = `${src}/pages/login.html`);
+            btn.addEventListener('click', () => window.location.href = '/src/pages/login.html');
         });
     }
 });
@@ -88,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function handleUserClick() {
 
     const current = JSON.parse(localStorage.getItem('currentUser') || 'null'); // [4]
-    if (!current) return (window.location.href = `${src}/pages/login.html`); // [5]
+    if (!current) return (window.location.href = '/src/pages/login.html'); // [5]
     if (current && current.rol !== 'admin') {
 
         Swal.fire({

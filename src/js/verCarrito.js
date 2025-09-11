@@ -1,5 +1,4 @@
 let carrito;
-let productos;
 
 document.addEventListener("DOMContentLoaded", () => {
     const canasta = document.querySelectorAll('.carrito-button');
@@ -33,7 +32,7 @@ function mostrarProductosCarrito() {
 
         item.innerHTML = `
         <div class="col-2">
-          <img src="${p.imagen.startsWith("data:") ? p.imagen : `../public/img/productos/${p.imagen}`}" 
+          <img src="${p.imagen.startsWith("data:") ? p.imagen : `/src/public/img/productos/${p.imagen}`}" 
           alt="${p.nombre}" style="width:60px; height:60px; object-fit:cover;">
         </div>
         <div class="col-5 flex-grow-1">
@@ -84,7 +83,7 @@ function mostrarProductosCarrito() {
                 <p class="col-4 my-2 fw-bold">$${precioCOP(costoTotal)}</p>
             </div>
         </div>
-    `    
+    `
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
     mostrarRecomendados();
@@ -212,40 +211,54 @@ function mostrarRecomendados() {
 
     if (listaProductos.length === 0) {
         contenedor.innerHTML = `
-        <h3>Lista de productos</h3>
-        <p>No hay productos registrados.</p>
-      `;
+      <h3>Lista de productos</h3>
+      <p>No hay productos registrados.</p>
+    `;
     } else {
-
         listaProductos.forEach(producto => {
             if (producto.cantidad > 0) {
+                // Buscar productor por código
+                const productor = productores.find(p => p.codigo === producto.productor);
+
                 contenedor.innerHTML += `
-                    <div class="col">
-                        <div class="card mb-3 product-h h-100" data-category="${producto.categoria}">
-                            <div class="row g-0 align-items-center my-auto">
-                                <div class="col-md-4">
-                                    <img src="${producto.imagen.startsWith("data:") ? producto.imagen : `../public/img/productos/${producto.imagen}`}" 
-                                    class="img-fluid rounded-start product-h-img" alt="${producto.nombre}" />
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body d-flex flex-column h-100">
-                                        <h5 class="card-title mb-2">${producto.nombre}</h5>
-                                        <p class="card-text mb-3">${producto.descripcion}</p>
-                                        <ul class="list-unstyled small mb-3">
-                                            <li>Productor: <a href="#" class="producer-link">${producto.productor}</a></li>
-                                            <li>Presentación: ${producto.presentacion} <span>${producto.medida}</span></li>
-                                        </ul>
-                                        <div class="mt-auto d-flex flex-wrap gap-2 align-items-center">
-                                            <span class="price mb-0">Precio: ${precioCOP(producto.precio)}</span>
-                                            <button href="#" class="btn btn-primary ms-auto agregar-btn" 
-                                            onclick="agregarAcarrito(${producto.codigo})">Agregar a la canasta</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+          <div class="col">
+            <div class="card mb-3 product-h" data-category="${producto.categoria}">
+              <div class="row g-0 align-items-center my-auto">
+                <div class="col-4">
+                  <img src="${producto.imagen.startsWith("data:")
+                        ? producto.imagen
+                        : `/src/public/img/productos/${producto.imagen}`
+                    }" 
+                  class="img-fluid rounded-start product-h-img" alt="${producto.nombre}" />
+                </div>
+                <div class="col-8">
+                  <div class="card-body d-flex flex-column justify-content-between h-100">
+                    <h5 class="card-title mb-2">${producto.nombre}</h5>
+                    <p class="card-text mb-3">${producto.descripcion}</p>
+                    <ul class="list-unstyled small mb-3">
+                      <li>
+                        Productor: 
+                        <a href="#" class="producer-link">
+                          ${productor ? productor.nombre : "Desconocido"}
+                        </a>
+                      </li>
+                      <li>
+                        Presentación: ${producto.presentacion} <span>${producto.medida}</span>
+                      </li>
+                    </ul>
+                    <div class="mt-auto d-flex flex-wrap gap-2 align-items-center">
+                      <span class="price mb-0">Precio: ${precioCOP(producto.precio)}</span>
+                      <button href="#" class="btn btn-primary ms-auto agregar-btn val-agregar-btn" 
+                        onclick="agregarAcarrito(${producto.codigo})">
+                        Agregar a la canasta
+                      </button>
                     </div>
-                `;
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
             }
         });
     }
@@ -303,7 +316,6 @@ function agregarAcarrito(cod) {
 // Inicialización al cargar la página
 document.addEventListener("DOMContentLoaded", () => {
     carrito = JSON.parse(localStorage.getItem("carrito") || "[]");
-    productos = JSON.parse(localStorage.getItem("productos") || "[]");
     mostrarProductosCarrito();
     mostrarRecomendados();
 });

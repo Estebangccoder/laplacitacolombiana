@@ -28,7 +28,7 @@
 }
 
 .container-banner {
-    background-image: url("../public/img/fondo-catalogo.webp");
+    background-image: url("/src/public/img/fondo-catalogo.webp");
     background-repeat: repeat;
     background-size: 600px auto;
     background-position: center;
@@ -311,9 +311,3 @@ input[type="radio"][value="TODOS"]:checked~.container-category [for="todos"] {
     box-shadow: 0 3px 6px rgba(0, 0, 0, .15);
 }
 
-/* Responsive */
-@media (min-width: 768px) {
-    .product-h-img {
-        min-height: 150px;
-    }
-}
