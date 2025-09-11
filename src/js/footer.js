@@ -1,6 +1,6 @@
 function mostrarFooter() {
     const pageName = window.location.pathname.split("/").pop().split(".")[0];
-    const src = (pageName == 'landingpage') ? "src" : "..";
+    const src = (pageName == 'index') ? "src" : "..";
     return `
     <footer class="footer">
         <div class="container">
@@ -8,7 +8,7 @@ function mostrarFooter() {
                 <div class="footer-sections">
                     <h4>Secciones</h4>
                     <ul>
-                        <li><a href="/landingpage.html">Home</a></li>
+                        <li><a href="/index.html">Home</a></li>
                         <li><a href="${src}/pages/quienessomos.html">Quienes somos</a></li>
                         <li><a href="${src}/pages/contactanos.html">Contáctanos</a></li>
                         <li><a href="${src}/pages/catalogo.html">Tienda</a></li>
@@ -19,7 +19,7 @@ function mostrarFooter() {
                     <ul>
                         <li><a href="mailto:colombianalaplacita@gmail.com">colombianalaplacita@gmail.com</a></li>
                         <li><a href="${src}/pages/quienessomos.html#con-quien-trabajamos">¿Con quién trabajamos?</a></li>
-                        <li><a href="landingpage.html#FAQ">Preguntas frecuentes</a></li>
+                        <li><a href="/index.html#FAQ">Preguntas frecuentes</a></li>
                         <li>Bogotá D.C., Colombia</li>
                         <li>Medellín, Colombia</li>
                     </ul>
