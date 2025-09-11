@@ -1,4 +1,11 @@
 @import url(./normalize.css);
+
+/* Quitar el botón de mostrar contraseña en Edge */
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -25,7 +32,7 @@ main {
     align-items: center;
 }
 
-.login-container{
+.login-container {
     width: 800px;
     height: 500px;
     display: flex;
@@ -33,8 +40,8 @@ main {
     background-image: url(../public/img/login/fondologin1.png);
     border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 0 10px #EEEEEE(0, 0,0,0.3);
-    margin: auto;  
+    box-shadow: 0 0 10px #EEEEEE(0, 0, 0, 0.3);
+    margin: auto;
 }
 
 .container-form {
@@ -90,6 +97,17 @@ main {
     background-color: #EEEEEE;
 }
 
+.invalid-feedback {
+    width: 300px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 0 15px;
+    color: #eee !important;
+}
+
 .container-input input {
     border: none;
     outline: none;
@@ -123,10 +141,12 @@ main {
 .sign-up {
     transform: translateX(-100%);
 }
-.login-container.toggle .sign-in{
+
+.login-container.toggle .sign-in {
     transform: translateX(100%);
 }
-.login-container.toggle .sign-up{
+
+.login-container.toggle .sign-up {
     transform: translateX(0);
 }
 
@@ -144,7 +164,8 @@ main {
     overflow: hidden;
     border-radius: 50% 0 0 50%;
 }
-.login-container.toggle .container-welcome{
+
+.login-container.toggle .container-welcome {
     transform: translateX(0);
     border-radius: 0 50% 50% 0;
     background-color: #9faa68;
@@ -181,10 +202,11 @@ main {
     text-transform: none;
 }
 
-.login-container.toggle .welcome-sign-in{
+.login-container.toggle .welcome-sign-in {
     transform: translateX(0);
 }
-.login-container.toggle .welcome-sign-up{
+
+.login-container.toggle .welcome-sign-up {
     transform: translateX(-100%);
 }
 
@@ -194,7 +216,7 @@ main {
         width: 90%;
         height: auto;
         margin: 0 auto;
-        padding-bottom: 1rem ;
+        padding-bottom: 1rem;
     }
 
     .container-welcome {

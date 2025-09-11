@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => { // esperar DOM listo
       togglePass.innerHTML = `<i class="bi bi-eye text-black fs-3"></i>`;
     }
   });
-  
+
   togglePass2.addEventListener("click", () => {
     if (inputPass2.type === "password") {
       inputPass2.type = "text"; // muestra caracteres
@@ -80,6 +80,39 @@ document.addEventListener('DOMContentLoaded', () => { // esperar DOM listo
     return null; // sin soporte => devolvemos null para usar fallback
   }
 
+
+  // Event listeners para validación en tiempo real
+  [inputPass, inputPass2].forEach(input => {
+
+    input.addEventListener('blur', () => {
+      const msg = document.querySelectorAll('.invalid-feedback');
+      msg.forEach(m => {
+        if (input.value.length != 6) {
+          m.classList.remove('d-none');
+          m.classList.add('d-block');
+        }
+        if (input.value.length == 6) {
+          m.classList.remove('d-block');
+          m.classList.add('d-none');
+        }
+      });
+    });
+
+    input.addEventListener('input', () => {
+      const msg = document.querySelectorAll('.invalid-feedback');
+      msg.forEach(m => {
+        if (input.value.length != 6) {
+          m.classList.remove('d-none');
+          m.classList.add('d-block');
+        }
+        if (input.value.length == 6) {
+          m.classList.remove('d-block');
+          m.classList.add('d-none');
+        }
+      });
+    });
+  });
+
   // Registro
   const formRegister = document.getElementById('form-register');
   formRegister?.addEventListener('submit', async (e) => {
@@ -94,8 +127,8 @@ document.addEventListener('DOMContentLoaded', () => { // esperar DOM listo
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return Swal.fire({ icon: 'warning', title: 'Correo inválido' });
     }
-    if (pass.length < 6) {
-      return Swal.fire({ icon: 'warning', title: 'La contraseña debe tener al menos 6 caracteres' });
+    if (pass.length != 6) {
+      return Swal.fire({ icon: 'warning', title: 'La contraseña debe tener 6 caracteres' });
     }
 
     const users = getUsers();

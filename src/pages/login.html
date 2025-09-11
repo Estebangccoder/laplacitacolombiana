@@ -44,6 +44,8 @@
                         <input id="loginPass" type="password" placeholder="contraseña">
                         <span id="toggle-pass" class="my-auto btn p-0"><i class="bi bi-eye text-black fs-3"></i></span>
                     </div>
+                    <p class="invalid-feedback d-none m-0">La contraseña debe tener 6 caracteres</p>
+
 
                     <button class="button" type="submit">INICIAR SESIÓN</button>
                 </form>
@@ -69,8 +71,10 @@
                     <div class="container-input">
                         <ion-icon name="lock-closed-outline"></ion-icon>
                         <input id="regPass" type="password" placeholder="contraseña" minlength="6" required>
-                        <span id="toggle-pass-2" class="my-auto btn p-0"><i class="bi bi-eye text-black fs-3"></i></span>
+                        <span id="toggle-pass-2" class="my-auto btn p-0"><i
+                                class="bi bi-eye text-black fs-3"></i></span>
                     </div>
+                    <p class="invalid-feedback d-none my-1">La contraseña debe tener 6 caracteres</p>
                     <button class="button" type="submit">REGISTRARSE</button>
                 </form>
             </div>
