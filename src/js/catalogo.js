@@ -122,4 +122,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-
+// Escuchar cambios en localStorage (cuando se modifica desde carrito.js u otra pestaña)
+window.addEventListener("storage", () => {
+  const productos = JSON.parse(localStorage.getItem("productos") || "[]");
+  mostrarProductos(productos, "productosContainer");
+});

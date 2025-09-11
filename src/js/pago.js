@@ -57,25 +57,25 @@ if (ciudad && valorDomicilio) {
             case "santaMarta":
             case "monteria":
             case "pasto":
-                totalDomicilio = 50000;
+                totalDomicilio = 15000;
                 break;
             case "bogota":
-                totalDomicilio = 10000;
+                totalDomicilio = 5000;
                 break;
             case "bucaramanga":
             case "cali":
             case "cucuta":
-                totalDomicilio = 30000;
+                totalDomicilio = 10000;
                 break;
             case "ibague":
             case "medellin":
             case "neiva":
-                totalDomicilio = 25000;
+                totalDomicilio = 12000;
                 break;
             case "manizales":
             case "pereira":
             case "villavicencio":
-                totalDomicilio = 28000;
+                totalDomicilio = 13000;
                 break;
             default:
                 totalDomicilio = 0;

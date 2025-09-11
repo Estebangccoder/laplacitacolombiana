@@ -442,7 +442,10 @@ function editarProducto(index) {
             }
 
             const file = document.getElementById("imagen").files[0];
-
+            const reader = new FileReader();
+            reader.onload = function () {
+              actualizarProducto(index, reader.result);
+            };
             if (file) {
               if (!file.type.startsWith("image/") || file.size > 1024 * 1024) {
                 return;

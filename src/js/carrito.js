@@ -12,7 +12,7 @@ let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 function agregarAcarrito(cod) {
 
   const current = JSON.parse(localStorage.getItem('currentUser') || 'null'); // [4]
-  if (!current || (current && current.rol === 'admin')) {
+  if (current && current.rol === 'admin') {
     if (localStorage.getItem('carrito') !== null) {
       // Vaciar el carrito, pero mantener la key
       localStorage.setItem('carrito', JSON.stringify([]));
@@ -61,6 +61,7 @@ function agregarAcarrito(cod) {
       allowEscapeKey: false,
       allowOutsideClick: false,
     });
+    mostrarProductos(productos, "productosContainer");
     return;
   };
   localStorage.setItem('carrito', JSON.stringify(carrito));
@@ -123,6 +124,7 @@ function renderCarrito() {
   `;
 
     carritoCuerpo.appendChild(footer);
+    
 
   } else {
     carritoCuerpo.innerHTML = `<p id="texto-carro-vacio" class="text-center">No hay productos en el carrito</p>`;
@@ -149,6 +151,7 @@ function btnsSumar(cod) {
       localStorage.setItem('carrito', JSON.stringify(carrito));
       localStorage.setItem('productos', JSON.stringify(productos));
       renderCarrito();
+      mostrarProductos(productos, "productosContainer");
     }
     else {
       //Stock no disponible
@@ -179,6 +182,7 @@ function btnsRestar(cod) {
     localStorage.setItem('carrito', JSON.stringify(carrito));
     localStorage.setItem('productos', JSON.stringify(productos));
     renderCarrito();
+    mostrarProductos(productos, "productosContainer");
   }
 }
 
@@ -190,6 +194,7 @@ function btnsQuitar(cod) {
   localStorage.setItem('carrito', JSON.stringify(carrito));
   localStorage.setItem('productos', JSON.stringify(productos));
   renderCarrito();
+  mostrarProductos(productos, "productosContainer");
 }
 
 function validarSesion() {
@@ -218,6 +223,8 @@ window.addEventListener('load', ajustarCarrito);
 
 // Cuando se redimensiona la ventana
 window.addEventListener('resize', ajustarCarrito);
+
+
 
 // Cuando se abre/cierra el menú hamburguesa (Bootstrap emite eventos)
 document.addEventListener('shown.bs.collapse', ajustarCarrito);
