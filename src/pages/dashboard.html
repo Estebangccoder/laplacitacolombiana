@@ -46,8 +46,17 @@
 
                     <li class="has-submenu">
                         <span onclick="toggleSubmenu(this)"><i class="bi bi-person-vcard-fill me-3"></i>Gestión de
+                            usuarios</span>
+                        <ul class="submenu">
+                            <li onclick="loadSection('ver-usuarios')">Ver usuarios</li>
+                        </ul>
+                    </li>
+
+                    <li class="has-submenu">
+                        <span onclick="toggleSubmenu(this)"><i class="bi bi-person-vcard-fill me-3"></i>Gestión de
                             proveedores</span>
                         <ul class="submenu">
+                            <li onclick="loadSection('ver-productores')">Lista productores</li>
                             <li onclick="loadSection('agregar-productor')">Agregar productor</li>
                         </ul>
                     </li>
@@ -60,6 +69,7 @@
                             <li onclick="loadSection('agregar-publicacion')">Agregar publicación</li>
                         </ul>
                     </li>
+
                     <li class="d-none" onclick="loadSection('admin')">
                         <span><i class="bi bi-person-circle me-3"></i>Admin</span>
                     </li>
@@ -211,6 +221,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.min.js"></script>

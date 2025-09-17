@@ -1,13 +1,38 @@
 <h2>Agregar Productor</h2>
-<form id="form-productor" class="mt-5">
-    <div class="col-12 mb-3">
-        <label for="nombre-productor" class="form-label">Nombre del productor:</label>
-        <input type="text" id="nombre-productor" name="nombre-productor" class="form-control" required>
-    </div>
-    <div id="btns" class="col-12 text-center">
-        <button type="submit" class="btn btn-primary">Guardar</button>
-    </div>
-</form>
 
-<div id="lista-productores-registrados" class=" mt-5">
+<div class="container mt-5 p-4 p-xl-5">
+    <form id="agregarProductor" class="row gy-0 gx--3 p-3 mx-auto rounded-4 border border-2 h-50" onsubmit="guardarProductor(event)">
+        <div class="col-12">
+            <label for="razon-social" class="form-label">Razón social:</label>
+            <input type="text" id="razon-social" class="form-control" required>
+        </div>
+
+        <div class="col-6">
+            <label for="nombre" class="form-label">Nombre contacto:</label>
+            <input type="text" id="nombre" class="form-control" required>
+        </div>
+
+        <div class="col-6">
+            <label for="apellido" class="form-label">Apellido contacto:</label>
+            <input type="text" id="apellido" class="form-control" required>
+        </div>
+
+        <div class="col-xl-4 col-lg-6">
+            <label for="email" class="form-label">Correo electrónico:</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="tucorreo@correo.com" required>
+        </div>
+
+        <!-- Revisar indicativo -->
+        <div class="col-xl-4 col-lg-6">
+            <label for="mobile_code" class="form-label">Teléfono:</label>
+            <input type="tel" name="phone-number" class="form-control" id="mobile_code" placeholder="312 456 7890"
+                required style="width:100%">
+        </div>
+
+        <div id="btns" class="col-12 pt-4 text-center">
+            <button id="submitBtn" class="contactForm button btn btn-primary" type="submit">Enviar</button>
+        </div>
+    </form>
 </div>
+
+
