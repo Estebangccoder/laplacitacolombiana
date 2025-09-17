@@ -291,10 +291,9 @@ function loadSection(section) {
   } else if (section === "ver-usuarios") {
     breadcrumb.textContent = "Dashboards / Gestión de productos / Ver usuarios";
 
-    fetch('http://localhost:8080/personas/traer')
+    fetch('http://localhost:8080/api/usuarios')
       .then(response => response.json())
       .then(data => {
-
         if (data.length === 0) {
           content.innerHTML = `
           <h3>Lista de usuarios</h3>
