@@ -1,4 +1,4 @@
-function loadSection(section) {
+function loadSectionHome(section) {
   const content = document.getElementById("main-content");
   const breadcrumb = document.getElementById("breadcrumb");
 
@@ -35,6 +35,11 @@ function loadSection(section) {
     breadcrumb.textContent = `Dashboards / ${section}`;
     content.innerHTML = `<h3>${section}</h3><p>Contenido en construcción...</p>`;
   }
+}
+
+function toggleSubmenu(element) {
+  const parent = element.parentElement;
+  parent.classList.toggle("open");
 }
 
 /*-------------------------------------------------------------------------------------------------
@@ -148,20 +153,10 @@ function handleUserClick() {
   window.location.href = '/src/pages/login.html';
 }
 
-const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-
 const current = JSON.parse(localStorage.getItem('currentUser') || 'null');
 if (current && current.rol === 'admin') {
-  window.loadSection = loadSection;
+  window.loadSectionHome = loadSectionHome;
   window.toggleSubmenu = toggleSubmenu;
-  window.eliminarProducto = eliminarProducto;
-  window.editarProducto = editarProducto;
-  window.guardarProducto = guardarProducto;
-  window.guardarProductor = guardarProductor;
-  window.eliminarPublicacion = eliminarPublicacion;
-  window.editarPublicacion = editarPublicacion;
-  loadSection('home');
 } else {
   const content = document.getElementById("body-dashboard");
   content.innerHTML = '';
