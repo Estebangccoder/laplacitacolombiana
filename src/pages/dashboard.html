@@ -46,18 +46,18 @@
 
                     <li class="has-submenu">
                         <span onclick="toggleSubmenu(this)"><i class="bi bi-person-vcard-fill me-3"></i>Gestión de
-                            usuarios</span>
-                        <ul class="submenu">
-                            <li onclick="loadSection('ver-usuarios')">Ver usuarios</li>
-                        </ul>
-                    </li>
-
-                    <li class="has-submenu">
-                        <span onclick="toggleSubmenu(this)"><i class="bi bi-person-vcard-fill me-3"></i>Gestión de
                             proveedores</span>
                         <ul class="submenu">
                             <li onclick="loadSection('ver-productores')">Lista productores</li>
                             <li onclick="loadSection('agregar-productor')">Agregar productor</li>
+                        </ul>
+                    </li>
+
+                    <li class="has-submenu">
+                        <span onclick="toggleSubmenu(this)"><i class="bi bi-file-person-fill me-3"></i>Gestión de
+                            usuarios</span>
+                        <ul class="submenu">
+                            <li onclick="loadSection('ver-usuarios')">Ver usuarios</li>
                         </ul>
                     </li>
 
@@ -126,6 +126,7 @@
                                     </span>
                                 </button>
                                 <ul class="dropdown-menu">
+                                    <li onclick="loadSection('ver-productores')">Lista de productores</li>
                                     <li onclick="loadSection('agregar-productor')">Agregar productor</li>
                                 </ul>
                             </div>
@@ -136,12 +137,11 @@
                                 <button type="button" class="btn m-0 p-0 dropdown-toggle" data-bs-toggle="dropdown"
                                     aria-expanded="false">
                                     <span class="m-0">
-                                        <i class="bi bi-person-vcard-fill fs-2"></i>
+                                        <i class="bi bi-file-person-fill fs-2"></i>
                                     </span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li onclick="loadSection('ver-productores')">Lista de productores</li>
-                                    <li onclick="loadSection('agregar-productor')">Agregar productor</li>
+                                    <li onclick="loadSection('ver-usuarios')">Ver usuarios</li>
                                 </ul>
                             </div>
                         </li>

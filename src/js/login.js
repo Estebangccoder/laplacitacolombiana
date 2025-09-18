@@ -18,15 +18,6 @@ if (btnSignIn && btnSignUp) {
   });
 }
 
-/*const btn = document.getElementById("btn");
-const container = document.querySelector(".container");
-
-btn.addEventListener("click",()=>{
-    container.classList.toggle("toggle");
-})*/
-
-// --- utilidades de localStorage ---
-
 
 document.addEventListener('DOMContentLoaded', () => { // esperar DOM listo
   // Toggle del UI
@@ -164,41 +155,94 @@ document.addEventListener('DOMContentLoaded', () => { // esperar DOM listo
   });
 
   // Login (este bloque faltaba)
+  const API_URL = 'http://localhost:8080/auth';
   const formLogin = document.getElementById('form-login');
   formLogin?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const email = document.getElementById('loginEmail').value.trim().toLowerCase();
-    const pass = document.getElementById('loginPass').value;
+    const password = document.getElementById('loginPass').value;
 
-    const users = getUsers();
-    const user = users.find(u => u.email === email);
-    if (!user) {
-      return Swal.fire({ icon: 'error', title: 'Usuario no encontrado' });
+    console.log(typeof email)
+    console.log(typeof password)
+    // const users = getUsers();
+    // const user = users.find(u => u.email === email);
+    // if (!user) {
+    //   return Swal.fire({ icon: 'error', title: 'Usuario no encontrado' });
+    // }
+
+    // let ok = false;
+    // if (user.passHash && window.crypto?.subtle) {
+    //   const hex = await trySha256(pass);
+    //   ok = (hex === user.passHash);
+    // } else {
+    //   ok = (user.passPlain === pass); // fallback solo para desarrollo
+    // }
+
+    // if (!ok) {
+    //   return Swal.fire({ icon: 'error', title: 'Contraseña incorrecta' });
+
+    // Validaciones básicas
+    if (!email || !password) {
+      return Swal.fire({ icon: 'warning', title: 'Complete todos los campos' });
     }
 
-    let ok = false;
-    if (user.passHash && window.crypto?.subtle) {
-      const hex = await trySha256(pass);
-      ok = (hex === user.passHash);
-    } else {
-      ok = (user.passPlain === pass); // fallback solo para desarrollo
-    }
+    try {
+      const response = await fetch(`${API_URL}/loginConDTO`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+      });
+      if (response.ok) {
 
-    if (!ok) {
-      return Swal.fire({ icon: 'error', title: 'Contraseña incorrecta' });
-    }
+        const data = await response.json();
 
-    setCurrentUser(user);
-    Swal.fire({
-      icon: 'success',
-      title: `Bienvenido, ${user.name}`,
-      confirmButtonText: 'Aceptar'
-    }).then(() => {
-      if (getCurrentUser().rol == 'usuario') {
-        window.location.href = '/src/pages/catalogo.html';
-      } else if (getCurrentUser().rol == 'admin') {
-        window.location.href = '/src/pages/dashboard.html';
+        const token = data.token;
+        const usuarioNombre = data.usuario;
+        const usuarioRol = data.rolID;
+        localStorage.setItem('jwt', token);
+
+        Swal.fire({
+          icon: 'success',
+          title: `Bienvenido, ${usuarioNombre}`,
+          confirmButtonText: 'Aceptar'
+        }).then(() => {
+          if (usuarioRol === 2) {
+            window.location.href = '/src/pages/dashboard.html';
+          } else {
+            window.location.href = '/src/pages/catalogo.html';
+          }
+        });
+      } else {
+        const errorMessage = await response.text();
+        Swal.fire({
+          icon: 'error',
+          title: 'Error en el login',
+          text: errorMessage
+        });
       }
-    });
+    } catch (error) {
+      console.error('Error during login:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error de conexión',
+        text: 'No se pudo conectar con el servidor'
+      });
+    }
+
+
+    //   setCurrentUser(user);
+    // Swal.fire({
+    //   icon: 'success',
+    //   title: `Bienvenido, ${user.name}`,
+    //   confirmButtonText: 'Aceptar'
+    // }).then(() => {
+    //   if (getCurrentUser().rol == 'usuario') {
+    //     window.location.href = '/src/pages/catalogo.html';
+    //   } else if (getCurrentUser().rol == 'admin') {
+    //     window.location.href = '/src/pages/dashboard.html';
+    //   }
+    // });
   });
 });
