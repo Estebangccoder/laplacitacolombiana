@@ -162,25 +162,6 @@ document.addEventListener('DOMContentLoaded', () => { // esperar DOM listo
     const email = document.getElementById('loginEmail').value.trim().toLowerCase();
     const password = document.getElementById('loginPass').value;
 
-    console.log(typeof email)
-    console.log(typeof password)
-    // const users = getUsers();
-    // const user = users.find(u => u.email === email);
-    // if (!user) {
-    //   return Swal.fire({ icon: 'error', title: 'Usuario no encontrado' });
-    // }
-
-    // let ok = false;
-    // if (user.passHash && window.crypto?.subtle) {
-    //   const hex = await trySha256(pass);
-    //   ok = (hex === user.passHash);
-    // } else {
-    //   ok = (user.passPlain === pass); // fallback solo para desarrollo
-    // }
-
-    // if (!ok) {
-    //   return Swal.fire({ icon: 'error', title: 'Contraseña incorrecta' });
-
     // Validaciones básicas
     if (!email || !password) {
       return Swal.fire({ icon: 'warning', title: 'Complete todos los campos' });
@@ -208,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => { // esperar DOM listo
           title: `Bienvenido, ${usuarioNombre}`,
           confirmButtonText: 'Aceptar'
         }).then(() => {
-          if (usuarioRol === 2) {
+          if (usuarioRol === 1) {
             window.location.href = '/src/pages/dashboard.html';
           } else {
             window.location.href = '/src/pages/catalogo.html';

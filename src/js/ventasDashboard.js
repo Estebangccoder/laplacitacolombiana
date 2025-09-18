@@ -69,23 +69,23 @@ function loadSectionVentas(section) {
 }
 
 // const current = JSON.parse(localStorage.getItem('currentUser') || 'null');
-if (current && current.rol === 'admin') {
+// if (current && current.rol === 'admin') {
   window.loadSectionVentas = loadSectionVentas;
-} else {
-  const content = document.getElementById("body-dashboard");
-  content.innerHTML = '';
-  content.classList.add('d-flex', 'flex-column', 'justify-content-center', 'align-items-center');
-  content.innerHTML = `
-    <h3 class="mt-5">ACCESO NO AUTORIZADO</h3>
-    <p>Redirigiendo a La Placita Colombiana</p>
-    <div class="spinner-border" role="status">
-      <span class="visually-hidden">Cargando...</span>
-    </div>
-  `
-  setTimeout(() => {
-    window.location.href = '/src/pages/login.html';
-  }, 1000);
-}
+// } else {
+//   const content = document.getElementById("body-dashboard");
+//   content.innerHTML = '';
+//   content.classList.add('d-flex', 'flex-column', 'justify-content-center', 'align-items-center');
+//   content.innerHTML = `
+//     <h3 class="mt-5">ACCESO NO AUTORIZADO</h3>
+//     <p>Redirigiendo a La Placita Colombiana</p>
+//     <div class="spinner-border" role="status">
+//       <span class="visually-hidden">Cargando...</span>
+//     </div>
+//   `
+//   setTimeout(() => {
+//     window.location.href = '/src/pages/login.html';
+//   }, 1000);
+// }
 
 // window.addEventListener("storage", () => {
 //   const current = JSON.parse(localStorage.getItem('currentUser') || 'null');

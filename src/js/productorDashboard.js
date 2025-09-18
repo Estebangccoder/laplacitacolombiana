@@ -9,7 +9,7 @@ function loadSectionProductor(section) {
             .then(res => res.text())
             .then(html => {
                 content.innerHTML = html;
-                liveValidations(inputsProductores());
+                // liveValidations(inputsProductores());
             })
             .catch(err => {
                 content.innerHTML = "<p>Error al cargar la sección.</p>";
@@ -98,7 +98,7 @@ function guardarProductor(event) {
         });
         return
     }
-    
+
     const input = document.getElementById("nombre-productor");
     const nombre = input.value.trim();
 
@@ -234,24 +234,24 @@ function editarProductor(index) {
 }
 
 // const current = JSON.parse(localStorage.getItem('currentUser') || 'null');
-if (current && current.rol === 'admin') {
+// if (current && current.rol === 'admin') {
     window.loadSectionProductor = loadSectionProductor;
     window.guardarProductor = guardarProductor;
-} else {
-    const content = document.getElementById("body-dashboard");
-    content.innerHTML = '';
-    content.classList.add('d-flex', 'flex-column', 'justify-content-center', 'align-items-center');
-    content.innerHTML = `
-    <h3 class="mt-5">ACCESO NO AUTORIZADO</h3>
-    <p>Redirigiendo a La Placita Colombiana</p>
-    <div class="spinner-border" role="status">
-      <span class="visually-hidden">Cargando...</span>
-    </div>
-  `
-    setTimeout(() => {
-        window.location.href = '/src/pages/login.html';
-    }, 1000);
-}
+// } else {
+//     const content = document.getElementById("body-dashboard");
+//     content.innerHTML = '';
+//     content.classList.add('d-flex', 'flex-column', 'justify-content-center', 'align-items-center');
+//     content.innerHTML = `
+//     <h3 class="mt-5">ACCESO NO AUTORIZADO</h3>
+//     <p>Redirigiendo a La Placita Colombiana</p>
+//     <div class="spinner-border" role="status">
+//       <span class="visually-hidden">Cargando...</span>
+//     </div>
+//   `
+//     setTimeout(() => {
+//         window.location.href = '/src/pages/login.html';
+//     }, 1000);
+// }
 
 // window.addEventListener("storage", () => {
 //     const current = JSON.parse(localStorage.getItem('currentUser') || 'null');

@@ -1,13 +1,14 @@
 <h3>Agregar producto</h3>
 <div class="container mt-5 p-4 p-xl-5">
-    <form id="agregarProducto" class="row g-3 p-3 mx-auto rounded-4 border border-2" onsubmit="guardarProducto(event)">
+    <form id="agregarProducto" class="row g-3 p-3 mx-auto rounded-4 border border-2" 
+    enctype="multipart/form-data" onsubmit="guardarProducto(event)">
         <div class="col-12">
             <label for="categoria" class="form-label">Categoría:</label>
             <select id="categoria" class="form-control" required>
                 <option value="0">Selecciona una categoría</option>
-                <option value="Cafe">Café</option>
-                <option value="Cacao">Cacao</option>
-                <option value="Cerveza">Cerveza</option>
+                <option value="1">Café</option>
+                <option value="2">Cacao</option>
+                <option value="3">Cerveza</option>
             </select>
         </div>
 
@@ -51,10 +52,10 @@
                 <div class="col-4">
                     <select id="medida" class="form-control" required>
                         <option value="0">Medida</option>
-                        <option value="gr">Gramos</option>
-                        <option value="kg">Kilogramos</option>
-                        <option value="ml">Mililitros</option>
-                        <option value="l">Litros</option>
+                        <option value="GR">Gramos</option>
+                        <option value="KG">Kilogramos</option>
+                        <option value="ML">Mililitros</option>
+                        <option value="L">Litros</option>
                     </select>
                 </div>
             </div>
