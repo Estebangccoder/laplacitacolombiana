@@ -97,13 +97,13 @@ function renderCarrito() {
             </small>
         </div>
         <div class="col-4 flex-grow-1">
-            <button type="button" class="btn btn-primary py-0 px-1" onclick="btnsSumar(${p.codigo})">
-                <i class="fw-bold bi bi-plus"></i>
-            </button>
-            <span class="mx-1">${p.cantidad_carrito}</span>
             <button type="button" class="btn btn-info py-0 px-1" onclick="btnsRestar(${p.codigo})">
                 <i class="fw-bold bi bi-dash menos-producto"></i>
             </button>
+            <span class="mx-1">${p.cantidad_carrito}</span>
+            <button type="button" class="btn btn-primary py-0 px-1" onclick="btnsSumar(${p.codigo})">
+                <i class="fw-bold bi bi-plus"></i>
+            </button> 
         </div>
         <button class="col-1 btn btn-sm btn-danger remove-btn" onclick="btnsQuitar(${p.codigo})"">
           <span class="fw-bold">X</span>
@@ -117,9 +117,12 @@ function renderCarrito() {
     const footer = document.createElement('div');
     footer.classList.add('carrito-footer', 'mt-3', 'text-end');
 
+    let totalProductos = carrito.reduce((acc, p) => acc + p.cantidad_carrito, 0); // Sumar cantidades
+
     footer.innerHTML = `
     <hr>
-    <h5>Total: $${precioCOP(totalCarrito)}</h5>
+    <h6>Total de productos: ${totalProductos}</h6>
+    <h5>Valor Total: $${precioCOP(totalCarrito)}</h5>
     <button type="button" id="btn-pagar" class="btn btn-success mt-2" onclick="validarSesion()">Ir a pagar</button>
   `;
 
@@ -127,7 +130,7 @@ function renderCarrito() {
     
 
   } else {
-    carritoCuerpo.innerHTML = `<p id="texto-carro-vacio" class="text-center">No hay productos en el carrito</p>`;
+    carritoCuerpo.innerHTML = `<p id="texto-carro-vacio" class="text-center">No hay productos en la canasta</p>`;
     return;
   }
 }
