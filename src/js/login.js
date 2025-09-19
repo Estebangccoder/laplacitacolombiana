@@ -180,8 +180,10 @@ document.addEventListener('DOMContentLoaded', () => { // esperar DOM listo
 
         const token = data.token;
         const usuarioNombre = data.usuario;
+        const usuarioID = data.id;
         const usuarioRol = data.rolID;
         localStorage.setItem('jwt', token);
+        localStorage.setItem('UID', usuarioID);
         setCurrentUser({name: usuarioNombre, rol: usuarioRol});
         Swal.fire({
           icon: 'success',

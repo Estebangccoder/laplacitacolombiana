@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 const carrito = JSON.parse(localStorage.getItem("carrito") || "[]");
 const currentUser = JSON.parse(localStorage.getItem("currentUser") || "[]");
+const currentUserID = JSON.parse(localStorage.getItem("UID") || "[]");
 const currentUserId = users.find(u => u.email === currentUser?.email)?.id ?? 0;
 const form = document.forms['infoPago'];
 const inputs = form.elements
@@ -182,7 +183,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 return false; // Detiene el proceso si hay campos incompletos
             }
 
-            if (nombre == 'No hay usuario activo') {
+            if (nombre == 'No hay usuario activo' || nombre == 'ADMIN') {
                 Swal.fire({
                     icon: 'warning', // Muestra una advertencia si faltan campos
                     title: 'Valor erróneo',
@@ -215,29 +216,50 @@ document.addEventListener('DOMContentLoaded', function () {
             const fecha = ahora.toLocaleDateString("es-CO"); // ejemplo: "09/09/2025"
             const hora = ahora.toLocaleTimeString("es-CO"); // ejemplo: "5:41:23 p. m."
             return actions.order.capture().then(function (details) {
-
-                const factura = JSON.parse(localStorage.getItem("factura"));
-                if(factura) localStorage.removeItem('factura');
-                // Guardar datos en localStorage
-                localStorage.setItem('factura', JSON.stringify({
-                    orderID: data.orderID,
-                    details: details,
-                    fecha_order: fecha,
-                    hora_order: hora,
-                    user_id: currentUserId,
-                    nombre: document.getElementById('nombre').value.toUpperCase(),
-                    ciudad: document.getElementById('ciudad').value,
-                    direccion: document.getElementById('direccion').value,
-                    valor_domicilio: totalDomicilio,
-                }));
-
-                // Aviso de éxito y redirección
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Pago Completado',
-                    text: 'Factura creada correctamente',
-                }).then(function () {
-                    window.location.href = '/src/pages/factura.html';
+                // Realiza una solicitud POST al servidor para completar la reserva
+                return fetch('/paypal', {
+                    method: 'post',
+                    headers: {
+                        'content-type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        orderID: data.orderID,
+                        details: details, // puedes guardar esto como JSON en el backend si lo necesitas
+                        fecha_order: new Date().toLocaleDateString("es-CO"),
+                        hora_order: new Date().toLocaleTimeString("es-CO"),
+                        user_id: currentUserId,
+                        nombre: document.getElementById('nombre').value.toUpperCase(),
+                        ciudad: document.getElementById('ciudad').value,
+                        direccion: document.getElementById('direccion').value,
+                        valor_domicilio: totalDomicilio,
+                        productos: carrito.map(p => ({
+                            producto_id: p.id,
+                            nombre: p.nombre,
+                            cantidad: p.cantidad,
+                            precio_unitario: p.precio,
+                            subtotal: p.precio * p.cantidad
+                        }))
+                    })
+                }).then(function (response) {
+                    if (response.ok) {
+                        // Si la respuesta es exitosa, muestra un mensaje de éxito
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Pago Completado',
+                            text: 'Reserva creada correctamente',
+                        }).then(function () {
+                            window.location.href = '/client/index'; // Redirige a la página de reservas del cliente
+                        });
+                    } else {
+                        console.log('Error ' + response)
+                        // Si hay un error en el pago, muestra un mensaje de error
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Error al procesar el pago',
+                        });
+                    }
                 });
             });
         }

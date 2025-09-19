@@ -9,8 +9,8 @@ function loadSection(section) {
     loadSectionProducts(section);
 
   // Productores
-  } else if (section === "agregar-productor" || section === "ver-productores") {
-    loadSectionProductor(section);
+  // } else if (section === "agregar-productor" || section === "ver-productores") {
+  //   loadSectionProductor(section);
 
   // Usuarios
   } else if (section === "ver-usuarios") {
