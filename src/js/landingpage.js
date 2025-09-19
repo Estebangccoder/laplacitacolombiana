@@ -1,5 +1,3 @@
-
-
 function recomendaciones() {
     let recomendados = [
         {
