@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => { // esperar DOM listo
   const LS_KEYS = { USERS: 'users', CURRENT: 'currentUser' }; // claves
   const getUsers = () => JSON.parse(localStorage.getItem(LS_KEYS.USERS) || '[]');
   const saveUsers = (users) => localStorage.setItem(LS_KEYS.USERS, JSON.stringify(users));
-  const setCurrentUser = (u) => localStorage.setItem(LS_KEYS.CURRENT, JSON.stringify({ email: u.email, name: u.name, rol: u.rol }));
+  const setCurrentUser = (u) => localStorage.setItem(LS_KEYS.CURRENT, JSON.stringify({ name: u.name, rol: u.rol }));
   const getCurrentUser = () => JSON.parse(localStorage.getItem(LS_KEYS.CURRENT) || 'null');
   const clearCurrentUser = () => localStorage.removeItem(LS_KEYS.CURRENT);
 
@@ -167,23 +167,22 @@ document.addEventListener('DOMContentLoaded', () => { // esperar DOM listo
       return Swal.fire({ icon: 'warning', title: 'Complete todos los campos' });
     }
 
-    try {
-      const response = await fetch(`${API_URL}/loginConDTO`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email, password })
-      });
-      if (response.ok) {
-
-        const data = await response.json();
+    login({ email, password })
+      .then(data => {
+        if (data.error) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error en el login',
+            text: data.message
+          });
+          return;
+        }
 
         const token = data.token;
         const usuarioNombre = data.usuario;
         const usuarioRol = data.rolID;
         localStorage.setItem('jwt', token);
-
+        setCurrentUser({name: usuarioNombre, rol: usuarioRol});
         Swal.fire({
           icon: 'success',
           title: `Bienvenido, ${usuarioNombre}`,
@@ -195,35 +194,28 @@ document.addEventListener('DOMContentLoaded', () => { // esperar DOM listo
             window.location.href = '/src/pages/catalogo.html';
           }
         });
-      } else {
-        const errorMessage = await response.text();
+      })
+      .catch(error => {
         Swal.fire({
           icon: 'error',
-          title: 'Error en el login',
-          text: errorMessage
+          title: 'Error de conexión',
+          text: error.message
         });
-      }
-    } catch (error) {
-      console.error('Error during login:', error);
-      Swal.fire({
-        icon: 'error',
-        title: 'Error de conexión',
-        text: 'No se pudo conectar con el servidor'
       });
-    }
+  })
 
 
-    //   setCurrentUser(user);
-    // Swal.fire({
-    //   icon: 'success',
-    //   title: `Bienvenido, ${user.name}`,
-    //   confirmButtonText: 'Aceptar'
-    // }).then(() => {
-    //   if (getCurrentUser().rol == 'usuario') {
-    //     window.location.href = '/src/pages/catalogo.html';
-    //   } else if (getCurrentUser().rol == 'admin') {
-    //     window.location.href = '/src/pages/dashboard.html';
-    //   }
-    // });
-  });
+  //   setCurrentUser(user);
+  // Swal.fire({
+  //   icon: 'success',
+  //   title: `Bienvenido, ${user.name}`,
+  //   confirmButtonText: 'Aceptar'
+  // }).then(() => {
+  //   if (getCurrentUser().rol == 'usuario') {
+  //     window.location.href = '/src/pages/catalogo.html';
+  //   } else if (getCurrentUser().rol == 'admin') {
+  //     window.location.href = '/src/pages/dashboard.html';
+  //   }
+  // });
+
 });
