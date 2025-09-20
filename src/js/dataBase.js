@@ -24,7 +24,7 @@ const usersDB = [
 
 const productosDB = [
   {
-    codigo: 1001,
+    codigo: 1,
     nombre: "Bourbon Clásico",
     descripcion: "Café suave y balanceado con notas dulces de caramelo y frutas rojas. Ideal para quienes buscan una taza clásica y aromática.",
     presentacion: "1",

@@ -168,8 +168,6 @@ document.addEventListener('DOMContentLoaded', function () {
         // Método que se ejecuta cuando se crea una orden de pago
         createOrder: function (data, actions) {
             const nombre = document.getElementById('nombre').value;
-            const ciudad = document.getElementById('ciudad').value;
-            const direccion = document.getElementById('direccion').value;
             const subtotal = document.getElementById('subtotal').value;
             const totalAmount = document.getElementById('total').value / 4000;
 
@@ -212,11 +210,13 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         // Método que se ejecuta cuando el pago ha sido aprobado
         onApprove: function (data, actions) {
-            const ahora = new Date(Date.now());
-            const fecha = ahora.toLocaleDateString("es-CO"); // ejemplo: "09/09/2025"
-            const hora = ahora.toLocaleTimeString("es-CO"); // ejemplo: "5:41:23 p. m."
             return actions.order.capture().then(function (details) {
-                // Realiza una solicitud POST al servidor para completar la reserva
+                const transactionId = details.purchase_units[0].payments.captures[0].id;
+                const paymentStatus = details.purchase_units[0].payments.captures[0].status;
+
+                // Generar fecha/hora en formato ISO compatible con LocalDateTime
+                const fechaHora = new Date().toISOString().slice(0, 19);
+
                 return fetch('/paypal', {
                     method: 'post',
                     headers: {
@@ -224,42 +224,46 @@ document.addEventListener('DOMContentLoaded', function () {
                         'Authorization': `Bearer ${token}`
                     },
                     body: JSON.stringify({
-                        orderID: data.orderID,
-                        details: details, // puedes guardar esto como JSON en el backend si lo necesitas
-                        fecha_order: new Date().toLocaleDateString("es-CO"),
-                        hora_order: new Date().toLocaleTimeString("es-CO"),
-                        user_id: currentUserId,
+                        idTransaccion: transactionId,
+                        estadoPago: paymentStatus,
+                        fecha: fechaHora,   // ← un solo campo compatible con LocalDateTime
+                        userId: localStorage.getItem('UID'),
                         nombre: document.getElementById('nombre').value.toUpperCase(),
                         ciudad: document.getElementById('ciudad').value,
                         direccion: document.getElementById('direccion').value,
-                        valor_domicilio: totalDomicilio,
+                        domicilio: document.getElementById('valorDomicilio').value,
+                        subtotal: document.getElementById('subtotal').value,
+                        total: document.getElementById('total').value / 4000,
+                        details: JSON.stringify(details),
                         productos: carrito.map(p => ({
-                            producto_id: p.id,
-                            nombre: p.nombre,
-                            cantidad: p.cantidad,
-                            precio_unitario: p.precio,
-                            subtotal: p.precio * p.cantidad
+                            productoId: p.codigo,
+                            cantidad: p.cantidad_carrito,
+                            precio_unitario: p.precio
                         }))
                     })
                 }).then(function (response) {
                     if (response.ok) {
-                        // Si la respuesta es exitosa, muestra un mensaje de éxito
                         Swal.fire({
                             icon: 'success',
                             title: 'Pago Completado',
                             text: 'Reserva creada correctamente',
                         }).then(function () {
-                            window.location.href = '/client/index'; // Redirige a la página de reservas del cliente
+                            window.location.href = '/client/index';
                         });
                     } else {
-                        console.log('Error ' + response)
-                        // Si hay un error en el pago, muestra un mensaje de error
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
                             text: 'Error al procesar el pago',
                         });
                     }
+                }).catch(function (error) {
+                    console.error('Error de red:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'No se pudo conectar con el servidor',
+                    });
                 });
             });
         }
