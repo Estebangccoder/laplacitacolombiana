@@ -13,6 +13,16 @@ function loadSectionProducts(section) {
         content.innerHTML = html;
         
         // Usar la función del API service
+        obtenerCategorias()
+          .then(categorias => {
+            if (categorias) {
+              cargarSugerenciasCategorias(categorias);
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+
         obtenerProductores()
           .then(productores => {
             if (productores) {
@@ -138,6 +148,23 @@ function mostrarProductos(productos) {
         }
       }
     });
+  }
+}
+
+function cargarSugerenciasCategorias(categorias) {
+  const select = document.getElementById("categoria");
+  if (!select) return;
+
+  if (categorias.length > 0) {
+    select.innerHTML = '<option value="0">Seleccione una categoría</option>';
+    categorias.forEach(p => {
+      const option = document.createElement('option');
+      option.value = p.id;
+      option.textContent = p.nombre;
+      select.appendChild(option);
+    });
+  } else {
+    select.innerHTML = '<option value="0">No hay categorías registrados</option>';
   }
 }
 
