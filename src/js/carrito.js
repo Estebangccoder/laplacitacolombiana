@@ -127,7 +127,7 @@ function renderCarrito() {
   `;
 
     carritoCuerpo.appendChild(footer);
-    
+
 
   } else {
     carritoCuerpo.innerHTML = `<p id="texto-carro-vacio" class="text-center">No hay productos en la canasta</p>`;
@@ -232,5 +232,3 @@ window.addEventListener('resize', ajustarCarrito);
 // Cuando se abre/cierra el menú hamburguesa (Bootstrap emite eventos)
 document.addEventListener('shown.bs.collapse', ajustarCarrito);
 document.addEventListener('hidden.bs.collapse', ajustarCarrito);
-
-
