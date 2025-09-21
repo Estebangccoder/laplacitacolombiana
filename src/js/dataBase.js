@@ -275,7 +275,7 @@ const ventasDB = [
 ];
 
 function cargarLocalStorage() {
-  let maxCodigoProductos = productos.length > 0 ? Math.max(...productos.map(p => p.codigo)) : 1000;
+  let maxCodigoProductos = productos.length > 0 ? Math.max(...productos.map(p => p.codigo)) : 0;
   let maxCodigoProductores = productores.length > 0 ? Math.max(...productores.map(p => p.codigo)) : 1000;
   let maxCodigoVentas = ventas.length > 0 ? Math.max(...ventas.map(v => v.codigo)) : 1000;
   if (productos.length === 0) {

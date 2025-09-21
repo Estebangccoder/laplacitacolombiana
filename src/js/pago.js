@@ -217,11 +217,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Generar fecha/hora en formato ISO compatible con LocalDateTime
                 const fechaHora = new Date().toISOString().slice(0, 19);
 
-                return fetch('/paypal', {
+                return fetch('http://localhost:8080/api/ventas/crear', {
                     method: 'post',
                     headers: {
                         'content-type': 'application/json',
-                        'Authorization': `Bearer ${token}`
+                        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
                     },
                     body: JSON.stringify({
                         idTransaccion: transactionId,
@@ -236,9 +236,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         total: document.getElementById('total').value / 4000,
                         details: JSON.stringify(details),
                         productos: carrito.map(p => ({
-                            productoId: p.codigo,
+                            productoID: p.codigo,
                             cantidad: p.cantidad_carrito,
-                            precio_unitario: p.precio
+                            precioUnitario: p.precio
                         }))
                     })
                 }).then(function (response) {
@@ -246,9 +246,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         Swal.fire({
                             icon: 'success',
                             title: 'Pago Completado',
-                            text: 'Reserva creada correctamente',
+                            text: '¡Gracias por apoyar el campo colombiano!',
                         }).then(function () {
-                            window.location.href = '/client/index';
+                            window.location.href = `/src/pages/factura.html?id=${transactionId}`;
+                            localStorage.removeItem("carrito");
                         });
                     } else {
                         Swal.fire({
