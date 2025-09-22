@@ -151,7 +151,7 @@ async function actualizarProductoAPI(id, formData) {
 async function actualizarStockProductoAPI(id, nuevoStock) {
     return await makeAuthenticatedRequest(`${API_BASE_URL}/productos/stock/${id}`, {
         method: 'PATCH',
-         body: JSON.stringify({ stock: nuevoStock })
+         body: JSON.stringify(nuevoStock )
     });
 }
 
