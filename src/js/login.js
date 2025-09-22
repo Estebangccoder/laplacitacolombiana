@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => { // esperar DOM listo
       apellido: document.getElementById("regLastName").value,
       email: document.getElementById("regEmail").value,
       password: document.getElementById("regPass").value,
-      telefono: document.getElementById("mobile_code").value,
+      telefono: iti.getNumber(),  
       rol: { "id": 2 }
     };
 

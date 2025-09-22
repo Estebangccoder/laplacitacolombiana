@@ -53,7 +53,12 @@ function loadSectionVentas(section) {
             <tr class="table-primary">
               <th>Fecha</th>
               <th>No. Productos</th>
+              <th>Subtotal</th>
+              <th>Inpuestos</th>
+              <th>Descuento</th>
+              <th>Domicilio</th>
               <th>Total</th>
+              <th>Detalles</th>
             </tr>
           </thead>
           <tbody>
@@ -61,8 +66,17 @@ function loadSectionVentas(section) {
         `
               <tr>
                 <td>${v.fecha}</td>
-                <td>${v.num_productos}</td>
+                <td>${v.cantidad}</td>
+                <td>$${v.subtotal}</td>
+                <td>$${v.impuestos}</td>
+                <td>$${v.descuento}</td>
+                <td>$${v.domicilio}</td>
                 <td>$${v.total}</td>
+                <td>
+                  <button type="button" class="btn btn-warning">
+                    <i class="bi bi-eye fw-bold"></i>
+                  </button>
+                </td>
               </tr>
             `).join("")}
           </tbody>

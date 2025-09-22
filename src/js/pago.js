@@ -241,31 +241,30 @@ document.addEventListener('DOMContentLoaded', function () {
                             precioUnitario: p.precio
                         }))
                     })
-                }).then(function (response) {
-                    if (response.ok) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Pago Completado',
-                            text: '¡Gracias por apoyar el campo colombiano!',
-                        }).then(function () {
-                            window.location.href = `/src/pages/factura.html?id=${transactionId}`;
-                            localStorage.removeItem("carrito");
-                        });
-                    } else {
+                }).then(idTransaccion => {
+                    // idTransaccion es ahora "36N33768EV014150C" (string)
+                    const facturaUrl = `http://localhost:8080/api/ventas/factura/${idTransaccion}`;
+                    console.log("Factura enviada por WhatsApp:", facturaUrl);
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Pago Completado',
+                        text: '¡Gracias por apoyar el campo colombiano!',
+                        timer: 1500,
+                        showConfirmButton: false
+                    }).then(function () {
+                        localStorage.removeItem("carrito");
+                        window.location.href = `/src/pages/catalogo.html`;
+                    });
+                })
+                    .catch(error => {
+                        console.error(error);
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
-                            text: 'Error al procesar el pago',
+                            text: error.message,
                         });
-                    }
-                }).catch(function (error) {
-                    console.error('Error de red:', error);
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'No se pudo conectar con el servidor',
                     });
-                });
             });
         }
     }).render('#paypal-button-container'); // Renderiza el botón de PayPal en el contenedor
