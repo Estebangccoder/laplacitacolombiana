@@ -36,7 +36,7 @@ function loadSectionProductor(section) {
         content.innerHTML = '<div class="alert alert-danger">Error al cargar proveedores</div>';
       });
 
-  }else if (section === "agregar-productor") {
+  } else if (section === "agregar-productor") {
     breadcrumb.textContent = "Dashboards / Gestión de proveedores / Agregar productor";
     fetch("/src/pages/agregar-productor.html")
       .then(res => res.text())
@@ -47,8 +47,9 @@ function loadSectionProductor(section) {
       .catch(err => {
         content.innerHTML = "<p>Error al cargar la sección.</p>";
         console.error("Error al cargar agregar-productor.html:", err);
-      }); }
-      else {
+      });
+  }
+  else {
     breadcrumb.textContent = `Dashboards / Gestión de Proveedores / ${section}`;
     content.innerHTML = `<h3>${section}</h3><p>Contenido en construcción...</p>`;
   }
@@ -107,7 +108,6 @@ function mostrarProveedores(proveedores) {
       <table id="tabla-proveedores" class="table table-hover">
         <thead>
           <tr class="table-primary">
-            <th>ID</th>
             <th>Razón Social</th>
             <th>Nombre</th>
             <th>Teléfono</th>
@@ -120,13 +120,12 @@ function mostrarProveedores(proveedores) {
         <tbody>
           ${proveedores.map(p => `
             <tr>
-              <td>${p.id}</td>
               <td>${p.razonSocial}</td>
               <td>${p.nombreProveedor}</td>
               <td>${p.telefonoProveedor}</td>
               <td>${p.emailProveedor}</td>
               <td>${p.direccionProveedor}</td>
-              <td>${p.estado}</td>
+              <td>${p.estado == "NODISPONIBLE" ? "No disponible" : "Disponible"}</td>
               <td>
                 <button type="button" class="btn btn-success" onclick="editarProductor(${p.id})">
                   <i class="bi bi-pen"></i>
@@ -281,7 +280,7 @@ window.guardarProductor = async function (event) {
       try {
         const data = await resp.json();
         if (data?.message) mensaje = data.message;
-      } catch (_) {}
+      } catch (_) { }
       throw new Error(mensaje);
     }
 
@@ -309,7 +308,7 @@ window.guardarProductor = async function (event) {
 };
 
 
-window.loadSectionProductor= loadSectionProductor;
+window.loadSectionProductor = loadSectionProductor;
 
 // Editar: cargar formulario, precargar datos y preparar submit (PUT)
 window.editarProductor = async function (id) {
@@ -396,7 +395,7 @@ window.editarProductor = async function (id) {
       }
 
       try {
-      
+
         const updateUrl = `http://localhost:8080/api/proveedores/editar/${id}`;
         const resp = await fetch(updateUrl, {
           method: 'PUT',
@@ -418,7 +417,7 @@ window.editarProductor = async function (id) {
           try {
             const data = await resp.json();
             if (data?.message) msg = data.message;
-          } catch {}
+          } catch { }
           throw new Error(msg);
         }
 

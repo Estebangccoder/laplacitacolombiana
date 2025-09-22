@@ -99,8 +99,6 @@ function mostrarUsuarios(usuarios) {
               <th>Apellido</th>
               <th>Teléfono</th>
               <th>Email</th>
-              <th>Ciudad</th>
-              <th>Departamento</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -112,8 +110,6 @@ function mostrarUsuarios(usuarios) {
                 <td>${p.apellido}</td>
                 <td>${p.telefono}</td>
                 <td>${p.email}</td>
-                <td>${p.ciudad}</td>
-                <td>${p.departamento}</td>
                 <td>
                   <button type="button" class="btn btn-success" onclick="editarProducto(${p.id})">
                     <i class="bi bi-pen"></i>

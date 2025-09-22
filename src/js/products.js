@@ -177,7 +177,7 @@ function cargarSugerenciasProductores(productores) {
     productores.forEach(p => {
       const option = document.createElement('option');
       option.value = p.id;
-      option.textContent = p.nombre;
+      option.textContent = p.razonSocial;
       select.appendChild(option);
     });
   } else {
