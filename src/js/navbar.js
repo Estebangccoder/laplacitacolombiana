@@ -72,6 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         login.forEach((btn) => { // seleccionar elementos ya insertados [1]
             btn.firstChild.classList.remove('bi-person-circle');
             btn.firstChild.classList.add('bi-box-arrow-right');
+            btn.removeEventListener('click', handleUserClick);
             btn.addEventListener('click', handleUserClick);
         });
     } else {
@@ -87,38 +88,21 @@ function handleUserClick() {
 
     const current = JSON.parse(localStorage.getItem('currentUser') || 'null'); // [4]
     if (!current) return (window.location.href = '/src/pages/login.html'); // [5]
-    if (current && current.rol !== 'admin') {
+    if (current && current.rol !== 1) {
 
         Swal.fire({
             title: 'Sesión activa',
-            html: `<p><b>Nombre:</b> ${current.name}</p><p><b>Correo:</b> ${current.email}</p>`,
+            html: `<p><b>Nombre:</b> ${current.name}</p>`,
             icon: 'info',
             confirmButtonText: 'Cancelar',
             showDenyButton: true,
             denyButtonText: 'Cerrar sesión'
         }).then((r) => {
             if (r.isDenied) {
-                localStorage.removeItem('currentUser'); // [4]
-                if (localStorage.getItem('carrito') !== null) {
-                    // Vaciar el carrito, pero mantener la key
-                    localStorage.setItem('carrito', JSON.stringify([]));
-                } else {
-                    // Si no existe, la creamos vacía
-                    localStorage.setItem('carrito', JSON.stringify([]));
-                }
+                logout();
                 Swal.fire({ title: 'Sesión cerrada', icon: 'success', timer: 1400, showConfirmButton: false })
                     .then(() => (window.location.href = `/index.html`)); // [5]
             }
         });
     }
 }
-
-//tener en cuenta importar CSS y JS y los iconos de bootstrap en cada página
-
-// iconos: <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-
-//CSS: <link rel="stylesheet" href="../css/navbar.css">
-
-//JS: <script src="../js/navbar.js"></script>
-
-//HTML: <header id="navbar"></header>

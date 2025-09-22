@@ -3,13 +3,13 @@ function setValid(field) {
     field.classList.remove('is-invalid');
     field.classList.add('is-valid');
 
-    // if (document.getElementById('mobile_code')) {
-    //     const feedback = field.parentNode.parentNode.querySelector('.invalid-feedback');
-    //     if (feedback) feedback.style.display = 'none';
-    // } else {
+    if (field.id == 'mobile_code') {
+        const feedback = field.parentNode.parentNode.querySelector('.invalid-feedback');
+        if (feedback) feedback.style.display = 'none';
+    } else {
         const feedback = field.parentNode.querySelector('.invalid-feedback');
         if (feedback) feedback.style.display = 'none';
-    // }
+    }
 }
 
 // Función para mostrar campo inválido
@@ -20,16 +20,16 @@ function setInvalid(field, message) {
     const validFeedback = field.parentNode.querySelector('.valid-feedback');
     if (validFeedback) validFeedback.style.display = 'none';
 
-    // if (document.getElementById('mobile_code')) {
-    //     let feedback = field.parentNode.parentNode.querySelector('.invalid-feedback');
-    //     if (!feedback) {
-    //         feedback = document.createElement('div');
-    //         feedback.classList.add('invalid-feedback');
-    //         field.parentNode.after(feedback);
-    //     }
-    //     feedback.textContent = message;
-    //     feedback.style.display = 'block';
-    // } else {
+    if (field.id == 'mobile_code') {
+        let feedback = field.parentNode.parentNode.querySelector('.invalid-feedback');
+        if (!feedback) {
+            feedback = document.createElement('div');
+            feedback.classList.add('invalid-feedback');
+            field.parentNode.after(feedback);
+        }
+        feedback.textContent = message;
+        feedback.style.display = 'block';
+    } else {
         let feedback = field.parentNode.querySelector('.invalid-feedback');
         if (!feedback) {
             feedback = document.createElement('div');
@@ -38,7 +38,7 @@ function setInvalid(field, message) {
         }
         feedback.textContent = message;
         feedback.style.display = 'block';
-    // }
+    }
 }
 
 // Validación de nombre producto
@@ -111,7 +111,7 @@ function validateFile(field) {
     if (!file.type.startsWith("image/")) {
       setInvalid(field, "Solo puedes subir imágenes (JPG, PNG, etc).");
       return false;
-    } else if (file.size > 1024 * 1024) { // Validar tamaño (ejemplo: máximo 1MB)
+    } else if (file.size > 2024 * 2024) { // Validar tamaño (ejemplo: máximo 1MB)
       setInvalid(field, "La imagen no puede superar 1MB.");
       return false;
     } else {
@@ -150,3 +150,20 @@ function validatePhone(field, regex) {
         return true;
     }
 }
+
+// Validación de password register
+function validateRegPass(field, regex) {
+    const value = field.value.trim();
+    if (value === '') {
+        setInvalid(field, 'La contraseña es obligatoria');
+        return false;
+    } else if (!regex.test(value)) {
+        setInvalid(field, `La contraseña debe ser exactamente de 6 caracteres. \nAl menos una mayuscula, al menos un dígito, al menos un caracter especial`);
+        return false;
+    } else {
+        setValid(field);
+        return true;
+    }
+}
+
+

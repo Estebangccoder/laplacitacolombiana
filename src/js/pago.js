@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
 const carrito = JSON.parse(localStorage.getItem("carrito") || "[]");
 const currentUser = JSON.parse(localStorage.getItem("currentUser") || "[]");
 const currentUserID = JSON.parse(localStorage.getItem("UID") || "[]");
-const currentUserId = users.find(u => u.email === currentUser?.email)?.id ?? 0;
 const form = document.forms['infoPago'];
 const inputs = form.elements
 const num_productos = carrito.length;
@@ -235,8 +234,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         subtotal: document.getElementById('subtotal').value,
                         total: document.getElementById('total').value / 4000,
                         details: JSON.stringify(details),
+                        cantidad: carrito.length,
                         productos: carrito.map(p => ({
-                            productoID: p.codigo,
+                            productoID: p.id,
                             cantidad: p.cantidad_carrito,
                             precioUnitario: p.precio
                         }))
