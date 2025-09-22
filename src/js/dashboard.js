@@ -368,8 +368,8 @@ function loadSection(section) {
       console.error("Error al cargar usuarios:", error);
       content.innerHTML = "<p>Error al cargar la lista de usuarios.</p>";
     });
-
-
+  }
+}
 function guardarProducto(event) {
   event.preventDefault();
 
@@ -1271,9 +1271,5 @@ window.addEventListener("storage", () => {
 // window.addEventListener("pagehide", () => {
 //   localStorage.removeItem("currentUser");
 // });
-
-
-
-
 
 
