@@ -1,4 +1,4 @@
-
+// ----------------- CARGAR SECCIÓN USUARIOS -----------------
 function loadSectionUsuarios(section) {
   const content = document.getElementById("main-content");
   const breadcrumb = document.getElementById("breadcrumb");
@@ -10,20 +10,20 @@ function loadSectionUsuarios(section) {
 
     if (!token) {
       console.error('No hay token disponible');
-      // Redirige al login si no hay token
       window.location.href = '/src/pages/login.html';
       return;
     }
 
-    // Mostrar loading mientras carga
+    // Mostrar loading
     content.innerHTML = `
-            <div class="d-flex justify-content-center">
-                <div class="spinner-border" role="status">
-                    <span class="visually-hidden">Cargando usuarios...</span>
-                </div>
-            </div>
-        `;
-    // Llamar a obtener usuarios y mostrar resultados
+      <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Cargando usuarios...</span>
+        </div>
+      </div>
+    `;
+
+    // Cargar usuarios
     obtenerUsuarios()
       .then(usuarios => {
         if (usuarios) {
@@ -41,11 +41,11 @@ function loadSectionUsuarios(section) {
   }
 }
 
-// Función para obtener usuarios (corregida)
+// ----------------- OBTENER USUARIOS -----------------
 async function obtenerUsuarios() {
   const content = document.getElementById("main-content");
   try {
-    const token = localStorage.getItem('jwt'); // Mismo nombre
+    const token = localStorage.getItem('jwt');
 
     if (!token) {
       console.error('No hay token disponible');
@@ -62,11 +62,9 @@ async function obtenerUsuarios() {
     });
 
     if (response.ok) {
-      const usuarios = await response.json();
-      return usuarios;
+      return await response.json();
     } else if (response.status === 401) {
-      // Token expirado o inválido
-      localStorage.removeItem('jwt'); // Limpiar todo el localStorage
+      localStorage.removeItem('jwt');
       alert('Sesión expirada. Por favor, inicia sesión nuevamente.');
       window.location.href = '/src/pages/login.html';
       return null;
@@ -80,50 +78,56 @@ async function obtenerUsuarios() {
   }
 }
 
+// ----------------- MOSTRAR USUARIOS -----------------
 function mostrarUsuarios(usuarios) {
   const content = document.getElementById("main-content");
 
   if (usuarios.length === 0) {
     content.innerHTML = `
-          <h3>Lista de usuarios</h3>
-          <p>No hay usuarios registrados.</p>
-        `;
-
+      <h3>Lista de usuarios</h3>
+      <p>No hay usuarios registrados.</p>
+    `;
   } else {
     content.innerHTML = `
-        <h3 class="mb-5">Lista de usuarios</h3>
-        <table id="tabla-usuarios" class="table table-hover">
-          <thead>
-            <tr class="table-primary">
-              <th>Nombre</th>
-              <th>Apellido</th>
-              <th>Teléfono</th>
-              <th>Email</th>
-              <th>Acciones</th>
+      <h3 class="mb-5">Lista de usuarios</h3>
+      <table id="tabla-usuarios" class="table table-hover">
+        <thead>
+          <tr class="table-primary">
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Teléfono</th>
+            <th>Email</th>
+            <th>Ciudad</th>
+            <th>Departamento</th>
+            <th>Rol</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${usuarios.map(u => `
+            <tr>
+              <td>${u.nombre}</td>
+              <td>${u.apellido}</td>
+              <td>${u.telefono}</td>
+              <td>${u.email}</td>
+              <td>${u.ciudad}</td>
+              <td>${u.departamento}</td>
+              <td>${u.rol ? u.rol.nombre : "Sin rol"}</td>
+              <td>
+                <button type="button" class="btn btn-success" onclick="editarUsuario(${u.id})">
+                  <i class="bi bi-pen"></i>
+                </button>
+                <button type="button" class="btn btn-danger" onclick="eliminarUsuario(${u.id})">
+                  <i class="bi bi-trash3"></i>
+                </button>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            ${usuarios.map(p =>
-      `
-              <tr>
-                <td>${p.nombre}</td>
-                <td>${p.apellido}</td>
-                <td>${p.telefono}</td>
-                <td>${p.email}</td>
-                <td>
-                  <button type="button" class="btn btn-success" onclick="editarProducto(${p.id})">
-                    <i class="bi bi-pen"></i>
-                  </button>
-                  <button type="button" class="btn btn-danger" onclick="eliminarProducto(${p.id})">
-                    <i class="bi bi-trash3"></i>
-                  </button>
-                </td>
-              </tr>
-            `).join("")}
-          </tbody>
-        </table>
-      `;
+          `).join("")}
+        </tbody>
+      </table>
+    `;
 
+    // Activar DataTable
     new DataTable("#tabla-usuarios", {
       responsive: true,
       autoWidth: false,
@@ -150,36 +154,121 @@ function mostrarUsuarios(usuarios) {
   }
 }
 
+// ----------------- ELIMINAR USUARIO -----------------
+async function eliminarUsuario(id) {
+  if (!confirm("¿Seguro que quieres eliminar este usuario?")) return;
 
-// const current = JSON.parse(localStorage.getItem('currentUser') || 'null');
-// if (current && current.rol === 'admin') {
+  try {
+    const token = localStorage.getItem('jwt');
+    const response = await fetch(`http://localhost:8080/api/usuarios/borrar/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+
+    if (response.ok) {
+      alert("Usuario eliminado con éxito");
+      loadSectionUsuarios("ver-usuarios"); // Recargar lista
+    } else {
+      alert("Error al eliminar usuario");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Error en la conexión al servidor");
+  }
+}
+
+// ----------------- EDITAR USUARIO -----------------
+function editarUsuario(id) {
+  const token = localStorage.getItem("jwt");
+
+  fetch(`http://localhost:8080/api/usuarios/${id}`, {
+    headers: { "Authorization": `Bearer ${token}` }
+  })
+    .then(response => response.json())
+    .then(usuario => {
+      // Rellenar los campos del modal
+      document.getElementById("editarId").value = usuario.id;
+      document.getElementById("editarNombre").value = usuario.nombre;
+      document.getElementById("editarApellido").value = usuario.apellido;
+      document.getElementById("editarEmail").value = usuario.email;
+      document.getElementById("editarTelefono").value = usuario.telefono;
+      document.getElementById("editarCiudad").value = usuario.ciudad;
+      document.getElementById("editarDepartamento").value = usuario.departamento;
+
+      // Cargar roles dinámicamente
+      fetch("http://localhost:8080/api/roles", {
+        headers: { "Authorization": `Bearer ${token}` }
+      })
+        .then(res => res.json())
+        .then(roles => {
+          const selectRol = document.getElementById("editarRol");
+          selectRol.innerHTML = `<option value="">Seleccione un rol</option>`;
+          roles.forEach(r => {
+            selectRol.innerHTML += `
+              <option value="${r.id}" ${usuario.rol && usuario.rol.id === r.id ? "selected" : ""}>
+                ${r.nombre}
+              </option>`;
+          });
+        });
+
+      // Limpiar contraseña
+      document.getElementById("editarPassword").value = "";
+
+      // Mostrar modal
+      const modal = new bootstrap.Modal(document.getElementById("modalEditarUsuario"));
+      modal.show();
+    })
+    .catch(error => {
+      console.error("Error al cargar usuario:", error);
+      Swal.fire("Error", "No se pudo cargar el usuario.", "error");
+    });
+}
+
+// ----------------- SUBMIT EDITAR USUARIO -----------------
+document.getElementById("formEditarUsuario").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const id = document.getElementById("editarId").value;
+  const usuarioActualizado = {
+    nombre: document.getElementById("editarNombre").value,
+    apellido: document.getElementById("editarApellido").value,
+    email: document.getElementById("editarEmail").value,
+    telefono: document.getElementById("editarTelefono").value,
+    ciudad: document.getElementById("editarCiudad").value,
+    departamento: document.getElementById("editarDepartamento").value,
+    password: document.getElementById("editarPassword").value || null,
+    rolId: parseInt(document.getElementById("editarRol").value)
+  };
+
+  try {
+    const token = localStorage.getItem("jwt");
+    const response = await fetch(`http://localhost:8080/api/usuarios/editar/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify(usuarioActualizado)
+    });
+
+    if (response.ok) {
+      Swal.fire("Éxito", "Usuario actualizado con éxito", "success");
+      const modal = bootstrap.Modal.getInstance(document.getElementById("modalEditarUsuario"));
+      modal.hide();
+      loadSectionUsuarios("ver-usuarios"); // recargar tabla
+    } else {
+      Swal.fire("Error", "No se pudo actualizar el usuario", "error");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    Swal.fire("Error", "Error en la conexión al servidor", "error");
+  }
+});
+
+
   window.loadSectionUsuarios = loadSectionUsuarios;
-// } else {
-//   const content = document.getElementById("body-dashboard");
-//   content.innerHTML = '';
-//   content.classList.add('d-flex', 'flex-column', 'justify-content-center', 'align-items-center');
-//   content.innerHTML = `
-//     <h3 class="mt-5">ACCESO NO AUTORIZADO</h3>
-//     <p>Redirigiendo a La Placita Colombiana</p>
-//     <div class="spinner-border" role="status">
-//       <span class="visually-hidden">Cargando...</span>
-//     </div>
-//   `
-//   setTimeout(() => {
-//     window.location.href = '/src/pages/login.html';
-//   }, 1000);
-// }
-
-// window.addEventListener("storage", () => {
-//     const current = JSON.parse(localStorage.getItem('currentUser') || 'null');
-//     if (!current || current.rol !== 'admin') {
-//         window.location.href = '/src/pages/login.html';
-//     }
-// });
-
-// window.addEventListener("pagehide", () => {
-//   localStorage.removeItem("currentUser");
-// });
 
 
 
