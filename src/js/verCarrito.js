@@ -32,7 +32,7 @@ function mostrarProductosCarrito() {
 
         item.innerHTML = `
         <div class="col-2">
-          <img src="${p.imagen.startsWith("data:") ? p.imagen : `/src/public/img/productos/${p.imagen}`}" 
+          <img src="${p.imagen ? `http://localhost:8080${p.imagen}` : ''}"
           alt="${p.nombre}" style="width:60px; height:60px; object-fit:cover;">
         </div>
         <div class="col-5 flex-grow-1">

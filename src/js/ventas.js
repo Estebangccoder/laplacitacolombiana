@@ -5,7 +5,39 @@ function loadSectionVentas(section) {
   if (section === "ventas") {
     breadcrumb.textContent = "Dashboards / Ver todas las ventas";
 
-    const ventas = JSON.parse(localStorage.getItem("ventas") || "[]");
+    // Verificar autenticación usando el API service
+    if (!isAuthenticated()) {
+      window.location.href = '/src/pages/login.html';
+      return;
+    }
+
+    // Mostrar loading
+    content.innerHTML = `
+      <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Cargando productos...</span>
+        </div>
+      </div>
+    `;
+    // Usar la función del API service
+    obtenerVentas()
+      .then(ventas => {
+        if (ventas) {
+          mostrarVentas(ventas);
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        content.innerHTML = '<div class="alert alert-danger">Error al cargar ventas</div>';
+      });
+
+  } else {
+    breadcrumb.textContent = `Dashboards / ${section}`;
+    content.innerHTML = `<h3>${section}</h3><p>Contenido en construcción...</p>`;
+  }
+
+  function mostrarVentas(ventas) {
+    const content = document.getElementById("main-content");
 
     if (ventas.length === 0) {
       content.innerHTML = `
@@ -21,15 +53,23 @@ function loadSectionVentas(section) {
             <tr class="table-primary">
               <th>Fecha</th>
               <th>No. Productos</th>
+              <th>Subtotal</th>
+              <th>Inpuestos</th>
+              <th>Descuento</th>
+              <th>Domicilio</th>
               <th>Total</th>
             </tr>
           </thead>
           <tbody>
-            ${ventas.map((v, index) =>
+            ${ventas.map((v) =>
         `
               <tr>
                 <td>${v.fecha}</td>
-                <td>${v.num_productos}</td>
+                <td>${v.cantidad}</td>
+                <td>$${v.subtotal}</td>
+                <td>$${v.impuestos}</td>
+                <td>$${v.descuento}</td>
+                <td>$${v.domicilio}</td>
                 <td>$${v.total}</td>
               </tr>
             `).join("")}
@@ -61,16 +101,11 @@ function loadSectionVentas(section) {
         }
       });
     }
-
-  } else {
-    breadcrumb.textContent = `Dashboards / ${section}`;
-    content.innerHTML = `<h3>${section}</h3><p>Contenido en construcción...</p>`;
   }
 }
-
 // const current = JSON.parse(localStorage.getItem('currentUser') || 'null');
 // if (current && current.rol === 'admin') {
-  window.loadSectionVentas = loadSectionVentas;
+window.loadSectionVentas = loadSectionVentas;
 // } else {
 //   const content = document.getElementById("body-dashboard");
 //   content.innerHTML = '';

@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 const carrito = JSON.parse(localStorage.getItem("carrito") || "[]");
 const currentUser = JSON.parse(localStorage.getItem("currentUser") || "[]");
-const currentUserId = users.find(u => u.email === currentUser?.email)?.id ?? 0;
+const currentUserID = JSON.parse(localStorage.getItem("UID") || "[]");
 const form = document.forms['infoPago'];
 const inputs = form.elements
 const num_productos = carrito.length;
@@ -167,8 +167,6 @@ document.addEventListener('DOMContentLoaded', function () {
         // Método que se ejecuta cuando se crea una orden de pago
         createOrder: function (data, actions) {
             const nombre = document.getElementById('nombre').value;
-            const ciudad = document.getElementById('ciudad').value;
-            const direccion = document.getElementById('direccion').value;
             const subtotal = document.getElementById('subtotal').value;
             const totalAmount = document.getElementById('total').value / 4000;
 
@@ -182,7 +180,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 return false; // Detiene el proceso si hay campos incompletos
             }
 
-            if (nombre == 'No hay usuario activo') {
+            if (nombre == 'No hay usuario activo' || nombre == 'ADMIN') {
                 Swal.fire({
                     icon: 'warning', // Muestra una advertencia si faltan campos
                     title: 'Valor erróneo',
@@ -211,34 +209,62 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         // Método que se ejecuta cuando el pago ha sido aprobado
         onApprove: function (data, actions) {
-            const ahora = new Date(Date.now());
-            const fecha = ahora.toLocaleDateString("es-CO"); // ejemplo: "09/09/2025"
-            const hora = ahora.toLocaleTimeString("es-CO"); // ejemplo: "5:41:23 p. m."
             return actions.order.capture().then(function (details) {
+                const transactionId = details.purchase_units[0].payments.captures[0].id;
+                const paymentStatus = details.purchase_units[0].payments.captures[0].status;
 
-                const factura = JSON.parse(localStorage.getItem("factura"));
-                if(factura) localStorage.removeItem('factura');
-                // Guardar datos en localStorage
-                localStorage.setItem('factura', JSON.stringify({
-                    orderID: data.orderID,
-                    details: details,
-                    fecha_order: fecha,
-                    hora_order: hora,
-                    user_id: currentUserId,
-                    nombre: document.getElementById('nombre').value.toUpperCase(),
-                    ciudad: document.getElementById('ciudad').value,
-                    direccion: document.getElementById('direccion').value,
-                    valor_domicilio: totalDomicilio,
-                }));
+                // Generar fecha/hora en formato ISO compatible con LocalDateTime
+                const fechaHora = new Date().toISOString().slice(0, 19);
 
-                // Aviso de éxito y redirección
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Pago Completado',
-                    text: 'Factura creada correctamente',
-                }).then(function () {
-                    window.location.href = '/src/pages/factura.html';
-                });
+                return fetch('http://localhost:8080/api/ventas/crear', {
+                    method: 'post',
+                    headers: {
+                        'content-type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+                    },
+                    body: JSON.stringify({
+                        idTransaccion: transactionId,
+                        estadoPago: paymentStatus,
+                        fecha: fechaHora,   // ← un solo campo compatible con LocalDateTime
+                        userId: localStorage.getItem('UID'),
+                        nombre: document.getElementById('nombre').value.toUpperCase(),
+                        ciudad: document.getElementById('ciudad').value,
+                        direccion: document.getElementById('direccion').value,
+                        domicilio: document.getElementById('valorDomicilio').value,
+                        subtotal: document.getElementById('subtotal').value,
+                        total: document.getElementById('total').value / 4000,
+                        details: JSON.stringify(details),
+                        cantidad: carrito.length,
+                        productos: carrito.map(p => ({
+                            productoID: p.id,
+                            cantidad: p.cantidad_carrito,
+                            precioUnitario: p.precio
+                        }))
+                    })
+                }).then(idTransaccion => {
+                    // idTransaccion es ahora "36N33768EV014150C" (string)
+                    const facturaUrl = `http://localhost:8080/api/ventas/factura/${idTransaccion}`;
+                    console.log("Factura enviada por WhatsApp:", facturaUrl);
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Pago Completado',
+                        text: '¡Gracias por apoyar el campo colombiano!',
+                        timer: 1500,
+                        showConfirmButton: false
+                    }).then(function () {
+                        localStorage.removeItem("carrito");
+                        window.location.href = `/src/pages/catalogo.html`;
+                    });
+                })
+                    .catch(error => {
+                        console.error(error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: error.message,
+                        });
+                    });
             });
         }
     }).render('#paypal-button-container'); // Renderiza el botón de PayPal en el contenedor

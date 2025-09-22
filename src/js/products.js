@@ -11,8 +11,18 @@ function loadSectionProducts(section) {
       .then(res => res.text())
       .then(html => {
         content.innerHTML = html;
-        
+
         // Usar la función del API service
+        obtenerCategorias()
+          .then(categorias => {
+            if (categorias) {
+              cargarSugerenciasCategorias(categorias);
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+
         obtenerProductores()
           .then(productores => {
             if (productores) {
@@ -22,7 +32,7 @@ function loadSectionProducts(section) {
           .catch(error => {
             console.error('Error:', error);
           });
-        
+
         liveValidationsProducto(inputsProductos(), 'agregar');
       })
       .catch(err => {
@@ -92,7 +102,7 @@ function mostrarProductos(productos) {
         </thead>
         <tbody>
           ${productos.map((p) =>
-            `<tr>
+      `<tr>
               <td><img src="${p.imagen ? `http://localhost:8080${p.imagen}` : ''}" 
               alt="${p.nombre}" style="width:50px;height:50px;"></td>
               <td>${p.nombre}</td>
@@ -110,7 +120,7 @@ function mostrarProductos(productos) {
                 </button>
               </td>
             </tr>`
-          ).join("")}
+    ).join("")}
         </tbody>
       </table>
     `;
@@ -138,6 +148,23 @@ function mostrarProductos(productos) {
         }
       }
     });
+  }
+}
+
+function cargarSugerenciasCategorias(categorias) {
+  const select = document.getElementById("categoria");
+  if (!select) return;
+
+  if (categorias.length > 0) {
+    select.innerHTML = '<option value="0">Seleccione una categoría</option>';
+    categorias.forEach(p => {
+      const option = document.createElement('option');
+      option.value = p.id;
+      option.textContent = p.nombre;
+      select.appendChild(option);
+    });
+  } else {
+    select.innerHTML = '<option value="0">No hay categorías registrados</option>';
   }
 }
 
@@ -178,8 +205,8 @@ function guardarProducto(event) {
       alert("Solo se permiten imágenes.");
       return;
     }
-    if (file.size > 1024 * 1024) {
-      alert("La imagen no puede superar 1MB.");
+    if (file.size > 2024 * 2024) {
+      alert("La imagen no puede superar 2MB.");
       return;
     }
   }
@@ -233,7 +260,7 @@ function eliminarProducto(index) {
         .then(data => {
           console.log("Producto eliminado:", data);
           loadSection("ver-productos");
-          
+
           Toastify({
             text: data,
             duration: 2000,
@@ -276,8 +303,18 @@ function editarProducto(index) {
             const breadcrumb = document.getElementById("breadcrumb");
             breadcrumb.textContent = "Dashboards / Gestión de productos / Editar producto";
             content.innerHTML = html;
-            
+
             // Usar la función del API service
+            obtenerCategorias()
+              .then(categorias => {
+                if (categorias) {
+                  cargarSugerenciasCategorias(categorias);
+                }
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+
             obtenerProductores()
               .then(productores => {
                 if (productores) {
@@ -287,7 +324,7 @@ function editarProducto(index) {
               .catch(error => {
                 console.error('Error:', error);
               });
-            
+
             liveValidationsProducto(inputsProductos(), 'editar');
 
             setTimeout(() => {
@@ -298,19 +335,19 @@ function editarProducto(index) {
                 for (let option of selectCategoria.options) {
                   option.selected = option.value == producto.categoria.id;
                 }
-                
+
                 form.querySelector("#nombre").value = producto.nombre;
-                
+
                 const selectProductor = form.querySelector("#productor");
                 for (let option of selectProductor.options) {
                   option.selected = option.value == producto.proveedor.id;
                 }
-                
+
                 form.querySelector("#descripcion").value = producto.descripcion;
                 form.querySelector("#cantidad").value = producto.stock;
                 form.querySelector("#precio").value = producto.precio;
                 form.querySelector("#presentacion").value = producto.presentacion;
-                
+
                 const selectMedida = form.querySelector("#medida");
                 for (let option of selectMedida.options) {
                   option.selected = option.value == producto.unidadMedida;
@@ -335,7 +372,7 @@ function editarProducto(index) {
                 const divBtns = document.getElementById("btns");
                 const submitBtn = form.querySelector("button[type='submit']");
                 submitBtn.textContent = "Actualizar producto";
-                
+
                 const cancelBtn = document.createElement("button");
                 cancelBtn.type = "button";
                 cancelBtn.classList.add('btn', 'btn-danger');
@@ -348,7 +385,7 @@ function editarProducto(index) {
 
                 form.onsubmit = function (e) {
                   e.preventDefault();
-                  
+
                   if (!validateFormProducto(inputsProductos(), 'editar')) {
                     Swal.fire({
                       icon: "error",
@@ -358,7 +395,7 @@ function editarProducto(index) {
                     });
                     return;
                   }
-                  
+
                   actualizarProducto(index);
                 };
               }
@@ -452,7 +489,7 @@ function validateFormProducto(inputsFields, action) {
 // Validaciones en vivo
 function liveValidationsProducto(inputsFields, action) {
   const inputs = inputsFields;
-  
+
   inputs['nomProducto'].addEventListener('blur', function () { validateName(inputs['nomProducto'], inputs['nameRegex']) });
   inputs['nomProducto'].addEventListener('input', function () {
     if (this.classList.contains('is-invalid')) {

@@ -61,97 +61,82 @@ document.addEventListener('DOMContentLoaded', () => { // esperar DOM listo
   const getCurrentUser = () => JSON.parse(localStorage.getItem(LS_KEYS.CURRENT) || 'null');
   const clearCurrentUser = () => localStorage.removeItem(LS_KEYS.CURRENT);
 
-  // Hash SHA-256 (protegido)
-  async function trySha256(text) {
-    if (window.crypto?.subtle) {
-      const data = new TextEncoder().encode(text);
-      const buf = await crypto.subtle.digest('SHA-256', data);
-      return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
-    }
-    return null; // sin soporte => devolvemos null para usar fallback
-  }
-
-
-  // Event listeners para validación en tiempo real
-  [inputPass, inputPass2].forEach(input => {
-
-    input.addEventListener('blur', () => {
-      const msg = document.querySelectorAll('.invalid-feedback');
-      msg.forEach(m => {
-        if (input.value.length != 6) {
-          m.classList.remove('d-none');
-          m.classList.add('d-block');
-        }
-        if (input.value.length == 6) {
-          m.classList.remove('d-block');
-          m.classList.add('d-none');
-        }
-      });
-    });
-
-    input.addEventListener('input', () => {
-      const msg = document.querySelectorAll('.invalid-feedback');
-      msg.forEach(m => {
-        if (input.value.length != 6) {
-          m.classList.remove('d-none');
-          m.classList.add('d-block');
-        }
-        if (input.value.length == 6) {
-          m.classList.remove('d-block');
-          m.classList.add('d-none');
-        }
-      });
-    });
-  });
-
   // Registro
   const formRegister = document.getElementById('form-register');
+  liveValidationsRegister(inputsRegister())
+  // Elementos del formulario
+  const phoneField = document.getElementById('mobile_code');
+  const iti = window.intlTelInput(phoneField, {
+    initialCountry: "co",                // Colombia
+    separateDialCode: true,
+    utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js" // opcional, para formateo/validación
+  });
+
   formRegister?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const name = document.getElementById('regName').value.trim();
-    const email = document.getElementById('regEmail').value.trim().toLowerCase();
-    const pass = document.getElementById('regPass').value;
-
-    if (!name || !email || !pass) {
-      return Swal.fire({ icon: 'warning', title: 'Complete todos los campos' });
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return Swal.fire({ icon: 'warning', title: 'Correo inválido' });
-    }
-    if (pass.length != 6) {
-      return Swal.fire({ icon: 'warning', title: 'La contraseña debe tener 6 caracteres' });
-    }
-
-    const users = getUsers();
-    if (users.some(u => u.email === email)) {
-      return Swal.fire({ icon: 'error', title: 'Ese correo ya está registrado' });
-    }
-
-    const passHash = await trySha256(pass); // puede ser null si no hay soporte
-    const newUser = {
-      id: Date.now(),
-      name,
-      email,
-      passHash: passHash,         // si hay hash, se usa
-      passPlain: passHash ? null : pass, // si no hay hash, guardamos plano (solo pruebas)
-      rol: 'usuario'
-    };
-    users.push(newUser);
-    saveUsers(users);
-    setCurrentUser(newUser);
-
-    Swal.fire({
-      title: 'Registro exitoso',
-      text: 'Sesión iniciada',
-      icon: 'success',
-      confirmButtonText: 'Aceptar'
-    }).then(() => {
-      if (getCurrentUser().rol == 'usuario') {
-        window.location.href = '/src/pages/catalogo.html';
-      } else if (getCurrentUser().rol == 'admin') {
-        window.location.href = '/src/pages/dashboard.html';
-      }
+    const invalidText = document.querySelectorAll('.invalid-feedback')
+    invalidText.forEach(text => {
+      text.remove();
     });
+
+    if (!validateFormRegister(inputsRegister())) {
+      Swal.fire({
+        icon: "error",
+        title: "Hay campos incorrectos",
+        showConfirmButton: false,
+        timer: 1500
+      });
+      return;
+    }
+
+    const userData = {
+      nombre: document.getElementById("regName").value,
+      apellido: document.getElementById("regLastName").value,
+      email: document.getElementById("regEmail").value,
+      password: document.getElementById("regPass").value,
+      telefono: iti.getNumber(),  
+      rol: { "id": 2 }
+    };
+
+    try {
+      const data = await crearUsuario(userData);
+      Swal.fire({
+        title: 'Registro exitoso',
+        text: 'Redirigiendo al catálogo...',
+        icon: 'success',
+        timer: 2000,
+        showConfirmButton: false
+      }).then(() => {
+        window.location.href = '../pages/catalogo.html';
+      });
+    } catch (error) {
+      console.error("=== ERROR COMPLETO ===");
+      console.log("error.status:", error.status);
+      console.log("error.errors:", error.errors);
+      console.log("error.message:", error.message);
+      console.log("typeof error:", typeof error);
+      console.log("error completo:", error);
+
+      if (error.status === 400 && error.errors) {
+        console.log("ENTRANDO A VALIDACION 400");
+        handleValidationErrors(error.errors);
+
+        Swal.fire({
+          icon: "error",
+          title: "Error de validación",
+          text: "Revisa los campos marcados en rojo",
+          showConfirmButton: true,
+        });
+      } else {
+        console.log("ENTRANDO A ERROR GENERICO");
+        Swal.fire({
+          icon: "error",
+          title: "Error al registrar",
+          text: error.message || "No se pudo completar el registro. Inténtalo de nuevo.",
+          showConfirmButton: true,
+        });
+      }
+    }
   });
 
   // Login (este bloque faltaba)
@@ -159,6 +144,21 @@ document.addEventListener('DOMContentLoaded', () => { // esperar DOM listo
   const formLogin = document.getElementById('form-login');
   formLogin?.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    const current = JSON.parse(localStorage.getItem('currentUser') || 'null'); // [4]
+    if (current) {
+      Swal.fire({
+        title: 'Hay una sesión activa',
+        text: 'Redirigiendo al catálogo...',
+        icon: 'error',
+        timer: 1500,
+        showConfirmButton: false
+      }).then(() => {
+        window.location.href = '../pages/catalogo.html';
+      });
+      return
+    }
+
     const email = document.getElementById('loginEmail').value.trim().toLowerCase();
     const password = document.getElementById('loginPass').value;
 
@@ -180,9 +180,11 @@ document.addEventListener('DOMContentLoaded', () => { // esperar DOM listo
 
         const token = data.token;
         const usuarioNombre = data.usuario;
+        const usuarioID = data.id;
         const usuarioRol = data.rolID;
         localStorage.setItem('jwt', token);
-        setCurrentUser({name: usuarioNombre, rol: usuarioRol});
+        localStorage.setItem('UID', usuarioID);
+        setCurrentUser({ name: usuarioNombre, rol: usuarioRol });
         Swal.fire({
           icon: 'success',
           title: `Bienvenido, ${usuarioNombre}`,
@@ -219,3 +221,204 @@ document.addEventListener('DOMContentLoaded', () => { // esperar DOM listo
   // });
 
 });
+
+// Función para mostrar campo válido
+function setValid(field) {
+  field.classList.remove('is-invalid');
+  field.classList.add('is-valid');
+
+  if (field.id == 'mobile_code') {
+    const feedback = field.parentNode.parentNode.querySelector('.invalid-feedback');
+    if (feedback) feedback.style.display = 'none';
+  } else {
+    const feedback = field.parentNode.nextElementSibling.querySelector('.invalid-feedback');
+    if (feedback) feedback.style.display = 'none';
+  }
+}
+
+// Función para mostrar campo inválido
+function setInvalid(field, message) {
+  field.classList.remove('is-valid');
+  field.classList.add('is-invalid');
+
+  const validFeedback = field.parentNode.querySelector('.valid-feedback');
+  if (validFeedback) validFeedback.style.display = 'none';
+
+  if (field.id == 'mobile_code') {
+    let feedback = field.parentNode.parentNode.querySelector('.invalid-feedback');
+    if (!feedback) {
+      feedback = document.createElement('div');
+      feedback.classList.add('invalid-feedback');
+      field.parentNode.after(feedback);
+    }
+    feedback.textContent = message;
+    feedback.style.display = 'block';
+  } else {
+    let feedback = field.parentNode.nextElementSibling;
+    if (feedback.classList.contains('invalid-feedback')) feedback.remove();
+
+    feedback = document.createElement('div');
+    feedback.classList.add('invalid-feedback');
+    field.parentNode.insertAdjacentElement('afterend', feedback);
+
+    feedback.textContent = message;
+    feedback.style.display = 'block';
+  }
+}
+
+function inputsRegister() {
+  const inputs = {
+    'form': document.getElementById('form-register'),
+    'nombre': document.getElementById('regName'),
+    'apellido': document.getElementById('regLastName'),
+    'email': document.getElementById('regEmail'),
+    'telefono': document.getElementById('mobile_code'),
+    'password': document.getElementById('regPass'),
+    'nameRegex': /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{2,}$/,
+    'emailRegex': /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+    'phoneRegex': /^[\d\s\-\+\(\)]{10,}$/,
+    'passRegex': /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>/?]).{6}$/
+  }
+  return inputs;
+}
+
+// Validar todo el formulario
+function validateFormRegister(inputsFields) {
+  const inputs = inputsFields;
+  const validations = [
+    validateName(inputs['nombre'], inputs['nameRegex']),
+    validateName(inputs['apellido'], inputs['nameRegex']),
+    validateEmail(inputs['email'], inputs['emailRegex']),
+    validatePhone(inputs['telefono'], inputs['phoneRegex']),
+    validateRegPass(inputs['password'], inputs['passRegex'])
+  ];
+  return validations.every(validation => validation === true);
+}
+
+// Validaciones en vivo
+function liveValidationsRegister(inputsFields) {
+  const inputs = inputsFields;
+
+  inputs['nombre'].addEventListener('blur', function () { validateName(inputs['nombre'], inputs['nameRegex']) });
+  inputs['nombre'].addEventListener('input', function () {
+    if (this.classList.contains('is-invalid')) {
+      validateName(inputs['nombre'], inputs['nameRegex']);
+    }
+  });
+
+  inputs['apellido'].addEventListener('blur', function () { validateName(inputs['apellido'], inputs['nameRegex']) });
+  inputs['apellido'].addEventListener('input', function () {
+    if (this.classList.contains('is-invalid')) {
+      validateName(inputs['apellido'], inputs['nameRegex']);
+    }
+  });
+
+  inputs['email'].addEventListener('blur', () => { validateEmail(inputs['email'], inputs['emailRegex']) });
+  inputs['email'].addEventListener('input', function () {
+    if (this.classList.contains('is-invalid')) {
+      validateEmail(inputs['email'], inputs['emailRegex']);
+    }
+  });
+
+  inputs['telefono'].addEventListener('blur', () => { validatePhone(inputs['telefono'], inputs['phoneRegex']) });
+  inputs['telefono'].addEventListener('input', function () {
+    if (this.classList.contains('is-invalid')) {
+      validatePhone(inputs['telefono'], inputs['phoneRegex']);
+    }
+  });
+
+  inputs['password'].addEventListener('blur', () => { validateRegPass(inputs['password'], inputs['passRegex']) });
+  inputs['password'].addEventListener('input', function () {
+    if (this.classList.contains('is-invalid')) {
+      validateRegPass(inputs['password'], inputs['passRegex']);
+    }
+  });
+}
+
+// Validación de nombre producto
+function validateName(field, regex) {
+  const value = field.value.trim();
+  if (value === '') {
+    setInvalid(field, 'El nombre del producto es obligatorio');
+    return false;
+  } else if (!regex.test(value)) {
+    setInvalid(field, 'El nombre del producto debe tener al menos 2 caracteres y solo letras');
+    return false;
+  } else {
+    setValid(field);
+    return true;
+  }
+}
+
+// Validación de email
+function validateEmail(field, regex) {
+  const value = field.value.trim();
+  if (value === '') {
+    setInvalid(field, 'El correo electrónico es obligatorio');
+    return false;
+  } else if (!regex.test(value)) {
+    setInvalid(field, 'Por favor ingresa un correo válido');
+    return false;
+  } else {
+    setValid(field);
+    return true;
+  }
+}
+
+// Validación de teléfono
+function validatePhone(field, regex) {
+  const value = field.value.trim();
+  if (value === '') {
+    setInvalid(field, 'El teléfono es obligatorio');
+    return false;
+  } else if (!regex.test(value)) {
+    setInvalid(field, 'Teléfono debe tener al menos 10 dígitos');
+    return false;
+  } else {
+    setValid(field);
+    return true;
+  }
+}
+
+// Validación de password register
+function validateRegPass(field, regex) {
+  const value = field.value.trim();
+  if (value === '') {
+    setInvalid(field, 'La contraseña es obligatoria');
+    return false;
+  } else if (!regex.test(value)) {
+    setInvalid(field, `La contraseña debe ser exactamente de 6 caracteres. \nAl menos una mayuscula, al menos un dígito, al menos un caracter especial`);
+    return false;
+  } else {
+    setValid(field);
+    return true;
+  }
+}
+
+// Agregar esta función en tu archivo login.js
+function handleValidationErrors(errors) {
+  console.log("Procesando errores:", errors);
+
+  const fieldMapping = {
+    'nombre': 'regName',
+    'apellido': 'regLastName',
+    'email': 'regEmail',
+    'password': 'regPass',
+    'telefono': 'mobile_code'
+  };
+
+  Object.entries(errors).forEach(([fieldName, message]) => {
+    console.log(`Campo: ${fieldName}, Error: ${message}`);
+
+    const fieldId = fieldMapping[fieldName];
+    if (fieldId) {
+      const field = document.getElementById(fieldId);
+      if (field) {
+        setInvalid(field, message);
+        console.log(`Aplicando error a campo ${fieldId}: ${message}`);
+      } else {
+        console.warn(`Campo con ID '${fieldId}' no encontrado`);
+      }
+    }
+  });
+}

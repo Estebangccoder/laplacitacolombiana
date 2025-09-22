@@ -1,19 +1,20 @@
 // api.js - Servicios para consultas HTTP
 const API_BASE_URL = 'http://localhost:8080/api';
 
+// =================== AUXILIARES ===================
+
 // Función auxiliar para obtener el token
 function getAuthToken() {
     const token = localStorage.getItem('jwt');
-    if (!token) {
-        console.error('No hay token disponible');
-        window.location.href = '/src/pages/login.html';
-        return null;
-    }
+    if (!token) return null;
     return token;
 }
 
 // Función auxiliar para manejar respuestas HTTP
 async function handleResponse(response) {
+    console.log("Response status:", response.status);
+    console.log("Response headers:", response.headers);
+    
     if (response.ok) {
         const contentType = response.headers.get('Content-Type');
         if (contentType && contentType.includes('application/json')) {
@@ -22,26 +23,54 @@ async function handleResponse(response) {
             return await response.text();
         }
     } else if (response.status === 401) {
-        // Token expirado o inválido
         localStorage.removeItem('jwt');
         console.error('Sesión expirada. Por favor, inicia sesión nuevamente.');
         window.location.href = '/src/pages/login.html';
         return null;
+    } else if (response.status === 400) {
+        const errorData = await response.json();
+        throw { status: 400, errors: errorData };
+    } else if (response.status === 500) {
+        console.log("Entrando al manejo del error 500");
+        try {
+            // Intentar leer como JSON primero
+            const contentType = response.headers.get('Content-Type');
+            let errorContent;
+            
+            if (contentType && contentType.includes('application/json')) {
+                errorContent = await response.json();
+                console.log("Error 500 JSON:", errorContent);
+            } else {
+                errorContent = await response.text();
+                console.log("Error 500 text:", errorContent);
+            }
+            
+            // Buscar el mensaje de correo duplicado
+            const errorString = typeof errorContent === 'string' ? errorContent : JSON.stringify(errorContent);
+            console.log("Buscando 'correo ya existe' en:", errorString);
+            
+            if (errorString.includes("correo ya existe") || errorString.includes("El correo ya existe")) {
+                console.log("Detectado error de correo duplicado");
+                throw { 
+                    status: 400,
+                    errors: { email: "Este correo electrónico ya está registrado" } 
+                };
+            }
+        } catch (parseError) {
+            console.log("Error al parsear response 500:", parseError);
+        }
+        
+        console.log("Lanzando error HTTP 500 genérico");
+        throw new Error(`Error HTTP: ${response.status}`);
     } else {
         throw new Error(`Error HTTP: ${response.status}`);
     }
 }
 
-// Función auxiliar para hacer peticiones sin autenticación
+// Peticiones sin token
 async function makeRequest(url, options = {}) {
-    const token = getAuthToken();
-    if (!token) return null;
+    const defaultHeaders = {};
 
-    const defaultHeaders = {
-        'Authorization': `Bearer ${token}`
-    };
-
-    // Si no es FormData, agregar Content-Type JSON
     if (!(options.body instanceof FormData)) {
         defaultHeaders['Content-Type'] = 'application/json';
     }
@@ -63,7 +92,7 @@ async function makeRequest(url, options = {}) {
     }
 }
 
-// Función auxiliar para hacer peticiones autenticadas
+// Peticiones con token
 async function makeAuthenticatedRequest(url, options = {}) {
     const token = getAuthToken();
     if (!token) return null;
@@ -72,7 +101,6 @@ async function makeAuthenticatedRequest(url, options = {}) {
         'Authorization': `Bearer ${token}`
     };
 
-    // Si no es FormData, agregar Content-Type JSON
     if (!(options.body instanceof FormData)) {
         defaultHeaders['Content-Type'] = 'application/json';
     }
@@ -96,17 +124,16 @@ async function makeAuthenticatedRequest(url, options = {}) {
 
 // =================== PRODUCTOS ===================
 
-// Obtener todos los productos
+// 🔓 Públicos
 async function obtenerProductos() {
-    return await makeAuthenticatedRequest(`${API_BASE_URL}/productos`);
+    return await makeRequest(`${API_BASE_URL}/productos`);
 }
 
-// Obtener producto por ID
 async function obtenerProductoID(id) {
-    return await makeAuthenticatedRequest(`${API_BASE_URL}/productos/${id}`);
+    return await makeRequest(`${API_BASE_URL}/productos/${id}`);
 }
 
-// Crear nuevo producto
+// 🔒 Requieren autenticación
 async function crearProducto(formData) {
     return await makeAuthenticatedRequest(`${API_BASE_URL}/productos/crear`, {
         method: 'POST',
@@ -114,7 +141,6 @@ async function crearProducto(formData) {
     });
 }
 
-// Actualizar producto
 async function actualizarProductoAPI(id, formData) {
     return await makeAuthenticatedRequest(`${API_BASE_URL}/productos/editar/${id}`, {
         method: 'PUT',
@@ -122,7 +148,20 @@ async function actualizarProductoAPI(id, formData) {
     });
 }
 
-// Eliminar producto (soft delete)
+async function actualizarStockProductoAPI(id, nuevoStock) {
+    return await makeAuthenticatedRequest(`${API_BASE_URL}/productos/stock/${id}`, {
+        method: 'PATCH',
+         body: JSON.stringify(nuevoStock )
+    });
+}
+
+// async function actualizarEstadoProductoAPI(id, nuevoStock) {
+//     return await makeAuthenticatedRequest(`${API_BASE_URL}/productos/stock/${id}`, {
+//         method: 'PATCH',
+//         body: JSON.stringify(nuevoStock)
+//     });
+// }
+
 async function eliminarProductoAPI(id) {
     return await makeAuthenticatedRequest(`${API_BASE_URL}/productos/borrar/${id}`, {
         method: 'PATCH'
@@ -131,17 +170,16 @@ async function eliminarProductoAPI(id) {
 
 // =================== PROVEEDORES ===================
 
-// Obtener todos los proveedores
+// 🔓 Públicos
 async function obtenerProductores() {
-    return await makeAuthenticatedRequest(`${API_BASE_URL}/proveedores`);
+    return await makeRequest(`${API_BASE_URL}/proveedores`);
 }
 
-// Obtener proveedor por ID
 async function obtenerProveedorID(id) {
-    return await makeAuthenticatedRequest(`${API_BASE_URL}/proveedores/${id}`);
+    return await makeRequest(`${API_BASE_URL}/proveedores/${id}`);
 }
 
-// Crear nuevo proveedor
+// 🔒 Protegidos
 async function crearProveedor(proveedorData) {
     return await makeAuthenticatedRequest(`${API_BASE_URL}/proveedores/crear`, {
         method: 'POST',
@@ -149,7 +187,6 @@ async function crearProveedor(proveedorData) {
     });
 }
 
-// Actualizar proveedor
 async function actualizarProveedor(id, proveedorData) {
     return await makeAuthenticatedRequest(`${API_BASE_URL}/proveedores/editar/${id}`, {
         method: 'PUT',
@@ -157,7 +194,6 @@ async function actualizarProveedor(id, proveedorData) {
     });
 }
 
-// Eliminar proveedor
 async function eliminarProveedor(id) {
     return await makeAuthenticatedRequest(`${API_BASE_URL}/proveedores/borrar/${id}`, {
         method: 'DELETE'
@@ -166,37 +202,34 @@ async function eliminarProveedor(id) {
 
 // =================== CATEGORÍAS ===================
 
-// Obtener todas las categorías
+// 🔓 Públicos
 async function obtenerCategorias() {
-    return await makeAuthenticatedRequest(`${API_BASE_URL}/categorias`);
+    return await makeRequest(`${API_BASE_URL}/categorias`);
 }
 
-// Obtener categoría por ID
 async function obtenerCategoriaID(id) {
-    return await makeAuthenticatedRequest(`${API_BASE_URL}/categorias/${id}`);
+    return await makeRequest(`${API_BASE_URL}/categorias/${id}`);
 }
 
 // =================== USUARIOS ===================
 
-// Obtener todos los usuarios
+// 🔓 Públicos
+async function crearUsuario(userData) {
+    return await makeRequest('http://localhost:8080/auth/register', {
+        method: 'POST',
+        body: JSON.stringify(userData)
+    });
+}
+
+// 🔒 Protegidos
 async function obtenerUsuarios() {
     return await makeAuthenticatedRequest(`${API_BASE_URL}/usuarios`);
 }
 
-// Obtener usuario por ID
 async function obtenerUsuarioID(id) {
     return await makeAuthenticatedRequest(`${API_BASE_URL}/usuarios/${id}`);
 }
 
-// Crear nuevo usuario
-async function crearUsuario(usuarioData) {
-    return await makeAuthenticatedRequest(`${API_BASE_URL}/usuarios/crear`, {
-        method: 'POST',
-        body: JSON.stringify(usuarioData)
-    });
-}
-
-// Actualizar usuario
 async function actualizarUsuario(id, usuarioData) {
     return await makeAuthenticatedRequest(`${API_BASE_URL}/usuarios/editar/${id}`, {
         method: 'PUT',
@@ -204,7 +237,6 @@ async function actualizarUsuario(id, usuarioData) {
     });
 }
 
-// Eliminar usuario
 async function eliminarUsuario(id) {
     return await makeAuthenticatedRequest(`${API_BASE_URL}/usuarios/borrar/${id}`, {
         method: 'DELETE'
@@ -212,14 +244,14 @@ async function eliminarUsuario(id) {
 }
 
 // ====================== VENTAS ======================
-// Obtener todas las ventas
-async function obtenerVentass() {
+// 🔒 Requiere autenticación
+async function obtenerVentas() {
     return await makeAuthenticatedRequest(`${API_BASE_URL}/ventas`);
 }
 
 // =================== AUTENTICACIÓN ===================
 
-// Login
+// 🔓 Login (sin token)
 async function login(credentials) {
     try {
         const response = await fetch("http://localhost:8080/auth/loginConDTO", {
@@ -231,9 +263,9 @@ async function login(credentials) {
         });
 
         if (response.ok) {
-            return await response.json(); // Login exitoso
+            return await response.json();
         } else if (response.status === 401) {
-            return { error: true, message: 'Credenciales incorrectas' }; // Login fallido
+            return { error: true, message: 'Credenciales incorrectas' };
         } else {
             const errorText = await response.text();
             return { error: true, message: errorText || 'Error desconocido' };
@@ -248,6 +280,7 @@ async function login(credentials) {
 function logout() {
     localStorage.removeItem('jwt');
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('UID');
     window.location.href = '/src/pages/login.html';
 }
 
