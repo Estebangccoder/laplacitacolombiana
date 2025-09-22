@@ -164,7 +164,7 @@ async function actualizarStockProductoAPI(id, nuevoStock) {
 
 async function eliminarProductoAPI(id) {
     return await makeAuthenticatedRequest(`${API_BASE_URL}/productos/borrar/${id}`, {
-        method: 'DELETE'
+        method: 'PATCH'
     });
 }
 

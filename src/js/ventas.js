@@ -58,7 +58,6 @@ function loadSectionVentas(section) {
               <th>Descuento</th>
               <th>Domicilio</th>
               <th>Total</th>
-              <th>Detalles</th>
             </tr>
           </thead>
           <tbody>
@@ -72,11 +71,6 @@ function loadSectionVentas(section) {
                 <td>$${v.descuento}</td>
                 <td>$${v.domicilio}</td>
                 <td>$${v.total}</td>
-                <td>
-                  <button type="button" class="btn btn-warning">
-                    <i class="bi bi-eye fw-bold"></i>
-                  </button>
-                </td>
               </tr>
             `).join("")}
           </tbody>
