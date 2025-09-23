@@ -129,3 +129,14 @@ window.addEventListener("storage", async (e) => {
     }
   }
 });
+
+const params = new URLSearchParams(window.location.search);
+const categoria = params.get("categoria");
+if (categoria) {
+  const input = document.getElementById(categoria);
+  if (input) {
+    input.checked = true;
+    input.dispatchEvent(new Event("change"));
+    document.querySelector(".filtros")?.scrollIntoView({ behavior: "smooth" });
+  }
+}

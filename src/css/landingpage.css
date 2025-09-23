@@ -93,7 +93,7 @@ body {
     text-align: center;
 }
 
-.btn.btn-primary {
+#boton_CompraAhora {
     background-color: var(--rojo-principal);
     border: none;
     color: #fff;
@@ -106,7 +106,7 @@ body {
     text-decoration: none;
 }
 
-.btn.btn-primary:hover {
+#boton_CompraAhora:hover {
     background-color: #8d0f23;
     transform: translateY(-2px);
 }

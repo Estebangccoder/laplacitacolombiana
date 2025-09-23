@@ -97,9 +97,8 @@ function mostrarUsuarios(usuarios) {
             <th>Apellido</th>
             <th>Teléfono</th>
             <th>Email</th>
-            <th>Ciudad</th>
-            <th>Departamento</th>
             <th>Rol</th>
+            <th>Estado</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -110,9 +109,8 @@ function mostrarUsuarios(usuarios) {
               <td>${u.apellido}</td>
               <td>${u.telefono}</td>
               <td>${u.email}</td>
-              <td>${u.ciudad}</td>
-              <td>${u.departamento}</td>
               <td>${u.rol ? u.rol.nombre : "Sin rol"}</td>
+              <td>${u.estado == "NOACTIVO" ? "No activo" : "Activo"}</td>
               <td>
                 <button type="button" class="btn btn-success" onclick="editarUsuario(${u.id})">
                   <i class="bi bi-pen"></i>
@@ -155,29 +153,80 @@ function mostrarUsuarios(usuarios) {
 }
 
 // ----------------- ELIMINAR USUARIO -----------------
+// async function eliminarUsuario(id) {
+//   if (!confirm("¿Seguro que quieres eliminar este usuario?")) return;
+
+//   try {
+//     const token = localStorage.getItem('jwt');
+//     const response = await fetch(`http://localhost:8080/api/usuarios/borrar/${id}`, {
+//       method: 'PATCH',
+//       headers: {
+//         'Authorization': `Bearer ${token}`
+//       }
+//     });
+
+//     if (response.ok) {
+//       alert("Usuario eliminado con éxito");
+//       loadSectionUsuarios("ver-usuarios"); // Recargar lista
+//     } else {
+//       alert("Error al eliminar usuario");
+//     }
+//   } catch (error) {
+//     console.error("Error:", error);
+//     alert("Error en la conexión al servidor");
+//   }
+// }
+
 async function eliminarUsuario(id) {
-  if (!confirm("¿Seguro que quieres eliminar este usuario?")) return;
+  const result = await Swal.fire({
+    title: "¿Estás seguro?",
+    text: "Este usuario será eliminado permanentemente",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "Sí, eliminar",
+    cancelButtonText: "Cancelar"
+  });
+
+  if (!result.isConfirmed) return;
 
   try {
-    const token = localStorage.getItem('jwt');
+    const token = localStorage.getItem("jwt");
     const response = await fetch(`http://localhost:8080/api/usuarios/borrar/${id}`, {
-      method: 'DELETE',
+      method: "PATCH",
       headers: {
-        'Authorization': `Bearer ${token}`
+        Authorization: `Bearer ${token}`
       }
     });
 
     if (response.ok) {
-      alert("Usuario eliminado con éxito");
+      await Swal.fire({
+        title: "Eliminado",
+        text: "Usuario eliminado con éxito",
+        icon: "success",
+        confirmButtonText: "Aceptar"
+      });
       loadSectionUsuarios("ver-usuarios"); // Recargar lista
     } else {
-      alert("Error al eliminar usuario");
+      await Swal.fire({
+        title: "Error",
+        text: "No se pudo eliminar el usuario",
+        icon: "error",
+        confirmButtonText: "Aceptar"
+      });
     }
   } catch (error) {
     console.error("Error:", error);
-    alert("Error en la conexión al servidor");
+    await Swal.fire({
+      title: "Error",
+      text: "Error en la conexión al servidor",
+      icon: "error",
+      confirmButtonText: "Aceptar"
+    });
   }
 }
+
 
 // ----------------- EDITAR USUARIO -----------------
 function editarUsuario(id) {
@@ -194,9 +243,7 @@ function editarUsuario(id) {
       document.getElementById("editarApellido").value = usuario.apellido;
       document.getElementById("editarEmail").value = usuario.email;
       document.getElementById("editarTelefono").value = usuario.telefono;
-      document.getElementById("editarCiudad").value = usuario.ciudad;
-      document.getElementById("editarDepartamento").value = usuario.departamento;
-
+      
       // Cargar roles dinámicamente
       fetch("http://localhost:8080/api/roles", {
         headers: { "Authorization": `Bearer ${token}` }
@@ -236,8 +283,6 @@ document.getElementById("formEditarUsuario").addEventListener("submit", async (e
     apellido: document.getElementById("editarApellido").value,
     email: document.getElementById("editarEmail").value,
     telefono: document.getElementById("editarTelefono").value,
-    ciudad: document.getElementById("editarCiudad").value,
-    departamento: document.getElementById("editarDepartamento").value,
     password: document.getElementById("editarPassword").value || null,
     rolId: parseInt(document.getElementById("editarRol").value)
   };

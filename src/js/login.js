@@ -207,19 +207,6 @@ document.addEventListener('DOMContentLoaded', () => { // esperar DOM listo
   })
 
 
-  //   setCurrentUser(user);
-  // Swal.fire({
-  //   icon: 'success',
-  //   title: `Bienvenido, ${user.name}`,
-  //   confirmButtonText: 'Aceptar'
-  // }).then(() => {
-  //   if (getCurrentUser().rol == 'usuario') {
-  //     window.location.href = '/src/pages/catalogo.html';
-  //   } else if (getCurrentUser().rol == 'admin') {
-  //     window.location.href = '/src/pages/dashboard.html';
-  //   }
-  // });
-
 });
 
 // Función para mostrar campo válido

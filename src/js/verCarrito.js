@@ -42,18 +42,25 @@ function mostrarProductosCarrito() {
             </small>
         </div>
         <div class="col-4 flex-grow-1">
-            <button type="button" class="btn btn-primary py-0 px-1" onclick="btnsSumar(${p.codigo})">
-                <i class="fw-bold bi bi-plus"></i>
-            </button>
-            <span class="mx-1">${p.cantidad_carrito}</span>
-            <button type="button" class="btn btn-info py-0 px-1" onclick="btnsRestar(${p.codigo})">
+            <button type="button" class="btn btn-info py-0 px-1 btn-restar" data-id="${p.id}">
                 <i class="fw-bold bi bi-dash menos-producto"></i>
             </button>
+        
+        
+            <span class="mx-1">${p.cantidad_carrito}</span>
+            <button type="button" class="btn btn-primary py-0 px-1 btn-sumar" data-id="${p.id}">
+                <i class="fw-bold bi bi-plus"></i>
+            </button>
         </div>
-        <button class="col-1 btn btn-sm btn-danger remove-btn" onclick="btnsQuitar(${p.codigo})"">
+        <button class="col-1 btn btn-sm btn-danger btn-remove " data-id="${p.id}">
           <span class="fw-bold">X</span>
         </button>
       `;
+      
+    // listeners locales 
+    item.querySelector('.btn-restar')?.addEventListener('click', () => cambiarCantidad(p.id, -1));
+    item.querySelector('.btn-sumar')?.addEventListener('click', () => cambiarCantidad(p.id, 1));
+    item.querySelector('.btn-remove')?.addEventListener('click', () => eliminarDelCarrito(p.id));
 
         contenedor.appendChild(item);
     });
@@ -84,9 +91,15 @@ function mostrarProductosCarrito() {
             </div>
         </div>
     `
+    
+
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-    mostrarRecomendados();
+  
+}
+
+function guardarCarrito() {
+  localStorage.setItem('carrito', JSON.stringify(carrito));
 }
 
 function precioCOP(valor) {
@@ -97,183 +110,6 @@ function precioCOP(valor) {
     return precioFormateado
 }
 
-function btnsSumar(cod) {
-    const indexCarrito = carrito.findIndex(p => p.codigo === cod);
-    const indexProducto = productos.findIndex(p => p.codigo == cod);
-
-    if (indexCarrito !== -1) {
-        if (productos[indexProducto]['cantidad'] > 0) {
-            productos[indexProducto]['cantidad'] -= 1;
-            carrito[indexCarrito].cantidad_carrito += 1;
-            localStorage.setItem('carrito', JSON.stringify(carrito));
-            localStorage.setItem('productos', JSON.stringify(productos));
-            mostrarProductosCarrito(carrito, "prodCarrito");
-        }
-        else {
-            //Stock no disponible
-            Swal.fire({
-                text: "No hay unidades disponibles",
-                icon: "error",
-                showConfirmButton: false,
-                timer: 2000,
-                allowEscapeKey: false,
-                allowOutsideClick: false,
-            });
-            return;
-        }
-    }
-}
-
-function btnsRestar(cod) {
-    const indexCarrito = carrito.findIndex(p => p.codigo === cod);
-    const indexProducto = productos.findIndex(p => p.codigo == cod);
-    if (indexCarrito !== -1) {
-        if (carrito[indexCarrito].cantidad_carrito > 1) {
-            carrito[indexCarrito].cantidad_carrito -= 1;
-            productos[indexProducto]['cantidad'] += 1;
-        } else {
-            carrito.splice(indexCarrito, 1);
-            productos[indexProducto]['cantidad'] += 1;
-        }
-        localStorage.setItem('carrito', JSON.stringify(carrito));
-        localStorage.setItem('productos', JSON.stringify(productos));
-        mostrarProductosCarrito();
-    }
-}
-
-function btnsQuitar(cod) {
-    const indexCarrito = carrito.findIndex(p => p.codigo === cod);
-    const indexProducto = productos.findIndex(p => p.codigo == cod);
-    productos[indexProducto]['cantidad'] += carrito[indexCarrito].cantidad_carrito;
-    carrito = carrito.filter(p => p.codigo !== cod);
-    localStorage.setItem('carrito', JSON.stringify(carrito));
-    localStorage.setItem('productos', JSON.stringify(productos));
-    mostrarProductosCarrito();
-}
-
-function recomendaciones() {
-    let recomendados = [];
-
-    if (carrito.length === 0) {
-        let categorias = ['Cafe', 'Cacao', 'Cerveza'];
-
-        categorias.forEach(cat => {
-            const productosCategoria = productos.filter(p =>
-                p.categoria === cat && p.cantidad > 0);
-
-            const mezclados = productosCategoria.sort(() => 0.5 - Math.random());
-            recomendados.push(mezclados[0]);
-        });
-    };
-
-    const counts = carrito.reduce((acc, p) => {
-        acc[p.categoria] = (acc[p.categoria] || 0) + 1;
-        return acc;
-    }, {});
-
-    const max = Math.max(...Object.values(counts));
-
-    const categoriasGanadoras = Object.keys(counts).filter(cat => counts[cat] === max);
-
-    const categoriasValidas = categoriasGanadoras.filter(cat =>
-        productos.some(p => p.categoria === cat && !carrito.some(c => c.codigo === p.codigo) && p.cantidad > 0)
-    );
-
-
-    const numCatValidas = categoriasValidas.length;
-
-    categoriasValidas.forEach(cat => {
-        const productosCategoria = productos.filter(p =>
-            p.categoria === cat && !carrito.some(c => c.codigo === p.codigo)
-        );
-
-        switch (numCatValidas) {
-            case 1:
-                const mezclados1 = productosCategoria.sort(() => 0.5 - Math.random());
-                recomendados.push(...mezclados1.slice(0, 3));
-                break;
-
-            case 2:
-                const catMaxProd = Math.random() < 0.5 ? categoriasValidas[0] : categoriasValidas[1];
-                if (cat === catMaxProd) {
-                    const mezclados2 = productosCategoria.sort(() => 0.5 - Math.random());
-                    recomendados.push(...mezclados2.slice(0, 2));
-                } else {
-                    const randomIndex = Math.floor(Math.random() * productosCategoria.length);
-                    recomendados.push(productosCategoria[randomIndex]);
-                }
-                break;
-
-            case 3:
-                const randomIndex2 = Math.floor(Math.random() * productosCategoria.length);
-                recomendados.push(productosCategoria[randomIndex2]);
-                break;
-        }
-    });
-
-    return recomendados;
-}
-
-function mostrarRecomendados() {
-    const contenedor = document.getElementById("recomendacionesContainer");
-    contenedor.innerHTML = ""; // limpiar antes de renderizar
-
-    listaProductos = recomendaciones();
-
-    if (listaProductos.length === 0) {
-        contenedor.innerHTML = `
-      <h3>Lista de productos</h3>
-      <p>No hay productos registrados.</p>
-    `;
-    } else {
-        listaProductos.forEach(producto => {
-            if (producto.cantidad > 0) {
-                // Buscar productor por código
-                const productor = productores.find(p => p.codigo === producto.productor);
-
-                contenedor.innerHTML += `
-          <div class="col">
-            <div class="card mb-3 product-h" data-category="${producto.categoria}">
-              <div class="row g-0 align-items-center my-auto">
-                <div class="col-4">
-                  <img src="${producto.imagen.startsWith("data:")
-                        ? producto.imagen
-                        : `/src/public/img/productos/${producto.imagen}`
-                    }" 
-                  class="img-fluid rounded-start product-h-img" alt="${producto.nombre}" />
-                </div>
-                <div class="col-8">
-                  <div class="card-body d-flex flex-column justify-content-between h-100">
-                    <h5 class="card-title mb-2">${producto.nombre}</h5>
-                    <p class="card-text mb-3">${producto.descripcion}</p>
-                    <ul class="list-unstyled small mb-3">
-                      <li>
-                        Productor: 
-                        <a href="#" class="producer-link">
-                          ${productor ? productor.nombre : "Desconocido"}
-                        </a>
-                      </li>
-                      <li>
-                        Presentación: ${producto.presentacion} <span>${producto.medida}</span>
-                      </li>
-                    </ul>
-                    <div class="mt-auto d-flex flex-wrap gap-2 align-items-center">
-                      <span class="price mb-0">Precio: ${precioCOP(producto.precio)}</span>
-                      <button href="#" class="btn btn-primary ms-auto agregar-btn val-agregar-btn" 
-                        onclick="agregarAcarrito(${producto.codigo})">
-                        Agregar a la canasta
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        `;
-            }
-        });
-    }
-}
 
 function agregarAcarrito(cod) {
 
@@ -341,6 +177,136 @@ document.addEventListener("DOMContentLoaded", () => {
         btnIrPago.classList.add('btn-secondary');
     }
     mostrarProductosCarrito();
-    mostrarRecomendados();
+ 
 });
 
+// Cambiar cantidad en local y sync
+async function cambiarCantidad(id, delta) {
+  try {
+    // 1) Busca el índice y aborta si no existe
+    const idx = carrito.findIndex(p => String(p.id) === String(id));
+    if (idx === -1) return console.warn('Producto no existe en carrito');
+
+    // 2) Trae stock actual de backend
+    const productoBackend = await obtenerProductoID(id);
+    const stockDisponible = Number(productoBackend?.stock ?? 0);
+    const cantidadActual = carrito[idx].cantidad_carrito;
+    const nuevaCantidad = cantidadActual + delta;
+
+    // 3) Solo al sumar validar límite superior
+    if (delta > 0 && nuevaCantidad > stockDisponible) {
+      Swal.fire({
+        text: "No hay unidades disponibles",
+        icon: "error",
+        timer: 1400,
+        showConfirmButton: false
+      });
+      return;
+    }
+
+    // 4) Si nuevaCantidad < 1 → removemos del carrito
+    if (nuevaCantidad < 1) {
+      carrito.splice(idx, 1);
+    } else {
+      // 5) Sino, actualizamos cantidad en el carrito
+      carrito[idx].cantidad_carrito = nuevaCantidad;
+    }
+
+    // 6) Guarda y renderiza
+    guardarCarrito();
+    mostrarProductosCarrito();
+
+    // 7) Calcula stock global (funciona para delta positivo y negativo)
+    const nuevoStockGlobal = stockDisponible - delta;
+
+    // 8) Sincroniza con backend
+    try {
+      await actualizarStockProductoAPI(id, nuevoStockGlobal);
+    } catch (syncErr) {
+      console.error('Error al sincronizar stock:', syncErr);
+      // Aquí podrías revertir o mostrar notificación al usuario
+    }
+  } catch (err) {
+    console.error('Error en cambiarCantidad:', err);
+    Swal.fire({
+      text: "Ocurrió un error al actualizar la cantidad",
+      icon: "error",
+      timer: 1600,
+      showConfirmButton: false
+    });
+  }
+}
+
+// Eliminar del carrito (local + sync)
+async function eliminarDelCarrito(id) {
+  try {
+    // 1) Busca el índice y aborta si no existe
+    const idx = carrito.findIndex(p => String(p.id) === String(id));
+    if (idx === -1) {
+      console.warn('Producto no existe en carrito');
+      return;
+    }
+
+    // 2) Trae stock actual de backend
+    const productoBackend = await obtenerProductoID(id);
+    const stockDisponible = Number(productoBackend?.stock ?? 0);
+    const cantidadActual = carrito[idx].cantidad_carrito;
+
+    // 3) Calcula el nuevo stock global tras devolver todas las unidades
+    const nuevoStockGlobal = stockDisponible + cantidadActual;
+
+    // 4) Elimina del carrito, guarda y renderiza
+    carrito = carrito.filter(p => String(p.id) !== String(id));
+    guardarCarrito();
+    mostrarProductosCarrito();
+
+    // 5) Sincroniza con backend
+    try {
+      await actualizarStockProductoAPI(id, nuevoStockGlobal);
+    } catch (syncErr) {
+      console.error('Error al sincronizar stock:', syncErr);
+      // Opcional: notificar al usuario o reinsertar el producto localmente
+    }
+
+  } catch (err) {
+    console.error('Error en eliminarDelCarrito:', err);
+    Swal.fire({
+      text: "Ocurrió un error al eliminar el producto",
+      icon: "error",
+      timer: 1600,
+      showConfirmButton: false
+    });
+  }
+}
+
+
+function recomendaciones() {
+    let recomendados = [
+        {
+            categoria: 'Cafe',
+            elemento: document.getElementById('cafe-destacado'),
+        },
+        {
+            categoria: 'Cacao',
+            elemento: document.getElementById('chocolate-destacado'),
+        },
+        {
+            categoria: 'Cerveza',
+            elemento: document.getElementById('cerveza-destacada'),
+        }
+    ];
+
+    let categorias = ['Cafe', 'Cacao', 'Cerveza'];
+
+    categorias.forEach(cat => {
+        const productosCategoria = productos.filter(p =>
+            p.categoria === cat && p.cantidad > 0);
+
+        const mezclados = productosCategoria.sort(() => 0.5 - Math.random());
+        const recomendado = recomendados.find(item => item.categoria === cat);
+        if (mezclados[0].imagen) {
+            recomendado['elemento'].src = mezclados[0].imagen.startsWith("data:") ? mezclados[0].imagen : `src/public/img/productos/${mezclados[0].imagen}`;
+        }
+    });
+
+}

@@ -118,8 +118,9 @@ function renderCarrito() {
     carritoCuerpo.appendChild(item);
 
     // listeners locales 
-    item.querySelector('.btn-sumar')?.addEventListener('click', () => cambiarCantidad(p.id, 1));
     item.querySelector('.btn-restar')?.addEventListener('click', () => cambiarCantidad(p.id, -1));
+    item.querySelector('.btn-sumar')?.addEventListener('click', () => cambiarCantidad(p.id, 1));
+   
     item.querySelector('.btn-remove')?.addEventListener('click', () => eliminarDelCarrito(p.id));
   });
 
@@ -131,8 +132,8 @@ function renderCarrito() {
 
   footer.innerHTML = `
     <hr>
-    <h6>Total de productos: ${totalProductos}</h6>
-    <h5>Valor Total: $${precioCOP(totalCarrito)}</h5>
+    <h6>Total de productos : ${totalProductos}</h6>
+    <h5>Valor Total : $${precioCOP(totalCarrito)}</h5>
     <button type="button" id="btn-pagar" class="btn btn-success mt-2">Ir a pagar</button>
   `;
 

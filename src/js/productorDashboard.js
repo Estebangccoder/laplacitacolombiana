@@ -1,4 +1,3 @@
-
 function loadSectionProductor(section) {
   const content = document.getElementById("main-content");
   const breadcrumb = document.getElementById("breadcrumb");

@@ -24,3 +24,73 @@
     background-color: #fff;
 }
 
+/* destacados */
+
+.titulo-destacados {
+    width: fit-content;
+    max-width: 100%;
+    margin: 2rem auto;
+    background-color: rgba(240, 210, 96, 0.3);
+    backdrop-filter: blur(6px) saturate(120%);
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .25);
+}
+
+#destacados {
+    font-family: var(--fuente-titulos);
+    font-size: clamp(1.9rem, 4vw, 2.5rem);
+    font-weight: var(--peso-bold);
+    text-align: center;
+    color: var(--bg-botones);
+}
+
+.destacado {
+    position: relative;
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+    overflow: hidden;
+    width: clamp(250px, 50%, 300px);
+    border-radius: 16px;
+}
+
+.col-4 .destacado {
+    width: clamp(350px, 50%, 400px);
+}
+
+.destacado img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.destacado:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+.destacado:hover img {
+    transform: scale(1.05);
+}
+
+.destacado h3 {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    padding: 0.6rem 1rem;
+    text-align: center;
+    font-family: var(--fuente-titulos, 'Cormorant Garamond', serif);
+    font-weight: 700;
+    font-size: clamp(1rem, 1.4vw, 1.25rem);
+    color: #fff;
+    background: rgba(0, 0, 0, .55);
+    border-radius: 0 0 16px 16px;
+    backdrop-filter: saturate(120%) blur(2px);
+    width: 100%;
+    box-sizing: border-box;
+}
