@@ -155,13 +155,6 @@ async function actualizarStockProductoAPI(id, nuevoStock) {
     });
 }
 
-// async function actualizarEstadoProductoAPI(id, nuevoStock) {
-//     return await makeAuthenticatedRequest(`${API_BASE_URL}/productos/stock/${id}`, {
-//         method: 'PATCH',
-//         body: JSON.stringify(nuevoStock)
-//     });
-// }
-
 async function eliminarProductoAPI(id) {
     return await makeAuthenticatedRequest(`${API_BASE_URL}/productos/borrar/${id}`, {
         method: 'PATCH'
@@ -281,7 +274,9 @@ function logout() {
     localStorage.removeItem('jwt');
     localStorage.removeItem('currentUser');
     localStorage.removeItem('UID');
+    localStorage.removeItem("carrito")
     window.location.href = '/src/pages/login.html';
+    
 }
 
 // Verificar si el usuario está autenticado

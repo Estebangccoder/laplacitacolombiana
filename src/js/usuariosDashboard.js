@@ -152,30 +152,7 @@ function mostrarUsuarios(usuarios) {
   }
 }
 
-// ----------------- ELIMINAR USUARIO -----------------
-// async function eliminarUsuario(id) {
-//   if (!confirm("¿Seguro que quieres eliminar este usuario?")) return;
 
-//   try {
-//     const token = localStorage.getItem('jwt');
-//     const response = await fetch(`http://localhost:8080/api/usuarios/borrar/${id}`, {
-//       method: 'PATCH',
-//       headers: {
-//         'Authorization': `Bearer ${token}`
-//       }
-//     });
-
-//     if (response.ok) {
-//       alert("Usuario eliminado con éxito");
-//       loadSectionUsuarios("ver-usuarios"); // Recargar lista
-//     } else {
-//       alert("Error al eliminar usuario");
-//     }
-//   } catch (error) {
-//     console.error("Error:", error);
-//     alert("Error en la conexión al servidor");
-//   }
-// }
 
 async function eliminarUsuario(id) {
   const result = await Swal.fire({
